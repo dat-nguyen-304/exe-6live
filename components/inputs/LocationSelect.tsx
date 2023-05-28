@@ -1,23 +1,21 @@
-'use client';
-
 import Select from 'react-select'
 
 const locations = [
     {
-        label: 'Tất cả',
+        label: 'Tất cả địa điểm',
         value: 'all'
     },
     {
         label: 'TP. Hồ Chí Minh',
-        value: 'HCM'
+        value: 'hcm'
     },
     {
         label: 'TP. Đà Nẵng',
-        value: 'DN'
+        value: 'dn'
     },
     {
         label: 'TP. Hà Nội',
-        value: 'HN'
+        value: 'hn'
     }
 ]
 
@@ -31,31 +29,26 @@ interface LocationSelectProps {
     onChange: (value: LocationSelectValue) => void;
 }
 
-const LocationSelect: React.FC<LocationSelectProps> = ({
-    value,
-    onChange
-}) => {
+const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
 
     return (
-        <div>
-            <div className="font-medium mb-2">Địa điểm</div>
+        <div className='px-4 border-l-2'>
             <Select
-                placeholder="Bạn muốn tìm KOL ở đâu"
-                isClearable
                 options={ locations }
                 value={ value }
+                className='w-[160px]'
                 onChange={ (value) => onChange(value as LocationSelectValue) }
                 formatOptionLabel={ (option: any) => (
-                    <div className="flex flex-row items-center gap-3">
-                        <div>
+                    <div className="flex flex-row items-center">
+                        <div className='text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
-                    control: () => 'p-3 border-2',
-                    input: () => 'text-lg',
-                    option: () => 'text-lg'
+                    control: () => 'border-2',
+                    input: () => 'text-sm',
+                    option: () => 'text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,

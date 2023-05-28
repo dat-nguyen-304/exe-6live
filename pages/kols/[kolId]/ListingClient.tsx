@@ -27,7 +27,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
     return (
         <Container>
             <div>
-                <div className="flex justify-around gap-8">
+
+                <div className="flex justify-around gap-8 mt-8">
                     <ListingHead
                         id={ listing.id }
                         currentUser={ currentUser }

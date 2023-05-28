@@ -1,54 +1,114 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import Container from '@/components/Container'
-import EmptyState from '@/components/EmptyState'
-import ListingCard from '@/components/listings/ListingCard'
-import Navbar from '@/components/navbar/Navbar';
-import RegisterModal from '@/components/modals/RegisterModal';
-import ToasterProvider from '@/providers/ToasterProvider';
-import LoginModal from '@/components/modals/LoginModal';
-import RentModal from '@/components/modals/RentModal';
+import React, { useEffect, useRef } from 'react'
+import { animate, motion, useInView } from "framer-motion";
+import Typewriter from 'typewriter-effect';
+import { BsChevronDown } from "react-icons/bs";
+import Image from 'next/image';
 import Layout from '@/components/Header';
 
-const inter = Inter({ subsets: ['latin'] });
+const Home = () => {
+    const companyCount = useRef<HTMLSpanElement>(null);
+    const kolCount = useRef<HTMLSpanElement>(null);
+    const isClientCountInView = useInView(companyCount);
+    const isKolCountInView = useInView(kolCount);
 
-export const currentUser = {
-  id: '1',
-  email: 'abc@gmail.com',
-  password: '123456',
-  name: 'Nguyễn Văn A',
-  avatar: '/images/logo.png'
+
+    const animations = {
+        h1: {
+            initial: {
+                x: "-100%", opacity: 0
+            },
+            whileInView: {
+                x: 0,
+                opacity: 1
+            }
+        },
+        button: {
+            initial: {
+                y: "-100%", opacity: 0
+            },
+            whileInView: {
+                y: 0,
+                opacity: 1
+            }
+        }
+    }
+
+    useEffect(() => {
+        companyCount.current && animate(0, 100, {
+            duration: 1,
+            onUpdate: (v) => {
+                if (companyCount.current)
+                    companyCount.current.textContent = v.toFixed();
+            },
+        });
+    }, [isClientCountInView])
+
+    useEffect(() => {
+        kolCount.current && animate(0, 500, {
+            duration: 1,
+            onUpdate: (v) => {
+                if (kolCount.current)
+                    kolCount.current.textContent = v.toFixed();
+            },
+        });
+    }, [isKolCountInView])
+
+
+
+    return (
+        <Layout>
+            <div id="home">
+                <section>
+                    <div>
+                        <motion.h1 { ...animations.h1 }>
+                            Nền tảng <br /> 6Live
+                        </motion.h1>
+
+                        <Typewriter options={ {
+                            strings: ["Nhanh chóng", "Tiện lợi", "Uy tín", "Hiệu quả"],
+                            autoStart: true,
+                            loop: true,
+                            cursor: "<3",
+                            wrapperClassName: "typewriterpara",
+                            delay: 100,
+                            deleteSpeed: 50,
+                        } } />
+                        <article>
+                            <p>
+                                +
+                                <motion.span
+                                    ref={ companyCount }
+                                ></motion.span>
+                            </p>
+                            <span>Clients Worldwide</span>
+                        </article>
+
+                        <aside>
+                            <article>
+                                <p>
+                                    +
+                                    <motion.span
+                                        ref={ kolCount }
+                                    >
+                                    </motion.span>
+                                </p>
+                                <span>Projects Done</span>
+                            </article>
+
+                            <article data-special>
+                                <p>Contact</p>
+                                <span>official.6packprogrammer@gmail.com</span>
+                            </article>
+                        </aside>
+                    </div>
+                </section>
+                <section>
+                    <Image src="/images/home-1.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
+                </section>
+                <BsChevronDown />
+            </div>
+        </Layout >
+    )
 }
 
-export const KOLs = [
-  {
-    id: '1',
-    name: 'Trấn Thành',
-    age: 40,
-    location: 'TP. Hồ Chí Minh',
-    price: 200000000,
-    gender: 'male'
-  }
-]
-
-export default function Home() {
-  return (
-    <>
-      <Layout>
-        <Container>
-          <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid:cols-6 gap-8">
-            { KOLs.map((kol: any) => (
-              <ListingCard
-                key={ kol.id }
-                currentUser={ currentUser }
-                data={ kol }
-              />
-            )) }
-          </div>
-        </Container>
-      </Layout>
-    </>
-  )
-}
+export default Home

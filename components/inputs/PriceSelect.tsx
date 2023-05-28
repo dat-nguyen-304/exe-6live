@@ -1,25 +1,5 @@
-'use client';
-
 import Select from 'react-select'
 
-const locations = [
-    {
-        label: 'Tất cả',
-        value: 'all'
-    },
-    {
-        label: 'TP. Hồ Chí Minh',
-        value: 'HCM'
-    },
-    {
-        label: 'TP. Đà Nẵng',
-        value: 'DN'
-    },
-    {
-        label: 'TP. Hà Nội',
-        value: 'HN'
-    }
-]
 
 interface Price {
     label: string,
@@ -27,6 +7,7 @@ interface Price {
 }
 
 let prices: Price[] = [];
+
 for (let price = 1; price <= 50; price++) {
     prices.push({
         label: `${price}.000.000`,
@@ -58,69 +39,79 @@ const PriceSelect: React.FC<PriceSelectProps> = ({
 }) => {
 
     return (
-        <div>
-            <div className="font-medium mb-2">Giá cả (VNĐ/Tháng)</div>
-            <div className='flex gap-8 justify-evenly'>
-                <Select
-                    className='w-[200px]'
-                    placeholder="Từ"
-                    isClearable
-                    options={ prices }
-                    value={ valueStart }
-                    onChange={ (value) => onChangeStart(value as PriceSelectValue) }
-                    formatOptionLabel={ (option: any) => (
-                        <div className="flex flex-row items-center gap-3">
-                            <div>
-                                { option.label }
-                            </div>
+        <div className='flex gap-2 justify-center items-center px-4 border-l-2'>
+            <div>Từ</div>
+            <Select
+                placeholder="Từ Giá"
+                classNamePrefix="custom-select"
+                styles={ {
+                    placeholder: (provided) => ({
+                        ...provided,
+                        fontSize: '0.875rem',
+                    }),
+                } }
+                className='w-[140px]'
+                options={ prices }
+                value={ valueStart }
+                onChange={ (value) => onChangeStart(value as PriceSelectValue) }
+                formatOptionLabel={ (option: any) => (
+                    <div className="flex flex-row items-center gap-3">
+                        <div className='text-sm'>
+                            { option.label }
                         </div>
-                    ) }
-                    classNames={ {
-                        control: () => 'p-3 border-2',
-                        input: () => 'text-lg',
-                        option: () => 'text-lg'
-                    } }
-                    theme={ (theme) => ({
-                        ...theme,
-                        borderRadius: 6,
-                        colors: {
-                            ...theme.colors,
-                            primary: 'black',
-                            primary25: '#ffe4e6'
-                        }
-                    }) }
-                />
-                <Select
-                    className='w-[200px]'
-                    placeholder="Đến"
-                    isClearable
-                    options={ prices }
-                    value={ valueEnd }
-                    onChange={ (value) => onChangeEnd(value as PriceSelectValue) }
-                    formatOptionLabel={ (option: any) => (
-                        <div className="flex flex-row items-center gap-3">
-                            <div>
-                                { option.label }
-                            </div>
+                    </div>
+                ) }
+                classNames={ {
+                    control: () => 'border-2',
+                    input: () => 'text-sm',
+                    option: () => 'text-sm'
+                } }
+                theme={ (theme) => ({
+                    ...theme,
+                    borderRadius: 6,
+                    colors: {
+                        ...theme.colors,
+                        primary: 'black',
+                        primary25: '#ffe4e6'
+                    }
+                }) }
+            />
+            <div className='ml-4'>Đến</div>
+            <Select
+                classNamePrefix="custom-select"
+                styles={ {
+                    placeholder: (provided) => ({
+                        ...provided,
+                        fontSize: '0.875rem',
+                    }),
+                } }
+                placeholder="Đến giá"
+                className='w-[140px] z-0'
+                options={ prices }
+                value={ valueEnd }
+                onChange={ (value) => onChangeEnd(value as PriceSelectValue) }
+                formatOptionLabel={ (option: any) => (
+                    <div className="flex flex-row items-center gap-3">
+                        <div className='text-sm'>
+                            { option.label }
                         </div>
-                    ) }
-                    classNames={ {
-                        control: () => 'p-3 border-2',
-                        input: () => 'text-lg',
-                        option: () => 'text-lg'
-                    } }
-                    theme={ (theme) => ({
-                        ...theme,
-                        borderRadius: 6,
-                        colors: {
-                            ...theme.colors,
-                            primary: 'black',
-                            primary25: '#ffe4e6'
-                        }
-                    }) }
-                />
-            </div>
-
+                    </div>
+                ) }
+                classNames={ {
+                    control: () => 'border-2',
+                    input: () => 'text-sm',
+                    option: () => 'text-sm'
+                } }
+                theme={ (theme) => ({
+                    ...theme,
+                    borderRadius: 6,
+                    colors: {
+                        ...theme.colors,
+                        primary: 'black',
+                        primary25: '#ffe4e6'
+                    }
+                }) }
+            />
         </div>
     );
 }

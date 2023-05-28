@@ -8,6 +8,7 @@ import RegisterModal from '@/components/modals/RegisterModal';
 import ToasterProvider from '@/providers/ToasterProvider';
 import LoginModal from '@/components/modals/LoginModal';
 import RentModal from '@/components/modals/RentModal';
+import Footer from './Footer';
 
 export const currentUser = {
     id: '1',
@@ -32,6 +33,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div className="pb-20 pt-28">
                 { children }
             </div>
+            <Footer />
         </>
     )
 }

@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const sass = require('sass');
 const nextConfig = {
   images: {
     domains: [
@@ -8,7 +9,10 @@ const nextConfig = {
       "yt3.googleusercontent.com",
       "scontent.fsgn3-1.fna.fbcdn.net"
     ]
-  }
+  },
+  sassOptions: {
+    implementation: sass,
+  },
 }
 
 module.exports = nextConfig

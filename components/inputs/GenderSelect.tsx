@@ -1,10 +1,8 @@
-'use client';
-
 import Select from 'react-select'
 
 const genders = [
     {
-        label: 'Tất cả',
+        label: 'Tất cả giới tính',
         value: 'all'
     },
     {
@@ -37,25 +35,24 @@ const GenderSelect: React.FC<GenderSelectProps> = ({
 }) => {
 
     return (
-        <div>
-            <div className="font-medium mb-2">Giới tính</div>
+        <div className='px-4 border-l-2'>
             <Select
-                placeholder="Bạn muốn tìm KOL/KOC giới tính nào"
-                isClearable
+                defaultValue={ genders[0] }
                 options={ genders }
                 value={ value }
+                className='w-[150px]'
                 onChange={ (value) => onChange(value as GenderSelectValue) }
                 formatOptionLabel={ (option: any) => (
-                    <div className="flex flex-row items-center gap-3">
-                        <div>
+                    <div className="flex flex-row items-center">
+                        <div className='text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
-                    control: () => 'p-3 border-2',
-                    input: () => 'text-lg',
-                    option: () => 'text-lg'
+                    control: () => 'border-2',
+                    input: () => 'text-sm',
+                    option: () => 'text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,
