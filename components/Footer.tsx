@@ -66,7 +66,7 @@ const Footer = () => {
                     </div>
                     <div className="">
                         <div className="">
-                            <h5 className="uppercase font-bold text-[#333]">Tải ứng dụng shopee ngay thôi</h5>
+                            <h5 className="uppercase font-bold text-[#333]">Tải ứng dụng 6live ngay thôi</h5>
                             <div className="flex items-center">
                                 <Image src="/images/qr-code.png" alt="" width={ 120 } height={ 120 } />
                                 <div className="flex flex-col justify-evenly h-[120px] ml-4">

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '@/styles/Home.module.css'
 import Container from '@/components/Container'
 import EmptyState from '@/components/EmptyState'
-import ListingCard from '@/components/listings/ListingCard'
+import ListingCard from '@/components/kols/ListingCard'
 import Navbar from '@/components/navbar/Navbar';
 import RegisterModal from '@/components/modals/RegisterModal';
 import ToasterProvider from '@/providers/ToasterProvider';

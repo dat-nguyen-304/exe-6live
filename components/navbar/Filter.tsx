@@ -22,7 +22,7 @@ const Categories = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const pathname = usePathname();
-    const isBookingPage = pathname === '/kols';
+    const isBookingPage = (pathname === '/kols' || pathname === '/posts');
 
     const {
         register,

@@ -5,6 +5,7 @@ export type KOL = {
   location: string;
   price: string;
   gender: string;
+  description: string;
 };
 
 export type User = {
@@ -13,4 +14,12 @@ export type User = {
   password: string;
   name: string;
   avatar: string;
+};
+
+export type Company = {
+  id: string;
+  name: string;
+  location: string[];
+  description: string;
+  img: string;
 };

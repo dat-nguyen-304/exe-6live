@@ -3,7 +3,7 @@
     height: 90vh;
     display: flex;
 
-    >section {
+    section {
         width: 100%;
 
         &:first-of-type {
@@ -79,7 +79,6 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
-            top: -50px;
 
             &::after {
                 content: "";
@@ -88,7 +87,7 @@
                 height: 32vmax;
                 background-color: $color3;
                 position: absolute;
-                z-index: -1;
+                z-index: 0;
                 border-radius: 50%;
 
             }
@@ -100,6 +99,7 @@
                 object-fit: contain;
                 height: 32vmax;
                 border-radius: 50%;
+                z-index: 1
             }
         }
     }

@@ -1,4 +1,4 @@
-import KolClient from "./KolClient";
+import CompanyClient from "./CompanyClient";
 import Layout from '@/components/Header';
 
 interface IParams {
@@ -13,23 +13,21 @@ export const currentUser = {
     avatar: '/images/logo.png'
 }
 
-export const KOLs =
+export const company =
 {
     id: '1',
-    name: 'Trấn Thành',
-    age: '40',
-    location: 'TP. Hồ Chí Minh',
-    price: '200000000',
-    gender: 'male',
-    description: ''
+    name: 'Công ty ABC',
+    location: ['TP. Hồ Chí Minh', 'Đà Nẵng', 'Hà Nội'],
+    description: '',
+    img: ''
 }
 
 
 const ListingPage = () => {
     return (
         <Layout>
-            <KolClient
-                listing={ KOLs }
+            <CompanyClient
+                company={ company }
                 currentUser={ currentUser }
             />
         </Layout>

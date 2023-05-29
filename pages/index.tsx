@@ -4,6 +4,8 @@ import Typewriter from 'typewriter-effect';
 import { BsChevronDown } from "react-icons/bs";
 import Image from 'next/image';
 import Layout from '@/components/Header';
+import Container from '@/components/Container';
+import Link from 'next/link';
 
 const Home = () => {
     const companyCount = useRef<HTMLSpanElement>(null);
@@ -21,6 +23,19 @@ const Home = () => {
                 x: 0,
                 opacity: 1
             }
+        },
+        section: {
+            initial: {
+                y: "--100%",
+                opacity: 0
+            },
+            whileInView: {
+                y: 0,
+                opacity: 1
+            },
+            // transition: {
+            //     duration: .5
+            // }
         },
         button: {
             initial: {
@@ -57,8 +72,8 @@ const Home = () => {
 
     return (
         <Layout>
-            <div id="home">
-                <section>
+            <div id="home" className='mt-[-40px]'>
+                <section className='bg-slate-300 py-[40px]'>
                     <div>
                         <motion.h1 { ...animations.h1 }>
                             Nền tảng <br /> 6Live
@@ -80,7 +95,7 @@ const Home = () => {
                                     ref={ companyCount }
                                 ></motion.span>
                             </p>
-                            <span>Clients Worldwide</span>
+                            <span>Doanh nghiệp</span>
                         </article>
 
                         <aside>
@@ -92,22 +107,51 @@ const Home = () => {
                                     >
                                     </motion.span>
                                 </p>
-                                <span>Projects Done</span>
+                                <span>KOL / KOC</span>
                             </article>
 
                             <article data-special>
-                                <p>Contact</p>
-                                <span>official.6packprogrammer@gmail.com</span>
+                                <p>Liên hệ</p>
+                                <span>6live@gmail.com</span>
                             </article>
                         </aside>
                     </div>
                 </section>
-                <section>
+                <section className='bg-slate-300 py-[40px]'>
                     <Image src="/images/home-1.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
                 </section>
                 <BsChevronDown />
             </div>
-        </Layout >
+            <div className='px-[160px] mt-[100px]'>
+                <div className='flex items-center'>
+                    <motion.section { ...animations.section } className='flex-[1]'>
+                        <Image src="/images/home-2.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
+                    </motion.section>
+                    <motion.section { ...animations.section } className='flex-[1]'>
+                        <p>Khi đến với bookKOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
+                        <Link href="/kols">
+                            <button className='px-4 py-2 border-2 rounded-lg bg-slate-300 mt-4'>Khám phá ngay</button>
+                        </Link>
+                    </motion.section>
+
+                </div>
+            </div>
+            <div className='px-[160px] py-[100px] bg-slate-300 mb-[-80px]'>
+                <div className='flex items-center justify-between'>
+                    <motion.section { ...animations.section } className='flex-[1]'>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <p className='text-3xl mt-8'>
+                            Alexander Bách HD
+                        </p>
+                        <p className='mt-8'>Businessman</p>
+                    </motion.section>
+                    <motion.section { ...animations.section } className='flex-[1]'>
+                        <Image src="/images/bach.png" width={ 300 } height={ 300 } alt='' className='object-contain rounded-full mx-auto' />
+                    </motion.section>
+
+                </div>
+            </div>
+        </Layout>
     )
 }
 
