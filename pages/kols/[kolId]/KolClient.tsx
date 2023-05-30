@@ -23,10 +23,9 @@ const KolClient: React.FC<KolClientProps> = ({
     return (
         <Container>
             <div>
-
                 <div className="flex justify-around gap-8 mt-8">
                     <KolHead
-                        id={ listing.id }
+                        id="1"
                         currentUser={ currentUser }
                     />
                     <KolInfo />

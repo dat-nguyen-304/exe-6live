@@ -42,17 +42,17 @@ export default function Home() {
                 <Container>
                     <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         <ListingCard
-                            key={ KOLs[0].id }
+                            key="1"
                             currentUser={ currentUser }
                             data={ KOLs[0] }
                         />
                         <ListingCard
-                            key={ KOLs[0].id }
+                            key="2"
                             currentUser={ currentUser }
                             data={ KOLs[0] }
                         />
                         <ListingCard
-                            key={ KOLs[0].id }
+                            key="3"
                             currentUser={ currentUser }
                             data={ KOLs[0] }
                         />

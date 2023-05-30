@@ -27,7 +27,7 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
             <div>
                 <div className="flex justify-around gap-8 mt-8">
                     <CompanyHead
-                        id={ company.id }
+                        id={ "1" }
                         currentUser={ currentUser }
                     />
                     <CompanyInfo />

@@ -6,7 +6,7 @@ export default function Packages() {
     return (
         <>
             <Layout>
-                <div className='px-[200px] bg-gradient-to-b from-green-50 to-white mt-[-40px]'>
+                <div className='px-[200px] mt-[-40px]'>
                     <h3 className='text-4xl font-bold text-center pt-[40px]'>Chọn gói Premium của bạn</h3>
                     <h5 className='text-lg mt-4 text-center'>Tìm kiếm, kết nối KOL/KOC dễ dàng hơn với 6Live Premium</h5>
                     <p className='text-xl font-semibold mt-8'>Chọn gói</p>
@@ -70,7 +70,7 @@ export default function Packages() {
                         </div>
                     </div>
                     <p className='text-xl font-semibold mb-4 mt-16'>Thông tin chuyển khoản</p>
-                    <div className="flex gap-8 bg-[#eee] p-8 w-[80%] mx-auto rounded-lg">
+                    <div className="flex gap-8 bg-gradient-to-b from-green-50 to-white shadow-lg border-green-500 border-2 p-8 w-[80%] mx-auto rounded-lg">
                         <div className="">
                             <Image src="/images/qr-code.png" width={ 200 } height={ 200 } alt='' />
                         </div>
@@ -98,7 +98,7 @@ export default function Packages() {
                         </div>
                     </div>
                     <div className='flex justify-center'>
-                        <button className='bg-[#00b14f] text-white px-4 py-2 mt-8 rounded-lg'>Tôi dã thanh toán</button>
+                        <button className='bg-[#00b14f] text-white px-4 py-2 mt-8 rounded-lg'>Tôi đã thanh toán</button>
                     </div>
                 </div>
             </Layout>
