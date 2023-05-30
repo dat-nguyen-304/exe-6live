@@ -35,7 +35,7 @@ const AgeSelect: React.FC<AgeSelectProps> = ({
 }) => {
 
     return (
-        <div className='flex gap-2 justify-center items-center px-4 border-l-2'>
+        <div className='flex gap-2 justify-center items-center px-4 border-l-2 border-green-800'>
             <div>Từ</div>
             <Select
                 placeholder="Từ tuổi"
@@ -67,8 +67,8 @@ const AgeSelect: React.FC<AgeSelectProps> = ({
                     borderRadius: 6,
                     colors: {
                         ...theme.colors,
-                        primary: 'black',
-                        primary25: '#ffe4e6'
+                        primary: '#166534',
+                        primary25: '#dcfce7'
                     }
                 }) }
             />
@@ -104,8 +104,8 @@ const AgeSelect: React.FC<AgeSelectProps> = ({
                     borderRadius: 6,
                     colors: {
                         ...theme.colors,
-                        primary: 'black',
-                        primary25: '#ffe4e6'
+                        primary: '#166534',
+                        primary25: '#dcfce7'
                     }
                 }) }
             />

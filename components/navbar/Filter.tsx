@@ -77,7 +77,7 @@ const Categories = () => {
 
 
     return (
-        <div className="py-4 shadow-lg flex flex-row items-center justify-center">
+        <div className="py-4 bg-white shadow-lg flex flex-row items-center justify-center">
             <IndustrySelect
                 onChange={ (value) => setCustomValue('industry', value) }
                 value={ industry }

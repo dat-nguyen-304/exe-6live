@@ -6,8 +6,8 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 
 const PostCard = () => {
     return (
-        <div className='flex bg-[#f2fbf6] hover:border-[#00b14f] border-2 border-[#f2fbf6] rounded-lg cursor-pointer'>
-            <div className='p-2 rounded-lg'>
+        <div className='flex bg-green-50 hover:border-[#00b14f] shadow-lg shadow-green-200 border-2 border-[#f2fbf6] rounded-lg cursor-pointer'>
+            <div className='p-4 rounded-lg'>
                 <Image src="https://cdn-new.topcv.vn/unsafe/200x/filters:format(webp)/https://static.topcv.vn/company_logos/cong-ty-co-phan-giai-tri-va-the-thao-dien-tu-viet-nam-60c02e5e581c5.jpg"
                     alt="img"
                     width={ 100 }
@@ -16,7 +16,7 @@ const PostCard = () => {
                 />
             </div>
             <div className='ml-4 my-2 flex-[1]'>
-                <h3 className='font-bold text-lg text-[#212f3f] hover:text-[#00b14f] hover:cursor-pointer'>
+                <h3 className='font-bold text-lg text-[#333] hover:text-[#00b14f] hover:cursor-pointer'>
                     Livestream sản phẩm ABC mới nhất
                 </h3>
                 <div className='flex gap-2 my-2'>

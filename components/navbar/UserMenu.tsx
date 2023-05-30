@@ -40,8 +40,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         { currentUser ? (
                             <div className="z-10 bg-slate-50 shadow-lg">
                                 <MenuItem
-                                    label="Login"
-                                    onClick={ () => { } }
+                                    label="Hồ sơ"
+                                    onClick={ () => { router.push("/profile") } }
                                 />
                                 <hr />
                                 <MenuItem

@@ -35,12 +35,12 @@ const GenderSelect: React.FC<GenderSelectProps> = ({
 }) => {
 
     return (
-        <div className='px-4 border-l-2'>
+        <div className='px-4 border-l-2 border-green-800'>
             <Select
                 defaultValue={ genders[0] }
                 options={ genders }
                 value={ value }
-                className='w-[150px]'
+                className='w-[160px]'
                 onChange={ (value) => onChange(value as GenderSelectValue) }
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center">
@@ -59,8 +59,8 @@ const GenderSelect: React.FC<GenderSelectProps> = ({
                     borderRadius: 6,
                     colors: {
                         ...theme.colors,
-                        primary: 'black',
-                        primary25: '#ffe4e6'
+                        primary: '#166534',
+                        primary25: '#dcfce7'
                     }
                 }) }
             />

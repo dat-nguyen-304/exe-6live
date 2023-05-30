@@ -1,6 +1,5 @@
 import Select from 'react-select';
-import { TbBeach, TbMountain, TbPool } from 'react-icons/tb';
-import { GiClothes, GiMedicines, GiBarn, GiCheckeredDiamond, GiBoatFishing, GiCactus, GiCastle, GiCaveEntrance, GiForestCamp, GiIsland, GiWindmill } from 'react-icons/gi';
+import { GiClothes, GiCheckeredDiamond } from 'react-icons/gi';
 import { IoDiamond } from 'react-icons/io5';
 import { IoFastFoodOutline } from 'react-icons/io5';
 import { IconType } from 'react-icons';
@@ -36,7 +35,7 @@ export const industries = [
 export type IndustrySelectValue = {
     label: string;
     value: string;
-    icon: IconType
+    icon: IconType | null
 }
 
 interface IndustrySelectProps {
@@ -61,7 +60,7 @@ const IndustrySelect: React.FC<IndustrySelectProps> = ({
                     <div className="flex flex-row items-center gap-3">
                         {
                             option.icon &&
-                            <div>< option.icon size={ 10 } /></div>
+                            <div>< option.icon size={ 16 } /></div>
                         }
                         <div className='text-sm'>
                             { option.label }
@@ -78,8 +77,8 @@ const IndustrySelect: React.FC<IndustrySelectProps> = ({
                     borderRadius: 6,
                     colors: {
                         ...theme.colors,
-                        primary: 'black',
-                        primary25: '#ffe4e6'
+                        primary: '#166534',
+                        primary25: '#dcfce7'
                     }
                 }) }
             />

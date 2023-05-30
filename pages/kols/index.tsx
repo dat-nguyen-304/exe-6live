@@ -11,6 +11,7 @@ import ToasterProvider from '@/providers/ToasterProvider';
 import LoginModal from '@/components/modals/LoginModal';
 import RentModal from '@/components/modals/RentModal';
 import Layout from '@/components/Header';
+import { KOL } from '@/types'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,14 +23,15 @@ export const currentUser = {
     avatar: '/images/logo.png'
 }
 
-export const KOLs = [
+export const KOLs: KOL[] = [
     {
         id: '1',
         name: 'Trấn Thành',
-        age: 40,
+        age: '40',
         location: 'TP. Hồ Chí Minh',
-        price: 200000000,
-        gender: 'male'
+        price: '200000000',
+        gender: 'male',
+        description: ''
     }
 ]
 
@@ -38,14 +40,22 @@ export default function Home() {
         <>
             <Layout>
                 <Container>
-                    <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid:cols-6 gap-8">
-                        { KOLs.map((kol: any) => (
-                            <ListingCard
-                                key={ kol.id }
-                                currentUser={ currentUser }
-                                data={ kol }
-                            />
-                        )) }
+                    <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        <ListingCard
+                            key={ KOLs[0].id }
+                            currentUser={ currentUser }
+                            data={ KOLs[0] }
+                        />
+                        <ListingCard
+                            key={ KOLs[0].id }
+                            currentUser={ currentUser }
+                            data={ KOLs[0] }
+                        />
+                        <ListingCard
+                            key={ KOLs[0].id }
+                            currentUser={ currentUser }
+                            data={ KOLs[0] }
+                        />
                     </div>
                 </Container>
             </Layout>

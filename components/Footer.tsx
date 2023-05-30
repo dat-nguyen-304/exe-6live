@@ -7,7 +7,7 @@ import Container from './Container';
 
 const Footer = () => {
     return (
-        <div className='border-t-2 py-8 text-[#71869d]'>
+        <div className='border-t-4 border-green-800 py-8 text-[#71869d] bg-green-100'>
             <Container>
                 <div className="flex justify-around pt-2">
                     <div >

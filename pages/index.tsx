@@ -4,7 +4,6 @@ import Typewriter from 'typewriter-effect';
 import { BsChevronDown } from "react-icons/bs";
 import Image from 'next/image';
 import Layout from '@/components/Header';
-import Container from '@/components/Container';
 import Link from 'next/link';
 
 const Home = () => {
@@ -72,10 +71,16 @@ const Home = () => {
 
     return (
         <Layout>
-            <div id="home" className='mt-[-40px]'>
-                <section className='bg-slate-300 py-[40px]'>
+            <div id="home" className='mt-[-40px] relative'>
+                <Image src="/images/bg-left.png" width={ 120 } height={ 600 } alt='img'
+                    className='absolute top-[280px]'
+                />
+                <Image src="/images/bg-right.png" width={ 120 } height={ 600 } alt='img'
+                    className='absolute top-[20px] z-10 right-[0px]'
+                />
+                <section className='bg-[#f2fbf6] py-[40px]'>
                     <div>
-                        <motion.h1 { ...animations.h1 }>
+                        <motion.h1 { ...animations.h1 } className='text-[#00b14f]'>
                             Nền tảng <br /> 6Live
                         </motion.h1>
 
@@ -83,13 +88,13 @@ const Home = () => {
                             strings: ["Nhanh chóng", "Tiện lợi", "Uy tín", "Hiệu quả"],
                             autoStart: true,
                             loop: true,
-                            cursor: "<3",
+                            cursor: ".",
                             wrapperClassName: "typewriterpara",
                             delay: 100,
                             deleteSpeed: 50,
                         } } />
                         <article>
-                            <p>
+                            <p className='text-[#087526]'>
                                 +
                                 <motion.span
                                     ref={ companyCount }
@@ -100,7 +105,7 @@ const Home = () => {
 
                         <aside>
                             <article>
-                                <p>
+                                <p className='text-[#087526]'>
                                     +
                                     <motion.span
                                         ref={ kolCount }
@@ -111,16 +116,16 @@ const Home = () => {
                             </article>
 
                             <article data-special>
-                                <p>Liên hệ</p>
+                                <p className='text-[#087526]'>Liên hệ</p>
                                 <span>6live@gmail.com</span>
                             </article>
                         </aside>
                     </div>
                 </section>
-                <section className='bg-slate-300 py-[40px]'>
+                <section className='bg-[#f2fbf6] py-[40px]'>
                     <Image src="/images/home-1.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
                 </section>
-                <BsChevronDown />
+                <BsChevronDown color='#00b14f' />
             </div>
             <div className='px-[160px] mt-[100px]'>
                 <div className='flex items-center'>
@@ -130,13 +135,13 @@ const Home = () => {
                     <motion.section { ...animations.section } className='flex-[1]'>
                         <p>Khi đến với bookKOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
                         <Link href="/kols">
-                            <button className='px-4 py-2 border-2 rounded-lg bg-slate-300 mt-4'>Khám phá ngay</button>
+                            <button className='text-[#00b14f] bg-[#e5f7ed] px-4 py-2 border-2 rounded-lg mt-4'>Khám phá ngay</button>
                         </Link>
                     </motion.section>
 
                 </div>
             </div>
-            <div className='px-[160px] py-[100px] bg-slate-300 mb-[-80px]'>
+            <div className='px-[160px] py-[100px] bg-[#f2fbf6] mb-[-80px]'>
                 <div className='flex items-center justify-between'>
                     <motion.section { ...animations.section } className='flex-[1]'>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>

@@ -24,7 +24,7 @@ export interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     return (
-        <>
+        <div>
             <ToasterProvider />
             <LoginModal />
             <RegisterModal />
@@ -34,7 +34,7 @@ const Layout = ({ children }: LayoutProps) => {
                 { children }
             </div>
             <Footer />
-        </>
+        </div>
     )
 }
 

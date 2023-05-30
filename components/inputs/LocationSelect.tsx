@@ -1,6 +1,6 @@
 import Select from 'react-select'
 
-const locations = [
+export const locations = [
     {
         label: 'Tất cả địa điểm',
         value: 'all'
@@ -32,7 +32,7 @@ interface LocationSelectProps {
 const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
 
     return (
-        <div className='px-4 border-l-2'>
+        <div className='px-4 border-l-2 border-green-800'>
             <Select
                 options={ locations }
                 value={ value }
@@ -55,8 +55,8 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
                     borderRadius: 6,
                     colors: {
                         ...theme.colors,
-                        primary: 'black',
-                        primary25: '#ffe4e6'
+                        primary: '#166534',
+                        primary25: '#dcfce7'
                     }
                 }) }
             />
