@@ -1,3 +1,5 @@
+import { company } from "@/pages/companies/[companyId]";
+
 export type KOL = {
   id: string;
   name: string;
@@ -9,11 +11,9 @@ export type KOL = {
 };
 
 export type User = {
-  id: string;
   email: string;
-  password: string;
   name: string;
-  avatar: string;
+  image: string;
 };
 
 export type Company = {
@@ -23,3 +23,8 @@ export type Company = {
   description: string;
   img: string;
 };
+
+export enum UserRole {
+  kol = "kol",
+  company = "company",
+}

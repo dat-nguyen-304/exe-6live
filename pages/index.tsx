@@ -5,6 +5,7 @@ import { BsChevronDown } from "react-icons/bs";
 import Image from 'next/image';
 import Layout from '@/components/Header';
 import Link from 'next/link';
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Home = () => {
     const companyCount = useRef<HTMLSpanElement>(null);
@@ -66,8 +67,6 @@ const Home = () => {
             },
         });
     }, [isKolCountInView])
-
-
 
     return (
         <Layout>

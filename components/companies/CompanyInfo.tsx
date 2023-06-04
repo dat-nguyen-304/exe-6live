@@ -8,15 +8,7 @@ const ListingInfo: React.FC = () => {
             <div className="shadow-md my-4 rounded-lg">
                 <PostCard />
             </div>
-            <div className="shadow-md my-4 rounded-lg">
-                <PostCard />
-            </div>
-            <div className="shadow-md my-4 rounded-lg">
-                <PostCard />
-            </div>
-            <div className="shadow-md my-4 rounded-lg">
-                <PostCard />
-            </div>
+
         </div>
     );
 }

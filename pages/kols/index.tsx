@@ -46,16 +46,6 @@ export default function Home() {
                             currentUser={ currentUser }
                             data={ KOLs[0] }
                         />
-                        <ListingCard
-                            key="2"
-                            currentUser={ currentUser }
-                            data={ KOLs[0] }
-                        />
-                        <ListingCard
-                            key="3"
-                            currentUser={ currentUser }
-                            data={ KOLs[0] }
-                        />
                     </div>
                 </Container>
             </Layout>

@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const sass = require('sass');
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
     domains: [
       "avatars.githubusercontent.com",

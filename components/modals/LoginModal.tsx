@@ -2,8 +2,8 @@ import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { AiFillGithub } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+
 
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
@@ -32,6 +32,30 @@ const LoginModal = () => {
         },
     });
 
+    const onSubmit = () => { };
+
+    // const onSubmit: SubmitHandler<FieldValues> =
+    //     (data) => {
+    //         setIsLoading(true);
+
+    //         signIn('credentials', {
+    //             ...data,
+    //             redirect: false,
+    //         })
+    //             .then((callback) => {
+    //                 setIsLoading(false);
+
+    //                 if (callback?.ok) {
+    //                     toast.success('Logged in');
+    //                     router.refresh();
+    //                     loginModal.onClose();
+    //                 }
+
+    //                 if (callback?.error) {
+    //                     toast.error(callback.error);
+    //                 }
+    //             });
+    //     }
 
     const onToggle = useCallback(() => {
         loginModal.onClose();
@@ -73,17 +97,11 @@ const LoginModal = () => {
                 icon={ FcGoogle }
                 onClick={ () => { } }
             />
-            <Button
-                outline
-                label="Continue with Github"
-                icon={ AiFillGithub }
-                onClick={ () => { } }
-            />
             <div className="text-neutral-500 text-center mt-4 font-light">
-                <p>First time using Airbnb?
+                <p>Bạn chưa có tài khoản?
                     <span className="text-neutral-800 cursor-pointer hover:underline"
                         onClick={ onToggle }
-                    > Create an account</span>
+                    > Tạo tài khoản ngay</span>
                 </p>
             </div>
         </div>
@@ -96,7 +114,7 @@ const LoginModal = () => {
             title="Login"
             actionLabel="Continue"
             onClose={ loginModal.onClose }
-            onSubmit={ () => { } }
+            onSubmit={ handleSubmit(onSubmit) }
             body={ bodyContent }
             footer={ footerContent }
         />
