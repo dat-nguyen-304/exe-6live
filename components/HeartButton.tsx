@@ -1,15 +1,15 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { User } from "@/types";
+import { Kol } from "@/types";
 
 
 interface HeartButtonProps {
-    listingId: string
-    currentUser?: User | null
+    kolId: string
+    currentKol?: Kol | null
 }
 
 const HeartButton: React.FC<HeartButtonProps> = ({
-    listingId,
-    currentUser
+    kolId,
+    currentKol
 }) => {
 
     return (

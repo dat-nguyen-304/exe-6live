@@ -13,22 +13,22 @@ export const industries = [
     {
         label: 'Thức ăn',
         icon: IoFastFoodOutline,
-        value: 'F&B',
+        value: 'food',
     },
     {
         label: 'Quần áo',
         icon: GiClothes,
-        value: 'Quần áo',
+        value: 'clothes',
     },
     {
-        label: 'Mỉ phẫm',
+        label: 'Mỹ phẩm',
         icon: GiCheckeredDiamond,
-        value: 'Mỉ phẫm!'
+        value: 'cosmetology'
     },
     {
-        label: 'Trang sức',
+        label: 'Phụ kiện',
         icon: IoDiamond,
-        value: 'Trang sức!'
+        value: 'accessory'
     }
 ]
 

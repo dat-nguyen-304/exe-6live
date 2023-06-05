@@ -1,6 +1,6 @@
 import Select from 'react-select'
 
-const genders = [
+export const genders = [
     {
         label: 'Tất cả giới tính',
         value: 'all'

@@ -3,11 +3,11 @@ import Container from '../Container';
 import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
-import { User } from '../../types/index';
+import { Company, Kol, User } from '../../types/index';
 import Filter from './Filter';
 
 interface NavbarProps {
-    currentUser?: User | null
+    currentUser?: Kol | Company | null
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {

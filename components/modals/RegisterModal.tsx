@@ -56,8 +56,10 @@ const RegisterModal = () => {
                 axios.post("/api/accounts", newUser).then(res => {
                     console.log("RES: ", res);
                     if (res.data.err === 1) {
-                        console.log("YES");
                         toast.error("Tài khoản đã tồn tại");
+                    } else {
+                        toast.success("Đăng ký thành công");
+                        onToggle();
                     }
                 });
             });

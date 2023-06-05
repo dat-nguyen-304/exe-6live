@@ -6,10 +6,11 @@ import MenuItem from "./MenuItem";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
 import { useRouter } from "next/navigation";
-import { User } from "@/types";
+import { Company, Kol, User } from "@/types";
+import useUser from "@/hooks/useUser";
 
 interface UserMenuProps {
-    currentUser?: User | null
+    currentUser?: Kol | Company | null
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
@@ -20,6 +21,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
     }, []);
+    const myUser = useUser();
 
     return (
         <div className='relative'>
@@ -43,7 +45,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                 <hr />
                                 <MenuItem
                                     label="Logout"
-                                    onClick={ () => { } }
+                                    onClick={ () => { myUser.onChangeUser(null) } }
                                 />
                             </div>
                         ) : (

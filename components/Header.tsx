@@ -7,9 +7,9 @@ import RentModal from '@/components/modals/RentModal';
 import Footer from './Footer';
 import Head from 'next/head';
 import { User } from '@/types';
-import getCurrentUser from '@/actions/getCurrentUser';
-
-import { PrismaClient } from '@prisma/client';
+import useUser from '@/hooks/useUser';
+import useKol from '@/hooks/useKol';
+import useCompany from '@/hooks/useCompany';
 
 
 export interface LayoutProps {
@@ -17,6 +17,13 @@ export interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+    const myUser = useUser();
+    const myKol = useKol();
+    const myCompany = useCompany();
+    let currentUser = null;
+    if (myUser.user?.role === 'kol') currentUser = myKol.kol;
+    else currentUser = myCompany.company;
+
     return (
         <div>
             <Head>
@@ -29,7 +36,7 @@ const Layout = ({ children }: LayoutProps) => {
             <LoginModal />
             <RegisterModal />
             <RentModal />
-            <Navbar currentUser={ null } />
+            <Navbar currentUser={ currentUser } />
             <div className="pb-20 pt-28">
                 { children }
             </div>

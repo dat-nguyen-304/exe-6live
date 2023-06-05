@@ -8,20 +8,22 @@ datasource db {
 }
 
 model Account {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  email          String   @unique
-  name           String?
-  image          String?
-  phone          String?
-  role           UserRole
-  hashedPassword String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  role      UserRole
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model KOL {
+model Kol {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  email       String     @unique
+  name        String
+  image       String
   age         Int?
+  phone       String?
+  salary      Int?
+  status      Boolean?
   gender      Gender?
   location    Location?
   industries  Industry[]
@@ -32,8 +34,12 @@ model KOL {
 
 model Company {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  email       String     @unique
+  name        String
+  image       String
   location    Location[]
   industries  Industry[]
+  phone       String?
   address     String[]
   description String?
   createdAt   DateTime   @default(now())

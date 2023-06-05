@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, LegacyRef, ReactHTMLElement, useRef, useState } from 'react'
 import Layout from '../Header'
 import Container from '../Container'
 import { locations } from "../inputs/LocationSelect";
+import { genders } from "../inputs/GenderSelect";
 import { industries as inds, IndustrySelectValue } from '../inputs/IndustrySelect';
-import { FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import ImageUpload from '../inputs/ImageUpload';
+import Image from 'next/image';
+import useUser from '@/hooks/useUser';
+import axios from 'axios';
+import useKol from '@/hooks/useKol';
+import { toast } from 'react-hot-toast';
 
 const KolProfile = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const myUser = useUser();
+    const myKol = useKol();
+    const [kol, setKol] = useState(myKol.kol);
+    const [imgLink, setImgLink] = useState(kol?.image);
+
     const {
         register,
         handleSubmit,
@@ -18,19 +29,26 @@ const KolProfile = () => {
         }
     } = useForm<FieldValues>({
         defaultValues: {
-            name: '',
-            email: '',
-            phone: '',
-            description: '',
-            location: '',
-            salary: '',
-            gender: '',
-            status: '',
-            age: '',
-            avatar: '',
-            industries: []
+            name: kol?.name,
+            email: kol?.email,
+            phone: kol?.phone,
+            description: kol?.description,
+            location: kol?.location || 'hcm',
+            salary: kol?.salary,
+            gender: kol?.gender || 'male',
+            status: kol?.status || false,
+            age: kol?.age,
+            image: kol?.image,
+            industries: kol?.industries || []
         }
     });
+
+
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const kol = await axios.put("/api/kols", data);
+        myKol.onChangeKol(kol.data);
+        toast.success("Cập nhật thành công");
+    }
 
     const name = watch('name');
     const email = watch('email');
@@ -39,9 +57,9 @@ const KolProfile = () => {
     const location = watch('location');
     const salary = watch('salary');
     const gender = watch('gender');
-    const status = watch('salary');
+    const status = watch('status');
     const age = watch('age');
-    const avatar = watch('avatar');
+    const image = watch('image');
     const industries = watch('industries');
 
 
@@ -52,7 +70,26 @@ const KolProfile = () => {
             shouldValidate: true
         })
     }
-    console.log(industries);
+
+    const addIndustry = (ind: string) => {
+        console.log("addIndustry");
+        let Ind = [...industries];
+        const isExist = Ind.includes(ind);
+        if (isExist)
+            Ind = Ind.filter((industry: string) => {
+                return industry !== ind
+            })
+        else Ind.push(ind);
+        setCustomValue("industries", Ind);
+        console.log(industries);
+    }
+
+    const toggleWorkStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked)
+            setCustomValue("status", true);
+        else setCustomValue("status", false);
+    }
+
 
     return (
         <Layout>
@@ -62,11 +99,11 @@ const KolProfile = () => {
                         <div>
                             <label
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Tải avatar
+                                Tải ảnh đại diện
                             </label>
                             <ImageUpload
-                                onChange={ (value) => setCustomValue('avatar', value) }
-                                value={ avatar }
+                                onChange={ (value) => setCustomValue('image', value) }
+                                value={ image }
                             />
                         </div>
                         <div className='col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
@@ -79,8 +116,8 @@ const KolProfile = () => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nguyễn Văn A" required />
                             </div>
                             <div>
-                                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa điểm</label>
-                                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa điểm</label>
+                                <select onChange={ (e) => setCustomValue('location', e.target.value) } id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     { locations.map(location => {
                                         return (
                                             location.value !== 'all' &&
@@ -90,16 +127,27 @@ const KolProfile = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="visitors" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tuổi</label>
-                                <input type="number" id="visitors" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="18" required />
+                                <label htmlFor="gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa điểm</label>
+                                <select onChange={ (e) => setCustomValue('gender', e.target.value) } id="gender" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    { genders.map(gender => {
+                                        return (
+                                            gender.value !== 'all' &&
+                                            <option key={ gender.value } value={ gender.value }>{ gender.label }</option>
+                                        )
+                                    }) }
+                                </select>
                             </div>
                             <div>
-                                <label htmlFor="visitors" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mức lương yêu cầu</label>
-                                <input type="number" id="visitors" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="18.000.000" required />
+                                <label htmlFor="age" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tuổi</label>
+                                <input { ...register("age") } type="number" id="age" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="18" required />
+                            </div>
+                            <div>
+                                <label htmlFor="salary" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mức lương yêu cầu</label>
+                                <input { ...register("salary") } type="number" id="salary" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="18.000.000" required />
                             </div>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="6live@gmail.com" required />
+                                <input { ...register("email") } disabled type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="6live@gmail.com" required />
                             </div>
                             <div>
                                 <label htmlFor="phone"
@@ -117,15 +165,21 @@ const KolProfile = () => {
                                 <div className='flex flex-wrap gap-4'>
                                     { inds.map((ind) => (
                                         ind.icon &&
-                                        <div key={ ind.value } className='border-2 border-green-400 px-2 py-1 rounded-lg cursor-pointer'>
-                                            <span>{ ind.label }</span>
-                                        </div>
+                                        (
+                                            <div key={ ind.value } onClick={ () => addIndustry(ind.value) }
+                                                className={ `border-2 px-2 py-1 rounded-lg cursor-pointer
+                                                ${industries.includes(ind.value) ? 'border-green-400' : ''}
+                                                `}
+                                            >
+                                                <span>{ ind.label }</span>
+                                            </div>
+                                        )
                                     )) }
                                 </div>
                             </div>
                             <div>
                                 <label className="relative inline-flex items-center mb-4 cursor-pointer">
-                                    <input type="checkbox" value="" className="sr-only peer" />
+                                    <input type="checkbox" value="" className="sr-only peer" onChange={ (e: ChangeEvent<HTMLInputElement>) => toggleWorkStatus(e) } />
                                     <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-rose-500 peer-checked:bg-blue-600"></div>
                                     <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Trạng thái tìm việc</span>
                                 </label>
@@ -134,14 +188,14 @@ const KolProfile = () => {
 
                     </div>
                     <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lời giới thiệu</label>
-                    <textarea id="message" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                    <textarea { ...register("description") } id="message" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
                     <div className="flex items-start my-6">
                         <div className="flex items-center h-5">
                             <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
                         </div>
                         <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tôi đồng ý <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">với chính sách và điều khoản của 6Live</a>.</label>
                     </div>
-                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Xác nhận</button>
+                    <button onClick={ handleSubmit(onSubmit) } type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Xác nhận</button>
                 </form>
             </Container>
         </Layout>
