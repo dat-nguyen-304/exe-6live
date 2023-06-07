@@ -1,29 +1,30 @@
-import { company } from "@/pages/companies/[companyId]";
-
 export type Kol = {
   id: string;
   email: string;
   image: string;
   name: string;
-  age: string;
-  phone: string;
-  salary: string;
-  location: Location;
-  price: string;
-  gender: Gender;
-  status: boolean;
-  industries: Industry[];
-  description: string;
-  createdDate?: string;
-  updatedDate?: string;
+  age?: string;
+  phone?: string;
+  salary?: string;
+  location?: Location;
+  price?: string;
+  gender?: Gender;
+  status?: boolean;
+  industries?: Industry[];
+  platforms?: Platform[];
+  description?: string;
+  createdDate: string;
+  updatedDate: string;
 };
 
 export type User = {
   id?: string;
   email: string;
   role: UserRole;
-  createdDate?: string;
-  updatedDate?: string;
+  isVip?: boolean;
+  expiredVipDate?: string;
+  createdDate: string;
+  updatedDate: string;
 };
 
 export type Company = {
@@ -31,12 +32,35 @@ export type Company = {
   email: string;
   image: string;
   name: string;
-  phone: string;
-  location: Location[];
+  phone?: string;
+  platforms: Platform[];
+  locations?: Location[];
+  campaigns?: Campaign[];
+  description?: string;
+  addresses?: string[];
+  createdDate: string;
+  updatedDate: string;
+};
+
+export type Campaign = {
+  id?: string;
+  companyId: string;
+  title: string;
+  expiredDate: Date;
+  status: boolean;
+  minAge: number;
+  maxAge: number;
+  minSalary: number;
+  maxSalary: number;
+  image: string;
+  industry: Industry;
+  locations: Location[];
+  genders: Gender[];
+  platforms: Platform[];
   description: string;
-  img: string;
-  createdDate?: string;
-  updatedDate?: string;
+  benefit: string;
+  createdDate: string;
+  updatedDate: string;
 };
 
 export enum UserRole {
@@ -61,4 +85,12 @@ export enum Location {
   hcm = "hcm",
   hn = "hn",
   dn = "dn",
+}
+
+export enum Platform {
+  facebook = "facebook",
+  youtube = "youtube",
+  tiktok = "tiktok",
+  instagram = "instagram",
+  shopee = "shopee",
 }

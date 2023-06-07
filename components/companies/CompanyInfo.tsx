@@ -1,4 +1,4 @@
-import PostCard from "../posts/PostCard";
+import PostCard from "../campaigns/CampaignCard";
 
 const ListingInfo: React.FC = () => {
 

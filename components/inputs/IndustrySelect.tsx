@@ -1,36 +1,6 @@
 import Select from 'react-select';
-import { GiClothes, GiCheckeredDiamond } from 'react-icons/gi';
-import { IoDiamond } from 'react-icons/io5';
-import { IoFastFoodOutline } from 'react-icons/io5';
 import { IconType } from 'react-icons';
-
-export const industries = [
-    {
-        label: 'Tất cả ngành',
-        icon: null,
-        value: 'all'
-    },
-    {
-        label: 'Thức ăn',
-        icon: IoFastFoodOutline,
-        value: 'food',
-    },
-    {
-        label: 'Quần áo',
-        icon: GiClothes,
-        value: 'clothes',
-    },
-    {
-        label: 'Mỹ phẩm',
-        icon: GiCheckeredDiamond,
-        value: 'cosmetology'
-    },
-    {
-        label: 'Phụ kiện',
-        icon: IoDiamond,
-        value: 'accessory'
-    }
-]
+import { industries } from "@/utils/variables";
 
 export type IndustrySelectValue = {
     label: string;

@@ -1,10 +1,10 @@
-import { Industry, Kol, User } from "@/types/index";
+import { Industry, Kol } from "@/types/index";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
 import Image from "next/image";
 import HeartButton from "../HeartButton";
-import { industries } from "../inputs/IndustrySelect";
-import { locations } from "../inputs/LocationSelect";
+import { industries } from "@/utils/variables";
+import { locations } from "@/utils/variables";
+import { platforms as platfs } from '@/utils/variables';
 
 interface ListingCardProps {
     kol: Kol;
@@ -12,10 +12,11 @@ interface ListingCardProps {
     disabled?: boolean;
     actionLabel?: string;
     actionId?: string;
+    key: string
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
-    kol, onAction, disabled, actionLabel, actionId = ""
+    kol, onAction, disabled, actionLabel, actionId = "", key
 }) => {
     const router = useRouter();
 
@@ -26,16 +27,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
     }
 
     return (
-        <div className="col-span-1 cursor-pointer group border-2 border-green-200 shadow-lg rounded-xl overflow-hidden"
+        <div key={ key } className="col-span-1 cursor-pointer group border-2 border-green-200 shadow-lg rounded-xl overflow-hidden"
             onClick={ () => router.push(`/kols/${kol.id}`) }
         >
             <div className="flex flex-col w-full">
                 <div className="w-full relative overflow-hidden rounded-xl">
                     <Image
-                        height={ 400 }
+                        height={ 200 }
                         width={ 200 }
                         alt="Listing"
                         src={ kol.image }
+                        quality={ 100 }
                         className="object-cover w-full h-[240px] rounded-xl group-hover:scale-110 transition"
                     />
                     <div className="absolute top-3 right-3">
@@ -52,23 +54,30 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     <div className="font-light text-sm">
                         { locations.map((location) => (
                             (location.value === kol.location) && (
-                                <span>{ location.label }</span>
+                                <span key={ location.value }>{ location.label }</span>
                             )
                         )) }
                     </div>
                 </div>
                 <div className="flex gap-1 font-light text-neutral-500 px-4">
                     { industries.map((industry) => (
-                        (kol.industries as Industry[]).includes(industry.value as Industry) && (
-                            <div className="inline-block border-green-100 py-1 px-2 rounded-xl text-sm border-2 border-gray">
+                        (kol.industries as Industry[])?.includes(industry.value as Industry) && (
+                            <div key={ industry.value } className="inline-block border-green-100 py-1 px-2 rounded-xl text-sm border-2 border-gray">
                                 { industry.label }
                             </div>
                         )
                     )) }
                 </div>
-                <div className="flex flex-row items-center gap-1 p-4">
+                <div className="flex flex-row items-center gap-1 p-4 justify-between">
                     <div className="font-semibold text-green-800">
                         { kol.salary }
+                    </div>
+                    <div className="font-semibold text-gray-800 flex items-center gap-2">
+                        { platfs.map((platf: any) => (
+                            platf.icon && kol?.platforms?.includes(platf.value) &&
+                            <platf.icon key={ platf.value } size={ 16 } />
+
+                        )) }
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@ const Search = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/posts" className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-green-100 dark:hover:text-white  dark:border-gray-700">
+                    <Link href="/campaigns" className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-green-100 dark:hover:text-white  dark:border-gray-700">
                         Chiến dịch
                     </Link>
                 </li>

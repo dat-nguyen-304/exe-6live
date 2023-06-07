@@ -1,5 +1,3 @@
-;
-
 import Select from 'react-select'
 
 interface Age {

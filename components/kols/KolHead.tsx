@@ -1,19 +1,20 @@
 import Image from "next/image";
-import { User } from "@/types";
-
+import { Industry, Kol } from "@/types";
+import { platforms as platfs } from '@/utils/variables';
 import HeartButton from "../HeartButton";
 import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { SiTiktok } from "react-icons/si";
+import { genders, industries, locations } from "@/utils/variables";
 
 interface ListingHeadProps {
     id: string;
-    currentUser?: User | null
+    currentKol?: Kol | null
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({
     id,
-    currentUser
+    currentKol
 }) => {
 
     return (
@@ -21,76 +22,93 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             <div className="relative">
                 <div className="flex">
                     <Image
-                        src="https://yt3.googleusercontent.com/ytc/AGIKgqPnGjkhAi0wRgcuhFbY7gtC_fTIhZONLCuGRO-K2Q=s900-c-k-c0x00ffffff-no-rj"
+                        src={ currentKol?.image as string }
                         width={ 200 }
                         height={ 200 }
-                        className="object-cover"
+                        className="object-cover rounded-lg"
                         alt="Image"
                     />
                     <div className="ml-8">
                         <div className="text-md font-light text-neutral-500">
-                            Họ và tên: <span className="font-normal text-[#333]">Trấn Thành</span>
+                            Họ và tên: <span className="font-normal text-[#333]">{ currentKol?.name }</span>
                         </div>
                         <div className="text-md font-light text-neutral-500 mt-2">
-                            Địa chỉ: <span className="font-normal text-[#333]">TP. Hồ Chí Minh</span>
+                            {
+                                locations.map(location => (
+                                    location.value === currentKol?.location && (
+                                        <span>Địa chỉ:
+                                            <span className="ml-2 font-normal text-[#333]">{ location.label }</span>
+                                        </span>
+                                    )
+                                ))
+                            }
                         </div>
                         <div className="text-md font-light text-neutral-500 mt-2">
-                            Mức lương tham khảo: <span className="font-normal text-[#333]">200.000.000 VNĐ</span>
+                            Mức lương tham khảo: <span className="font-normal text-[#333]">{ currentKol?.salary } VNĐ</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="absolute top-5 left-[160px]">
                     <HeartButton
-                        listingId={ id }
-                        currentUser={ currentUser }
+                        kolId={ id }
+                        currentKol={ null }
                     />
                 </div>
             </div>
             <hr className="mt-4" />
 
-            <div className="flex flex-row items-center gap-4 font-light text-neutral-500 my-4">
+            <div className="flex flex-row items-center gap-16 font-light text-neutral-500 my-4">
                 <div>
-                    Giới tính: Nam
+                    Giới tính: {
+                        genders.map(gender => (
+                            gender.value === currentKol?.gender && gender.label
+                        ))
+                    }
                 </div>
                 <div>
-                    Tuổi: 40
+                    Tuổi: { currentKol?.age }
                 </div>
                 <div>
-                    Trạng thái: <span className="text-green-400">Đang tìm việc</span>
+                    <span className="mr-2">Trạng thái:</span>
+                    { currentKol?.status ?
+                        <span className="text-green-400">Đang tìm việc</span> :
+                        <span className="text-rose-400">Đang tắt</span>
+                    }
+
                 </div>
             </div>
             <hr />
             <div className="flex flex-row items-center gap-4 font-light text-neutral-500 my-4">
                 <div>
-                    SĐT: 0987654321
+                    SĐT: { currentKol?.phone }
                 </div>
                 <div>
-                    Email: tranthanh@gmail.com
+                    Email: { currentKol?.email }
                 </div>
             </div>
             <hr />
             <div className="my-4 font-light text-neutral-500">
                 <span className="mr-4">Ngành:</span>
-                <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
-                    Thức ăn
-                </div>
-                <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
-                    Mỹ phẩm
-                </div>
-                <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
-                    Trang sức
-                </div>
+                { industries.map((industry) => (
+                    (currentKol?.industries as Industry[]).includes(industry.value as Industry) && (
+                        <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
+                            { industry.label }
+                        </div>
+                    )
+                )) }
             </div>
             <hr />
 
             <div className="flex items-center mt-4">
-                <span className="font-light text-neutral-500 mr-[200px]">Cách kênh liên hệ:</span>
+                <span className="font-light text-neutral-500 mr-[200px]">Cách kênh tham gia:</span>
                 <div className="flex gap-4 items-center">
-                    <FaYoutube size={ 28 } color="#71869d" />
-                    <FaFacebookSquare size={ 26 } color="#71869d" />
-                    <AiFillInstagram size={ 28 } color="#71869d" />
-                    <SiTiktok size={ 20 } color="#71869d" />
+                    {
+                        platfs.map((plaf: any) => (
+                            currentKol?.platforms.includes(plaf.value) &&
+                            <plaf.icon size={ 20 } color="#999" />
+                        ))
+                    }
                 </div>
             </div>
         </div>

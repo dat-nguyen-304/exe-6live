@@ -1,23 +1,6 @@
 import Select from 'react-select'
+import { genders } from "@/utils/variables";
 
-export const genders = [
-    {
-        label: 'Tất cả giới tính',
-        value: 'all'
-    },
-    {
-        label: 'Nam',
-        value: 'male'
-    },
-    {
-        label: 'Nữ',
-        value: 'female'
-    },
-    {
-        label: 'LGBT',
-        value: 'lgbt'
-    }
-]
 
 export type GenderSelectValue = {
     label: string;

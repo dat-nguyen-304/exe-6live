@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/navbar/Navbar';
 import RegisterModal from '@/components/modals/RegisterModal';
 import ToasterProvider from '@/providers/ToasterProvider';
@@ -10,6 +9,7 @@ import { User } from '@/types';
 import useUser from '@/hooks/useUser';
 import useKol from '@/hooks/useKol';
 import useCompany from '@/hooks/useCompany';
+import axios from 'axios';
 
 
 export interface LayoutProps {
@@ -21,8 +21,28 @@ const Layout = ({ children }: LayoutProps) => {
     const myKol = useKol();
     const myCompany = useCompany();
     let currentUser = null;
-    if (myUser.user?.role === 'kol') currentUser = myKol.kol;
-    else currentUser = myCompany.company;
+    if (myUser.user) {
+        if (myUser.user.role === 'kol') currentUser = myKol.kol;
+        else currentUser = myCompany.company;
+    }
+    if (typeof window !== 'undefined' && currentUser === null) {
+        const email = localStorage.getItem("6live_email");
+        if (email) {
+            const getUser = axios.get(`/api/accounts?email=${email}`);
+            getUser.then(res => {
+                const user = res.data;
+                myUser.onChangeUser(user as User);
+                if (user.role === 'kol') {
+                    currentUser = user.kol;
+                    myKol.onChangeKol(user.kol);
+                }
+                else {
+                    currentUser = user.company;
+                    myCompany.onChangeCompany(user.company);
+                }
+            })
+        }
+    }
 
     return (
         <div>

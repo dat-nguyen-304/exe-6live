@@ -1,9 +1,7 @@
-import React, { ChangeEvent, LegacyRef, ReactHTMLElement, useRef, useState } from 'react'
-import Layout from '../Header'
-import Container from '../Container'
-import { locations } from "../inputs/LocationSelect";
-import { genders } from "../inputs/GenderSelect";
-import { industries as inds, IndustrySelectValue } from '../inputs/IndustrySelect';
+import React, { ChangeEvent, LegacyRef, ReactHTMLElement, useRef, useState } from 'react';
+import Layout from '../Header';
+import Container from '../Container';
+import { industries as inds, platforms as platfs, genders, locations } from '@/utils/variables';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import ImageUpload from '../inputs/ImageUpload';
 import Image from 'next/image';
@@ -11,6 +9,7 @@ import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import useKol from '@/hooks/useKol';
 import { toast } from 'react-hot-toast';
+import { Platform } from '@/types';
 
 const KolProfile = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,7 +38,8 @@ const KolProfile = () => {
             status: kol?.status || false,
             age: kol?.age,
             image: kol?.image,
-            industries: kol?.industries || []
+            industries: kol?.industries || [],
+            platforms: kol?.platforms || []
         }
     });
 
@@ -61,6 +61,7 @@ const KolProfile = () => {
     const age = watch('age');
     const image = watch('image');
     const industries = watch('industries');
+    const platforms = watch('platforms');
 
 
     const setCustomValue = (id: string, value: any) => {
@@ -72,16 +73,25 @@ const KolProfile = () => {
     }
 
     const addIndustry = (ind: string) => {
-        console.log("addIndustry");
-        let Ind = [...industries];
-        const isExist = Ind.includes(ind);
+        let industriesClone = [...industries];
+        const isExist = industriesClone.includes(ind);
         if (isExist)
-            Ind = Ind.filter((industry: string) => {
+            industriesClone = industriesClone.filter((industry: string) => {
                 return industry !== ind
             })
-        else Ind.push(ind);
-        setCustomValue("industries", Ind);
-        console.log(industries);
+        else industriesClone.push(ind);
+        setCustomValue("industries", industriesClone);
+    }
+
+    const addPlatform = (platf: string) => {
+        let platformsClone = [...platforms];
+        const isExist = platformsClone.includes(platf);
+        if (isExist)
+            platformsClone = platformsClone.filter((platform: string) => {
+                return platform !== platf
+            })
+        else platformsClone.push(platf);
+        setCustomValue("platforms", platformsClone);
     }
 
     const toggleWorkStatus = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +100,10 @@ const KolProfile = () => {
         else setCustomValue("status", false);
     }
 
-
     return (
         <Layout>
             <Container>
-                <form>
+                <form onSubmit={ handleSubmit(onSubmit) }>
                     <div className="grid gap-6 mb-6 md:grid-cols-4">
                         <div>
                             <label
@@ -160,7 +169,7 @@ const KolProfile = () => {
                             <div >
                                 <label
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Ngành hàng (4/4)
+                                    Ngành hàng ({ industries.length }/4)
                                 </label>
                                 <div className='flex flex-wrap gap-4'>
                                     { inds.map((ind) => (
@@ -171,7 +180,34 @@ const KolProfile = () => {
                                                 ${industries.includes(ind.value) ? 'border-green-400' : ''}
                                                 `}
                                             >
-                                                <span>{ ind.label }</span>
+                                                <div className='flex items-center gap-2'>
+                                                    <ind.icon size={ 16 } />
+                                                    <span>{ ind.label }</span>
+                                                </div>
+
+                                            </div>
+                                        )
+                                    )) }
+                                </div>
+                            </div>
+                            <div >
+                                <label
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Nền tảng ({ platforms.length }/5)
+                                </label>
+                                <div className='flex flex-wrap gap-4'>
+                                    { platfs.map((platf) => (
+                                        platf.icon &&
+                                        (
+                                            <div key={ platf.value } onClick={ () => addPlatform(platf.value) }
+                                                className={ `border-2 px-2 py-1 rounded-lg cursor-pointer
+                                                ${platforms.includes(platf.value) ? 'border-green-400' : ''}
+                                                `}
+                                            >
+                                                <div className='flex items-center gap-2'>
+                                                    <platf.icon size={ 16 } />
+                                                    <span>{ platf.label }</span>
+                                                </div>
                                             </div>
                                         )
                                     )) }
@@ -179,7 +215,7 @@ const KolProfile = () => {
                             </div>
                             <div>
                                 <label className="relative inline-flex items-center mb-4 cursor-pointer">
-                                    <input type="checkbox" value="" className="sr-only peer" onChange={ (e: ChangeEvent<HTMLInputElement>) => toggleWorkStatus(e) } />
+                                    <input type="checkbox" value="" checked={ status } className="sr-only peer" onChange={ (e: ChangeEvent<HTMLInputElement>) => toggleWorkStatus(e) } />
                                     <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-rose-500 peer-checked:bg-blue-600"></div>
                                     <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Trạng thái tìm việc</span>
                                 </label>
@@ -195,7 +231,7 @@ const KolProfile = () => {
                         </div>
                         <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tôi đồng ý <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">với chính sách và điều khoản của 6Live</a>.</label>
                     </div>
-                    <button onClick={ handleSubmit(onSubmit) } type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Xác nhận</button>
+                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Xác nhận</button>
                 </form>
             </Container>
         </Layout>

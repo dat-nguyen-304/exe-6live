@@ -57,6 +57,7 @@ const LoginModal = () => {
             if (loginedUser.role === 'kol')
                 myKol.onChangeKol(loginedUser.kol);
             else myComapny.onChangeCompany(loginedUser.company);
+            localStorage.setItem("6live_email", loginedUser.email);
             loginModal.onClose();
         }
     }

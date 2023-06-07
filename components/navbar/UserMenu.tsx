@@ -35,7 +35,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             </div>
             { isOpen && (
                 <div className="absolute rounded-xl shadow-mdw-[40vw]md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
-                    <div className="flex flex-col cursor-pointer z-10">
+                    <div className="flex flex-col cursor-pointer z-10 ">
                         { currentUser ? (
                             <div className="z-10 bg-slate-50 shadow-lg">
                                 <MenuItem
@@ -44,18 +44,18 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                 />
                                 <hr />
                                 <MenuItem
-                                    label="Logout"
+                                    label="Đăng xuất"
                                     onClick={ () => { myUser.onChangeUser(null) } }
                                 />
                             </div>
                         ) : (
                             <>
                                 <MenuItem
-                                    label="Login"
+                                    label="Đăng nhập"
                                     onClick={ loginModal.onOpen }
                                 />
                                 <MenuItem
-                                    label="Sign up"
+                                    label="Đăng ký"
                                     onClick={ registerModal.onOpen }
                                 />
                             </>

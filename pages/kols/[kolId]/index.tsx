@@ -1,36 +1,26 @@
-import KolClient from "./KolClient";
+import KolClient from "@/components/kols/KolClient";
 import Layout from '@/components/Header';
-
-interface IParams {
-    listingId?: string;
-}
-
-export const currentUser = {
-    id: '1',
-    email: 'abc@gmail.com',
-    password: '123456',
-    name: 'Nguyễn Văn A',
-    avatar: '/images/logo.png'
-}
-
-export const KOLs =
-{
-    id: '1',
-    name: 'Trấn Thành',
-    age: '40',
-    location: 'TP. Hồ Chí Minh',
-    price: '200000000',
-    gender: 'male',
-    description: ''
-}
-
+import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Kol } from "@/types";
 
 const ListingPage = () => {
+    const router = useRouter();
+    const { kolId } = router.query;
+    const [kol, setKol] = useState<Kol | null>(null);
+    useEffect(() => {
+        const getKolDetail = async () => {
+            const res = await axios.get(`/api/kols/${kolId}`);
+            setKol(res.data);
+        }
+        getKolDetail();
+    }, []);
     return (
         <Layout>
             <KolClient
-                listing={ KOLs }
-                currentUser={ currentUser }
+                key={ kol?.id as string }
+                currentKol={ kol }
             />
         </Layout>
     );

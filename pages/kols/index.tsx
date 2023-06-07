@@ -14,7 +14,7 @@ const KolList: React.FC = () => {
     useEffect(() => {
         const getKols = async () => {
             const res = await axios.get("/api/kols");
-            setKols(res.data.kols);
+            setKols(res.data);
         }
         getKols();
     }, [])

@@ -7,7 +7,7 @@ import { Company, Kol, User } from '../../types/index';
 import Filter from './Filter';
 
 interface NavbarProps {
-    currentUser?: Kol | Company | null
+    currentUser: Kol | Company | null
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {

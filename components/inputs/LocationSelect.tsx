@@ -1,23 +1,5 @@
 import Select from 'react-select'
-
-export const locations = [
-    {
-        label: 'Tất cả địa điểm',
-        value: 'all'
-    },
-    {
-        label: 'TP. Hồ Chí Minh',
-        value: 'hcm'
-    },
-    {
-        label: 'TP. Đà Nẵng',
-        value: 'dn'
-    },
-    {
-        label: 'TP. Hà Nội',
-        value: 'hn'
-    }
-]
+import { locations } from "@/utils/variables";
 
 export type LocationSelectValue = {
     label: string;

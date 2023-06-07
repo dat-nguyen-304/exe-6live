@@ -1,10 +1,13 @@
-import KolProfile from '@/components/profile/KolProfile'
-import React from 'react'
+import CompanyProfile from '@/components/profile/CompanyProfile';
+import KolProfile from '@/components/profile/KolProfile';
+import useUser from '@/hooks/useUser';
+import React from 'react';
 
-const index = () => {
+export default function Profile() {
+    const myUser = useUser();
+
     return (
-        <KolProfile />
+        (myUser.user?.role === "kol") ? <KolProfile /> : <CompanyProfile />
+
     )
 }
-
-export default index
