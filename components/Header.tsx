@@ -57,7 +57,7 @@ const Layout = ({ children }: LayoutProps) => {
             <RegisterModal />
             <RentModal />
             <Navbar currentUser={ currentUser } />
-            <div className="pb-20 pt-28">
+            <div className="pb-20 pt-28 min-h-[75vh]">
                 { children }
             </div>
             <Footer />

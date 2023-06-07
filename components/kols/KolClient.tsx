@@ -1,32 +1,16 @@
 import Container from "@/components/Container";
 import KolHead from "@/components/kols/KolHead";
 import KolInfo from "@/components/kols/KolInfo";
-import useLoginModal from "@/hooks/useLoginModal";
-import { Kol, User } from "@/types";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "react-hot-toast";
-import Loading from "../Loading";
+import { Kol } from "@/types";
 
 interface KolClientProps {
     key: string;
-    currentKol?: Kol | null;
+    currentKol: Kol;
 }
 
 const KolClient: React.FC<KolClientProps> = ({
     key, currentKol
 }) => {
-    const loginModal = useLoginModal();
-    const router = useRouter();
-    const [isLoading, setIsLoading] = useState(currentKol === null);
-
-    useEffect(() => {
-        if (currentKol) setIsLoading(false);
-    }, [currentKol]);
-
-    if (isLoading) return <Loading />
-
     return (
         <Container>
             <div>

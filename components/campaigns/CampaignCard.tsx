@@ -31,7 +31,9 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
     }, [campaign.industry]);
 
     const salary = useMemo(() => {
-        return (!campaign.minSalary && !campaign.maxSalary) ? 'Thỏa thuận' : `${campaign.minSalary} - ${campaign.maxSalary}`
+        return (!campaign.minSalary && !campaign.maxSalary) ?
+            'Thỏa thuận' :
+            `${campaign.minSalary.toLocaleString('vi-VN')} - ${campaign.maxSalary.toLocaleString('vi-VN')}`;
     }, [campaign.minSalary, campaign.maxSalary]);
 
     const leftDate = () => {
@@ -39,12 +41,12 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
         return (days < 1) ? "Đã hết hạn ứng tuyển" : `Còn ${days} ngày để ứng tuyển`;
     }
 
-    const updatedDate = () => {
-        const days = differenceInDays(new Date(), new Date(campaign.updatedDate));
+    const updatedAt = () => {
+        const days = differenceInDays(new Date(), new Date(campaign.updatedAt));
         if (days === 0) {
-            const hours = differenceInHours(new Date(), new Date(campaign.updatedDate));
+            const hours = differenceInHours(new Date(), new Date(campaign.updatedAt));
             if (hours === 0) {
-                const minutes = differenceInMinutes(new Date(), new Date(campaign.updatedDate));
+                const minutes = differenceInMinutes(new Date(), new Date(campaign.updatedAt));
                 return `Cập nhật ${minutes} phút trước`
             }
             return `Cập nhật ${hours} giờ trước`;
@@ -52,11 +54,11 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
     }
 
     return (
-        <div className='flex bg-green-50 hover:border-[#00b14f] shadow-lg shadow-green-200 border-2 border-[#f2fbf6] rounded-lg cursor-pointer'
+        <div className='flex bg-green-50 hover:border-[#00b14f] shadow-sm shadow-green-200 border-2 border-[#f2fbf6] rounded-lg cursor-pointer'
             onClick={ () => router.push(`/campaigns/${campaign.id}`) }
         >
             <div className='p-4 rounded-lg'>
-                <Image src="https://cdn-new.topcv.vn/unsafe/200x/filters:format(webp)/https://static.topcv.vn/company_logos/cong-ty-co-phan-giai-tri-va-the-thao-dien-tu-viet-nam-60c02e5e581c5.jpg"
+                <Image src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
                     alt="img"
                     width={ 100 }
                     height={ 100 }
@@ -93,7 +95,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
                         { industry }
                     </div>
                     <div className='text-[#00b14f] font-bold bg-[#e5f7ed] px-2 py-1 rounded-lg'>{ salary }</div>
-                    <div className='text-sm font-semibold text-[#74777a]'>{ updatedDate() }</div>
+                    <div className='text-sm font-semibold text-[#74777a]'>{ updatedAt() }</div>
                 </div>
             </div>
         </div>

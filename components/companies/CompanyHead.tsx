@@ -1,39 +1,53 @@
 import Image from "next/image";
-import { User } from "@/types";
-
+import { Company } from "@/types";
+import { platforms as platfs, industries as inds } from '@/utils/variables';
 import HeartButton from "../HeartButton";
 import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { SiTiktok } from "react-icons/si";
+import { differenceInDays, differenceInMonths, differenceInYears } from "date-fns";
 
 interface ListingHeadProps {
     id: string;
-    currentUser?: User | null
+    company: Company
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({
     id,
-    currentUser
+    company
 }) => {
+
+    const registeredDate = () => {
+        const years = differenceInYears(new Date(), new Date(company.createdAt));
+        if (years === 0) {
+            const months = differenceInMonths(new Date(), new Date(company.createdAt));
+            if (months === 0) {
+                const days = differenceInDays(new Date(), new Date(company.createdAt));
+                return ` ${days} ngày trước`
+            }
+            return ` ${months} tháng trước`;
+        } else return ` ${years} năm trước`
+    }
+
 
     return (
         <div className="flex-[1] px-8">
             <div className="relative">
                 <div className="flex">
                     <Image
-                        src="https://ysedu.yuanta.com.vn/wp-content/uploads/2022/05/fpt-0.jpg"
-                        width={ 300 }
-                        height={ 200 }
-                        className="object-cover"
+                        src={ company.image ? company.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
+                        width={ 240 }
+                        height={ 240 }
+                        className="object-cover p-2 border-2 rounded-full"
                         alt="Image"
                     />
-                    <div className="ml-8">
+                    <div className="ml-8 mt-8">
                         <div className="text-md font-light text-neutral-500">
-                            Tên công ty: <span className="font-normal text-[#333]">Công ty ABC</span>
+                            Tên công ty: <span className="font-normal text-[#333]">{ company.name }</span>
                         </div>
 
                         <div className="text-md font-light text-neutral-500 mt-2">
-                            Đã tham gia: <span className="font-normal text-[#333]">2 năm trước</span>
+                            Đã tham gia: <span className="font-normal text-[#333]">{ registeredDate() }</span>
                         </div>
                     </div>
                 </div>
@@ -42,56 +56,41 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             <hr />
             <div className="flex flex-row items-center gap-4 font-light text-neutral-500 my-4">
                 <div>
-                    SĐT: 0987654321
+                    SĐT: { company.phone }
                 </div>
                 <div>
-                    Email: congtyabc@abc.com
-                </div>
-            </div>
-            <hr />
-            <div className="my-4 font-light text-neutral-500">
-                <span className="mr-4">Ngành:</span>
-                <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
-                    Thức ăn
-                </div>
-                <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
-                    Mỹ phẩm
-                </div>
-                <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
-                    Trang sức
+                    Email: { company.email }
                 </div>
             </div>
             <hr />
             <div className="font-light text-neutral-500 my-4">
-                <div>
-                    Các chi nhánh
-                </div>
+                <div>Các chi nhánh:</div>
                 <ul>
-                    <li className="text-sm ml-4">
-                        Lot E3, D2 street, High-tech park Long Thạnh Mỹ Ward 9 District, Long Thạnh Mỹ, Quận 9, Thành phố Hồ Chí Minh
-                    </li>
-                    <li className="text-sm ml-4">
-                        Lot E3, D2 street, High-tech park Long Thạnh Mỹ Ward 9 District, Long Thạnh Mỹ, Quận 9, Thành phố Hồ Chí Minh
-                    </li>
+                    {
+                        company.addresses?.map((address, index) => (
+                            <li key={ index } className="text-md ml-4">
+                                - { address }
+                            </li>
+                        ))
+                    }
                 </ul>
             </div>
             <hr />
             <div className="text-md font-light text-neutral-500 my-4">
-                Giới thiệu: Mô tả: Công ty Cổ phần Viễn thông FPT (tên gọi tắt là FPT Telecom) hiện là một trong những nhà cung cấp dịch vụ Viễn thông và Internet hàng đầu khu vực.
-
-                Thành lập ngày 31/01/1997, khởi nguồn từ Trung tâm Dịch vụ Trực tuyến do 4 thành viên sáng lập cùng sản phẩm mạng Intranet đầu tiên của Việt Nam mang tên “Trí tuệ Việt Nam – TTVN”, sản phẩm được coi là đặt nền móng cho sự phát triển của Internet tại Việt Nam
+                Giới thiệu: { company.description }
             </div>
             <hr />
             <div className="flex items-center mt-4">
-                <span className="font-light text-neutral-500 mr-[200px]">Cách kênh liên hệ khác:</span>
-                <div className="flex gap-4 items-center">
-                    <FaYoutube size={ 28 } color="#71869d" />
-                    <FaFacebookSquare size={ 26 } color="#71869d" />
-                    <AiFillInstagram size={ 28 } color="#71869d" />
-                    <SiTiktok size={ 20 } color="#71869d" />
-                </div>
+                <span className="font-light text-neutral-500">Cách kênh liên hệ khác:</span>
+                { platfs.map((platf: any) => (
+                    platf.icon && company.platforms?.includes(platf.value) &&
+                    <div key={ platf.value } className="cursor-pointer inline-flex mx-2 gap-4 py-1 px-2 rounded-xl text-sm border-2 border-gray">
+                        <div className="flex items-center gap-4"><platf.icon size={ 16 } /> { platf.label }</div>
+                    </div>
+
+                )) }
             </div>
-        </div>
+        </div >
 
     );
 }

@@ -39,6 +39,7 @@ const CompanyProfile = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        console.log(data);
         const company = await axios.put("/api/companies", data);
         myCompany.onChangeCompany(company.data);
         toast.success("Cập nhật thành công");

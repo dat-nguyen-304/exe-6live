@@ -21,7 +21,10 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
     }, [campaign?.industry]);
 
     const salary = useMemo(() => {
-        return (!campaign?.minSalary && !campaign?.maxSalary) ? 'Thỏa thuận' : `${campaign.minSalary} - ${campaign.maxSalary}`;
+        return (!campaign?.minSalary && !campaign?.maxSalary) ?
+            'Thỏa thuận'
+            :
+            `${campaign.minSalary.toLocaleString('vi-VN')} - ${campaign.maxSalary.toLocaleString('vi-VN')}`;
     }, [campaign?.minSalary, campaign?.maxSalary]);
 
     const age = useMemo(() => {
@@ -58,7 +61,7 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
         <>
             <div className="flex p-8 rounded-xl justify-between border-2 bg-white shadow-lg">
                 <div className='flex flex-[1] gap-8 items-center'>
-                    <Image src="https://cdn-new.topcv.vn/unsafe/200x/filters:format(webp)/https://static.topcv.vn/company_logos/cong-ty-co-phan-giai-tri-va-the-thao-dien-tu-viet-nam-60c02e5e581c5.jpg"
+                    <Image src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
                         alt="img"
                         width={ 100 }
                         height={ 100 }
@@ -66,7 +69,7 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                     />
                     <div>
                         <h3 className='text-[#00b14f] text-xl font-bold'>{ campaign?.title }</h3>
-                        <Link href="/companies/1" className='cursor-pointer text-[#333] my-2 font-semibold text-sm'>{ company?.name }</Link>
+                        <Link href={ `/companies/${company.id}` } className='cursor-pointer text-[#333] my-2 font-semibold text-sm'>{ company?.name }</Link>
                         <div className='flex gap-2 mt-4'>
                             <AiOutlineClockCircle size={ 20 } />
                             <span className='text-[#6f7882] font-semibold text-sm'>Hạn nộp hồ sơ: { format(new Date(campaign.expiredDate), 'dd/MM/yyy') }</span>

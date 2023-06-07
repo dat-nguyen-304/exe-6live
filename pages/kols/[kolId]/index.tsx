@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Kol } from "@/types";
+import Loading from "@/components/Loading";
 
 const ListingPage = () => {
     const router = useRouter();
@@ -18,10 +19,16 @@ const ListingPage = () => {
     }, []);
     return (
         <Layout>
-            <KolClient
-                key={ kol?.id as string }
-                currentKol={ kol }
-            />
+            {
+                kol ?
+                    <KolClient
+                        key={ kol.id as string }
+                        currentKol={ kol }
+                    />
+                    :
+                    <Loading />
+            }
+
         </Layout>
     );
 }

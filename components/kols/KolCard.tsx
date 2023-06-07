@@ -5,26 +5,15 @@ import HeartButton from "../HeartButton";
 import { industries } from "@/utils/variables";
 import { locations } from "@/utils/variables";
 import { platforms as platfs } from '@/utils/variables';
+import { useMemo } from "react";
 
-interface ListingCardProps {
+interface KolCardProps {
     kol: Kol;
-    onAction?: (id: string) => void;
-    disabled?: boolean;
-    actionLabel?: string;
-    actionId?: string;
     key: string
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({
-    kol, onAction, disabled, actionLabel, actionId = "", key
-}) => {
+const KolCard: React.FC<KolCardProps> = ({ kol, key }) => {
     const router = useRouter();
-
-    const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation();
-        if (disabled) return;
-        onAction?.(actionId)
-    }
 
     return (
         <div key={ key } className="col-span-1 cursor-pointer group border-2 border-green-200 shadow-lg rounded-xl overflow-hidden"
@@ -70,13 +59,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 </div>
                 <div className="flex flex-row items-center gap-1 p-4 justify-between">
                     <div className="font-semibold text-green-800">
-                        { kol.salary }
+                        <span>{ kol.salary && new Intl.NumberFormat('vi-VN').format(parseInt(kol.salary)) }</span>
                     </div>
                     <div className="font-semibold text-gray-800 flex items-center gap-2">
                         { platfs.map((platf: any) => (
                             platf.icon && kol?.platforms?.includes(platf.value) &&
                             <platf.icon key={ platf.value } size={ 16 } />
-
                         )) }
                     </div>
                 </div>
@@ -85,4 +73,4 @@ const ListingCard: React.FC<ListingCardProps> = ({
     )
 }
 
-export default ListingCard
+export default KolCard

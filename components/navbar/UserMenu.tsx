@@ -23,6 +23,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     }, []);
     const myUser = useUser();
 
+    const handleLogout = () => {
+        myUser.onChangeUser(null);
+        localStorage.removeItem("6live_email");
+    }
+
     return (
         <div className='relative'>
             <div className='flex flex-row items-center gap-3'>
@@ -45,7 +50,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                 <hr />
                                 <MenuItem
                                     label="Đăng xuất"
-                                    onClick={ () => { myUser.onChangeUser(null) } }
+                                    onClick={ handleLogout }
                                 />
                             </div>
                         ) : (

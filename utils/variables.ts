@@ -36,7 +36,7 @@ export const industries = [
     value: "food",
   },
   {
-    label: "Quần áo",
+    label: "Thời trang",
     icon: GiClothes,
     value: "clothes",
   },

@@ -75,6 +75,7 @@ const PostCampaign: React.FC = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        // console.log(data);
         const campaign = await axios.post("/api/campaigns", data);
         toast.success("Thêm chiến dịch thành công");
         console.log(campaign);

@@ -15,7 +15,14 @@ export default async function handler(
     if (req.method === "POST") {
       await addCampaign(req.body);
     } else if (req.method === "GET") {
-      await getCampaigns();
+      let condition = {};
+      if (req.query.companyId)
+        condition = {
+          where: {
+            companyId: req.query.companyId,
+          },
+        };
+      await getCampaigns(condition);
     } else {
       res.status(404).json({ err: 1, msg: "Not found!" });
     }
@@ -29,8 +36,8 @@ export default async function handler(
     });
     return res.status(200).json(campaign);
   }
-  async function getCampaigns() {
-    const campaigns = await prisma.campaign.findMany();
+  async function getCampaigns(condition: any) {
+    const campaigns = await prisma.campaign.findMany(condition);
     return res.status(200).json(campaigns);
   }
 }

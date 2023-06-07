@@ -13,8 +13,8 @@ export type Kol = {
   industries?: Industry[];
   platforms?: Platform[];
   description?: string;
-  createdDate: string;
-  updatedDate: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type User = {
@@ -23,8 +23,8 @@ export type User = {
   role: UserRole;
   isVip?: boolean;
   expiredVipDate?: string;
-  createdDate: string;
-  updatedDate: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Company = {
@@ -33,13 +33,13 @@ export type Company = {
   image: string;
   name: string;
   phone?: string;
-  platforms: Platform[];
+  platforms?: Platform[];
   locations?: Location[];
   campaigns?: Campaign[];
   description?: string;
   addresses?: string[];
-  createdDate: string;
-  updatedDate: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Campaign = {
@@ -59,8 +59,8 @@ export type Campaign = {
   platforms: Platform[];
   description: string;
   benefit: string;
-  createdDate: string;
-  updatedDate: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export enum UserRole {

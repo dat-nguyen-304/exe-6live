@@ -9,14 +9,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
+import Loading from "../Loading";
 
 interface CompanyClientProps {
     company: Company;
-    currentUser?: User | null;
 }
 
 const CompanyClient: React.FC<CompanyClientProps> = ({
-    company, currentUser
+    company
 }) => {
     const loginModal = useLoginModal();
     const router = useRouter();
@@ -27,10 +27,12 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
             <div>
                 <div className="flex justify-around gap-8 mt-8">
                     <CompanyHead
-                        id={ "1" }
-                        currentUser={ currentUser }
+                        id={ company.id }
+                        company={ company }
                     />
-                    <CompanyInfo />
+                    <CompanyInfo
+                        company={ company }
+                    />
                 </div>
             </div>
         </Container>

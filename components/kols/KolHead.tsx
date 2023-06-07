@@ -9,7 +9,7 @@ import { genders, industries, locations } from "@/utils/variables";
 
 interface ListingHeadProps {
     id: string;
-    currentKol?: Kol | null
+    currentKol: Kol
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({
@@ -36,7 +36,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                             {
                                 locations.map(location => (
                                     location.value === currentKol?.location && (
-                                        <span>Địa chỉ:
+                                        <span key={ location.value }>Địa chỉ:
                                             <span className="ml-2 font-normal text-[#333]">{ location.label }</span>
                                         </span>
                                     )
@@ -44,7 +44,9 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                             }
                         </div>
                         <div className="text-md font-light text-neutral-500 mt-2">
-                            Mức lương tham khảo: <span className="font-normal text-[#333]">{ currentKol?.salary } VNĐ</span>
+                            Mức lương tham khảo: <span className="font-normal text-[#333]">
+                                { currentKol?.salary && new Intl.NumberFormat('vi-VN').format(parseInt(currentKol.salary)) } VNĐ
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -92,7 +94,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                 <span className="mr-4">Ngành:</span>
                 { industries.map((industry) => (
                     (currentKol?.industries as Industry[]).includes(industry.value as Industry) && (
-                        <div className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
+                        <div key={ industry.value } className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
                             { industry.label }
                         </div>
                     )
@@ -104,10 +106,13 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                 <span className="font-light text-neutral-500 mr-[200px]">Cách kênh tham gia:</span>
                 <div className="flex gap-4 items-center">
                     {
-                        platfs.map((plaf: any) => (
-                            currentKol?.platforms.includes(plaf.value) &&
-                            <plaf.icon size={ 20 } color="#999" />
-                        ))
+                        (!currentKol.platforms || currentKol.platforms.length === 0) ?
+                            <span>Chưa đăng ký</span>
+                            :
+                            platfs.map((plaf: any) => (
+                                currentKol?.platforms?.includes(plaf.value) &&
+                                <plaf.icon key={ plaf.value } size={ 20 } color="#999" />
+                            ))
                     }
                 </div>
             </div>
