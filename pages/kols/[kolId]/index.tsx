@@ -16,7 +16,7 @@ const ListingPage = () => {
             setKol(res.data);
         }
         getKolDetail();
-    }, []);
+    }, [kolId]);
     return (
         <Layout>
             {

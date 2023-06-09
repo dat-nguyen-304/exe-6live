@@ -4,6 +4,7 @@ import CampaignCard from '@/components/campaigns/CampaignCard'
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Campaign } from '@/types';
+import Loading from '@/components/Loading';
 
 export default function Posts() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -18,15 +19,20 @@ export default function Posts() {
     return (
         <Layout>
             <Container>
-                <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    { campaigns.map((campaign) => (
-                        <CampaignCard
-                            key={ campaign.id }
-                            campaign={ campaign }
-                            modify={ false }
-                        />
-                    )) }
-                </div>
+                {
+                    campaigns.length === 0 ? <Loading />
+                        :
+                        <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            { campaigns.map((campaign) => (
+                                <CampaignCard
+                                    key={ campaign.id }
+                                    campaign={ campaign }
+                                    modify={ false }
+                                />
+                            )) }
+                        </div>
+                }
+
             </Container>
         </Layout>
     )

@@ -58,8 +58,6 @@ const HistoryRoot = () => {
                                     </Table.Row>
                                 ))
                             }
-
-
                         </Table.Body>
                     </Table>
             }

@@ -10,7 +10,6 @@ import useUser from '@/hooks/useUser';
 import useKol from '@/hooks/useKol';
 import useCompany from '@/hooks/useCompany';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 
 export interface LayoutProps {
