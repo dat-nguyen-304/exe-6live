@@ -70,7 +70,6 @@ async function getUserByEmail(email: string) {
   let kol = null;
   let company = null;
   if (user?.role === "kol") {
-    console.log("YESS");
     kol = await prisma.kol.findUnique({
       where: {
         id: user.id,

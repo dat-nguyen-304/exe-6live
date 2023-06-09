@@ -21,11 +21,11 @@ const CampaignDetailRoot: React.FC = () => {
                 const campaignRes = await axios.get(`/api/campaigns/${campaignId}`);
                 const campaign = campaignRes.data;
                 if (!campaign) return setError(true);
-                const companyRes = await axios.get(`/api/companies/${campaign.companyId}`);
-                const company = companyRes.data;
-
-                setCampaign(campaign);
-                setCompany(company);
+                else {
+                    const company = campaign.company;
+                    setCampaign(campaign);
+                    setCompany(company);
+                }
             } catch (error) {
                 console.log(error);
             }

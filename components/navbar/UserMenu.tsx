@@ -51,6 +51,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                 />
                                 <hr />
                                 <MenuItem
+                                    label="Lịch sử giao dịch"
+                                    onClick={ () => { router.push("/history") } }
+                                />
+                                <hr />
+                                <MenuItem
                                     label="Đăng xuất"
                                     onClick={ handleLogout }
                                 />

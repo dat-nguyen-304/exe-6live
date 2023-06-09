@@ -15,6 +15,7 @@ model Account {
   expiredVipDate DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  Payment        Payment[]
 }
 
 model Kol {
@@ -71,6 +72,30 @@ model Campaign {
   updatedAt   DateTime   @updatedAt
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model Package {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  numberOfMonth Int    @unique
+  price         Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Payment   Payment[]
+}
+
+model Payment {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  accountId String @db.ObjectId
+  packageId String @db.ObjectId
+  price     Int
+  bank      String
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  package Package @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum UserRole {

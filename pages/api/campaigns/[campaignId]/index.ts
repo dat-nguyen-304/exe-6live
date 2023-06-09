@@ -20,6 +20,9 @@ export default async function handler(
         where: {
           id: campaignId,
         },
+        include: {
+          company: true,
+        },
       });
       res.status(200).json(campaign);
     } else if (req.method === "PUT") {

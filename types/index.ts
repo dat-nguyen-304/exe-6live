@@ -63,6 +63,24 @@ export type Campaign = {
   updatedAt: string;
 };
 
+export type Package = {
+  id?: string;
+  numberOfMonth: number;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Payment = {
+  id?: string;
+  accountId: string;
+  packageId: string;
+  price: number;
+  bank: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export enum UserRole {
   kol = "kol",
   company = "company",

@@ -8,6 +8,5 @@ export default function Profile() {
 
     return (
         (myUser.user?.role === "kol") ? <KolProfile /> : <CompanyProfile />
-
     )
 }
