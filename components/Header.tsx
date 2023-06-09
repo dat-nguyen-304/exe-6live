@@ -2,7 +2,6 @@ import Navbar from '@/components/navbar/Navbar';
 import RegisterModal from '@/components/modals/RegisterModal';
 import ToasterProvider from '@/providers/ToasterProvider';
 import LoginModal from '@/components/modals/LoginModal';
-import RentModal from '@/components/modals/RentModal';
 import Footer from './Footer';
 import Head from 'next/head';
 import { User } from '@/types';
@@ -77,8 +76,6 @@ const Layout = ({ children }: LayoutProps) => {
         } else currentUser = null;
     }
 
-    console.log("current user: ", currentUser)
-
     return (
         <div>
             <Head>
@@ -90,7 +87,6 @@ const Layout = ({ children }: LayoutProps) => {
             <ToasterProvider />
             <LoginModal />
             <RegisterModal />
-            <RentModal />
             <Navbar currentUser={ currentUser } />
             <div className="pb-20 pt-28 min-h-[75vh]">
                 { children }

@@ -88,32 +88,7 @@ const RegisterModal = () => {
                 title="Chào mừng đến với 6Live"
                 subtitle="Tạo tài khoản!"
             />
-            <Input
-                id="email"
-                label="Email"
-                disabled={ isLoading }
-                register={ register }
-                errors={ errors }
-                required
-            />
-            <Input
-                id="name"
-                label="Name"
-                disabled={ isLoading }
-                register={ register }
-                errors={ errors }
-                required
-            />
-            <Input
-                id="password"
-                label="Password"
-                type="password"
-                disabled={ isLoading }
-                register={ register }
-                errors={ errors }
-                required
-            />
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between mt-8">
                 <h3>Bạn là: </h3>
                 <div className="flex items-baseline gap-4">
                     <label htmlFor="kol">KOL/KOC</label>
@@ -142,7 +117,7 @@ const RegisterModal = () => {
             <hr />
             <Button
                 outline
-                label="Continue with Google"
+                label="Đăng ký với Google"
                 icon={ FcGoogle }
                 onClick={ () => signInWithGoogle() }
             />

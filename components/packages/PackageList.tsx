@@ -19,7 +19,7 @@ const PackageList: React.FC<PackageListProps> = ({ premiumPackages, selectedPack
     }
 
     return (
-        <div className='flex justify-between mt-4'>
+        <div className='flex justify-between mt-4 gap-8'>
             {
                 premiumPackages.map((premiumPackage, index) => (
                     <label key={ index } htmlFor={ `p-${index}` }

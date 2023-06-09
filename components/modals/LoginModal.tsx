@@ -80,23 +80,6 @@ const LoginModal = () => {
                 title="Chào mừng trở lại"
                 subtitle="Đăng nhập!"
             />
-            <Input
-                id="email"
-                label="Email"
-                disabled={ isLoading }
-                register={ register }
-                errors={ errors }
-                required
-            />
-            <Input
-                id="password"
-                label="Password"
-                type="password"
-                disabled={ isLoading }
-                register={ register }
-                errors={ errors }
-                required
-            />
         </div>
     )
 
@@ -105,7 +88,7 @@ const LoginModal = () => {
             <hr />
             <Button
                 outline
-                label="Continue with Google"
+                label="Đăng nhập với Google"
                 icon={ FcGoogle }
                 onClick={ () => signInWithGoogle() }
             />
@@ -123,7 +106,7 @@ const LoginModal = () => {
         <Modal
             disabled={ isLoading }
             isOpen={ loginModal.isOpen }
-            title="Login"
+            title="Đăng nhập"
             actionLabel="Continue"
             onClose={ loginModal.onClose }
             onSubmit={ () => { } }

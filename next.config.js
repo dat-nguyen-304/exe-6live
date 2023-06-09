@@ -5,18 +5,13 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: [
-      "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
       "res.cloudinary.com",
-      "yt3.googleusercontent.com",
-      "scontent.fsgn3-1.fna.fbcdn.net",
-      "ysedu.yuanta.com.vn",
-      "cdn-new.topcv.vn",
-      "icon-library.com"
     ]
   },
   sassOptions: {
     implementation: sass,
+    includePaths: ['./styles']
   },
   async headers () {
     return [
@@ -29,14 +24,6 @@ const nextConfig = {
           },
         ],
       },
-      // {
-      //   source: '/api/:path*',
-      //   headers: [
-      //     { key: 'Access-Control-Allow-Origin', value: '*' },
-      //     { key: 'Access-Control-Allow-Methods', value: 'GET,POST,PUT,PATCH,DELETE,OPTIONS' },
-      //     { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
-      //   ],
-      // },
     ];
   },
   webpack (config) {

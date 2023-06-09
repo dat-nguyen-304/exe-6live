@@ -7,12 +7,12 @@ import Container from './Container';
 
 const Footer = () => {
     return (
-        <div className='border-t-4 border-green-800 py-8 text-[#71869d] bg-green-100'>
+        <div className='border-t-4 border-green-800 py-8 text-[#71869d] bg-green-50'>
             <Container>
                 <div className="flex justify-around pt-2">
                     <div >
                         <div className="">
-                            <h5 className="uppercase font-bold text-[#333]">Chăm sóc khách hàng</h5>
+                            <h5 className="uppercase font-bold text-[#333] mb-2">Chăm sóc khách hàng</h5>
                             <ul className="footer-content__list">
                                 <li className="text-sm"><a href="">Trung tâm hỗ trợ</a></li>
                                 <li className="text-sm"><a href="">6Live Blog</a></li>
@@ -24,7 +24,7 @@ const Footer = () => {
                     </div>
                     <div >
                         <div className="">
-                            <h5 className="uppercase font-bold text-[#333]">về 6live</h5>
+                            <h5 className="uppercase font-bold text-[#333] mb-2">về 6live</h5>
                             <ul className="footer-content__list">
                                 <li className="text-sm"><a href="">Tuyển dụng</a></li>
                                 <li className="text-sm"><a href="">Điều khoản 6Live</a></li>
@@ -38,7 +38,7 @@ const Footer = () => {
                     </div>
                     <div >
                         <div className="">
-                            <h5 className="uppercase font-bold text-[#333]">Theo dõi chúng tôi trên</h5>
+                            <h5 className="uppercase font-bold text-[#333] mb-2">Theo dõi chúng tôi trên</h5>
                             <ul className="footer-content__list">
                                 <li className="text-sm">
                                     <a href="" className='flex items-center'>
@@ -66,7 +66,7 @@ const Footer = () => {
                     </div>
                     <div className="">
                         <div className="">
-                            <h5 className="uppercase font-bold text-[#333]">Tải ứng dụng 6live ngay thôi</h5>
+                            <h5 className="uppercase font-bold text-[#333] mb-2">Tải ứng dụng 6live ngay thôi</h5>
                             <div className="flex items-center">
                                 <Image src="/images/qr-code.png" alt="" width={ 120 } height={ 120 } />
                                 <div className="flex flex-col justify-evenly h-[120px] ml-4">

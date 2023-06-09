@@ -131,9 +131,9 @@ const Home = () => {
                         <Image src="/images/home-2.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
                     </motion.section>
                     <motion.section { ...animations.section } className='flex-[1]'>
-                        <p>Khi đến với book KOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
+                        <p className='text-[1rem]'>Khi đến với book KOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
                         <Link href="/kols">
-                            <button className='text-[#00b14f] bg-[#e5f7ed] px-4 py-2 border-2 rounded-lg mt-4'>Khám phá ngay</button>
+                            <button className='text-[1rem] text-[#00b14f] bg-[#e5f7ed] px-4 py-2 border-2 rounded-lg mt-4'>Khám phá ngay</button>
                         </Link>
                     </motion.section>
 
@@ -142,11 +142,11 @@ const Home = () => {
             <div className='px-[160px] py-[100px] bg-[#f2fbf6] mb-[-80px]'>
                 <div className='flex items-center justify-between'>
                     <motion.section { ...animations.section } className='flex-[1]'>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <p className='text-[1rem]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                         <p className='text-3xl mt-8'>
                             Alexander Bách HD
                         </p>
-                        <p className='mt-8'>Businessman</p>
+                        <p className='mt-8 text-[1rem]'>Businessman</p>
                     </motion.section>
                     <motion.section { ...animations.section } className='flex-[1]'>
                         <Image src="/images/bach.png" width={ 300 } height={ 300 } alt='' className='object-contain rounded-full mx-auto' />

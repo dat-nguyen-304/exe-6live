@@ -41,8 +41,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 </div>
             </div>
             { isOpen && (
-                <div className="absolute rounded-xl shadow-mdw-[40vw]md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
-                    <div className="flex flex-col cursor-pointer z-10 ">
+                <div className="absolute z-[100] rounded-xl shadow-mdw-[40vw]md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+                    <div className="flex flex-col cursor-pointer z-[10]">
                         { currentUser ? (
                             <div className="z-10 bg-slate-50 shadow-lg">
                                 <MenuItem
