@@ -8,7 +8,7 @@ const inter = Inter({
   variable: '--font-inter'
 })
 
-export default function App({ Component, pageProps: { pageProps } }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <main className={ `${inter.variable} font-sans` }>
       <Component { ...pageProps } />
