@@ -68,6 +68,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                 <ul>
                     {
                         company.addresses?.map((address, index) => (
+                            address &&
                             <li key={ index } className="text-md ml-4">
                                 - { address }
                             </li>

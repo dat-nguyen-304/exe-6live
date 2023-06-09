@@ -25,7 +25,7 @@ const CompanyCampaignProps: React.FC<CompanyCampaignProps> = ({ company }) => {
                 { campaigns ?
                     campaigns.map((campaign) => (
                         <div key={ campaign.id } className="my-4">
-                            <CampaignCard campaign={ campaign } />
+                            <CampaignCard campaign={ campaign } modify={ false } />
                             <hr />
                         </div>
                     ))

@@ -131,7 +131,7 @@ const Home = () => {
                         <Image src="/images/home-2.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
                     </motion.section>
                     <motion.section { ...animations.section } className='flex-[1]'>
-                        <p>Khi đến với bookKOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
+                        <p>Khi đến với book KOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
                         <Link href="/kols">
                             <button className='text-[#00b14f] bg-[#e5f7ed] px-4 py-2 border-2 rounded-lg mt-4'>Khám phá ngay</button>
                         </Link>

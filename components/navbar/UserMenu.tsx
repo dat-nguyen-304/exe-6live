@@ -26,6 +26,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     const handleLogout = () => {
         myUser.onChangeUser(null);
         localStorage.removeItem("6live_email");
+        localStorage.removeItem("6live_role");
+        router.push("/");
     }
 
     return (

@@ -31,3 +31,11 @@ body,
   height: 20px;
   letter-spacing: 5px;
 }
+
+.modal-delete > div {
+  bottom: 20vh;
+}
+
+.gif {
+  animation-iteration-count: 1;
+}

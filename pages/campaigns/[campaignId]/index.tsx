@@ -2,6 +2,7 @@ import Container from '@/components/Container'
 import Layout from '@/components/Header'
 import Loading from '@/components/Loading'
 import CampaignDetail from '@/components/campaigns/CampaignDetail'
+import Error404 from '@/pages/404'
 import { Campaign, Company } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -9,26 +10,31 @@ import React, { useEffect, useState } from 'react'
 
 const CampaignDetailRoot: React.FC = () => {
     const router = useRouter();
+    const [error, setError] = useState(false);
     const { campaignId } = router.query;
-    console.log("Campaign ID: ", campaignId);
 
     const [campaign, setCampaign] = useState<Campaign | null>(null);
     const [company, setCompany] = useState<Company | null>(null);
     useEffect(() => {
         const getKolDetail = async () => {
-            const campaignRes = await axios.get(`/api/campaigns/${campaignId}`);
-            const campaign = campaignRes.data;
-            console.log("Campaign: ", campaign);
-            const companyRes = await axios.get(`/api/companies/${campaign.companyId}`);
-            const company = companyRes.data;
-            console.log("Company: ", company);
+            try {
+                const campaignRes = await axios.get(`/api/campaigns/${campaignId}`);
+                const campaign = campaignRes.data;
+                if (!campaign) return setError(true);
+                const companyRes = await axios.get(`/api/companies/${campaign.companyId}`);
+                const company = companyRes.data;
 
-            setCampaign(campaign);
-            setCompany(company);
+                setCampaign(campaign);
+                setCompany(company);
+            } catch (error) {
+                console.log(error);
+            }
         }
         if (campaignId)
             getKolDetail();
     }, [campaignId]);
+
+    if (error) return <Error404 />
 
     return (
         <Layout>

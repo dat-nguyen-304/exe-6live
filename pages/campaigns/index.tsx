@@ -14,15 +14,18 @@ export default function Posts() {
         }
         getCampaigns();
     }, []);
-    console.log(campaigns);
+
     return (
         <Layout>
             <Container>
                 <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 gap-8">
                     { campaigns.map((campaign) => (
-                        <CampaignCard key={ campaign.id } campaign={ campaign } />
+                        <CampaignCard
+                            key={ campaign.id }
+                            campaign={ campaign }
+                            modify={ false }
+                        />
                     )) }
-
                 </div>
             </Container>
         </Layout>

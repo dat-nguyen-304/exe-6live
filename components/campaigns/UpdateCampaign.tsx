@@ -11,11 +11,15 @@ import { Calendar } from "react-date-range";
 import { addDays, format } from 'date-fns';
 import vi from 'date-fns/locale/vi';
 import { PatternFormat, NumberFormatBase } from 'react-number-format';
+import { Campaign } from '@/types';
 
-const PostCampaign: React.FC = () => {
+interface UpdateCampaignProps {
+    campaign: Campaign
+}
+
+const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
     const myUser = useUser();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [campaign, setCampaign] = useState();
     const [imgLink, setImgLink] = useState();
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
@@ -29,6 +33,12 @@ const PostCampaign: React.FC = () => {
         }
     }, [myUser.user]);
 
+    useEffect(() => {
+        setDisabledAge(minAge === 0);
+        setDisabledSalary(minSalary === 0);
+        setSelectedDate(new Date(expiredDate));
+    }, [])
+
     const handleClickOutside = (event: MouseEvent) => {
         if (calendarRef.current && !calendarRef.current?.contains(event.target as Node)) {
             setShowCalendar(false);
@@ -36,7 +46,7 @@ const PostCampaign: React.FC = () => {
     };
 
     const toggleCalendar = () => {
-        setShowCalendar((prevShowCalendar) => !prevShowCalendar);
+        setShowCalendar(!showCalendar);
     };
 
     useEffect(() => {
@@ -56,29 +66,30 @@ const PostCampaign: React.FC = () => {
         }
     } = useForm<FieldValues>({
         defaultValues: {
-            companyId: '',
-            title: '',
-            expiredDate: '',
-            status: false,
-            minAge: '',
-            maxAge: '',
-            minSalary: '',
-            maxSalary: '',
-            image: '',
-            industry: 'food',
-            locations: [],
-            genders: [],
-            platforms: [],
-            description: '',
-            benefit: ''
+            companyId: campaign.companyId,
+            title: campaign.title,
+            expiredDate: campaign.expiredDate,
+            status: campaign.status,
+            minAge: campaign.minAge,
+            maxAge: campaign.maxAge,
+            minSalary: campaign.minSalary,
+            maxSalary: campaign.maxSalary,
+            image: campaign.image,
+            industry: campaign.industry,
+            locations: campaign.locations,
+            genders: campaign.genders,
+            platforms: campaign.platforms,
+            description: campaign.description,
+            benefit: campaign.benefit
         }
     });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        // console.log(data);
-        const campaign = await axios.post("/api/campaigns", data);
-        toast.success("Thêm chiến dịch thành công");
-        console.log(campaign);
+        if (data.image === "") toast.error("Bạn chưa cập nhật ảnh đại diện");
+        else {
+            const res = await axios.put(`/api/campaigns/${campaign.id}`, data);
+            toast.success("Cập nhật chiến dịch thành công");
+        }
     }
 
     const companyId = watch('companyId');
@@ -323,9 +334,11 @@ const PostCampaign: React.FC = () => {
                         </label>
                         { !disabledAge ?
                             <PatternFormat
+                                key={ 1 }
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 format="##"
                                 required
+                                value={ minAge }
                                 onValueChange={ (values) => {
                                     const { value } = values;
                                     setCustomValue("minAge", parseInt(value));
@@ -341,9 +354,11 @@ const PostCampaign: React.FC = () => {
                         </label>
                         { !disabledAge ?
                             <PatternFormat
+                                key={ 2 }
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 format="##"
                                 required
+                                value={ maxAge }
                                 onValueChange={ (values) => {
                                     const { value } = values;
                                     setCustomValue("maxAge", parseInt(value));
@@ -380,6 +395,7 @@ const PostCampaign: React.FC = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 format={ formatVnd }
                                 required
+                                value={ minSalary }
                                 onValueChange={ (values) => {
                                     const { value } = values;
                                     setCustomValue("minSalary", parseInt(value));
@@ -398,6 +414,7 @@ const PostCampaign: React.FC = () => {
                                 className='bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                                 format={ formatVnd }
                                 required
+                                value={ maxSalary }
                                 onValueChange={ (values) => {
                                     const { value } = values;
                                     setCustomValue("maxSalary", parseInt(value));
@@ -456,4 +473,4 @@ const PostCampaign: React.FC = () => {
     )
 }
 
-export default PostCampaign
+export default UpdateCampaign;

@@ -5,7 +5,6 @@ import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import "@/config/firebase";
-import axios, { AxiosRequestConfig } from "axios";
 
 
 import useRegisterModal from "../../hooks/useRegisterModal";
@@ -19,6 +18,7 @@ import useUser from "@/hooks/useUser";
 import { User, Kol } from "@/types";
 import useKol from "@/hooks/useKol";
 import useCompany from "@/hooks/useCompany";
+import axios from "axios";
 
 const LoginModal = () => {
     const router = useRouter();
@@ -53,6 +53,7 @@ const LoginModal = () => {
             toast.error("Tài khoản chưa đăng ký");
         } else {
             console.log("LOGINED USER ", loginedUser);
+            toast.success("Đăng nhập thành công");
             myUser.onChangeUser(loginedUser as User);
             if (loginedUser.role === 'kol') {
                 myKol.onChangeKol(loginedUser.kol);
@@ -64,33 +65,9 @@ const LoginModal = () => {
             }
             localStorage.setItem("6live_email", loginedUser.email);
             loginModal.onClose();
+            router.push("/");
         }
     }
-
-    const onSubmit = () => { };
-
-    // const onSubmit: SubmitHandler<FieldValues> =
-    //     (data) => {
-    //         setIsLoading(true);
-
-    //         signIn('credentials', {
-    //             ...data,
-    //             redirect: false,
-    //         })
-    //             .then((callback) => {
-    //                 setIsLoading(false);
-
-    //                 if (callback?.ok) {
-    //                     toast.success('Logged in');
-    //                     router.refresh();
-    //                     loginModal.onClose();
-    //                 }
-
-    //                 if (callback?.error) {
-    //                     toast.error(callback.error);
-    //                 }
-    //             });
-    //     }
 
     const onToggle = useCallback(() => {
         loginModal.onClose();
@@ -100,8 +77,8 @@ const LoginModal = () => {
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading
-                title="Welcome back"
-                subtitle="Login to your account!"
+                title="Chào mừng trở lại"
+                subtitle="Đăng nhập!"
             />
             <Input
                 id="email"
@@ -149,7 +126,7 @@ const LoginModal = () => {
             title="Login"
             actionLabel="Continue"
             onClose={ loginModal.onClose }
-            onSubmit={ handleSubmit(onSubmit) }
+            onSubmit={ () => { } }
             body={ bodyContent }
             footer={ footerContent }
         />
