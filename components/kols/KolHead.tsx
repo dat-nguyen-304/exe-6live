@@ -1,21 +1,16 @@
 import Image from "next/image";
 import { Industry, Kol } from "@/types";
-import { platforms as platfs } from '@/utils/variables';
-import HeartButton from "../HeartButton";
-import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
-import { AiFillInstagram } from "react-icons/ai";
-import { SiTiktok } from "react-icons/si";
-import { genders, industries, locations } from "@/utils/variables";
+import { platforms as platfs, genders, industries, locations } from "@/utils/variables";
+import useUser from "@/hooks/useUser";
 
 interface ListingHeadProps {
     id: string;
     currentKol: Kol
 }
 
-const ListingHead: React.FC<ListingHeadProps> = ({
-    id,
-    currentKol
-}) => {
+const ListingHead: React.FC<ListingHeadProps> = ({ id, currentKol }) => {
+    const myUser = useUser();
+    const role = myUser.user?.role;
 
     return (
         <div className="flex-[1] px-8">
@@ -29,50 +24,48 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                         alt="Image"
                     />
                     <div className="ml-8">
-                        <div className="text-md font-light text-neutral-500">
-                            Họ và tên: <span className="font-normal text-[#333]">{ currentKol?.name }</span>
+                        <div className="text-md font-light">
+                            <span className='font-bold text-md'>Họ và tên: </span>
+                            <span className="font-normal text-[#333]">{ currentKol?.name }</span>
                         </div>
-                        <div className="text-md font-light text-neutral-500 mt-2">
+                        <div className="text-md font-light mt-2">
                             {
                                 locations.map(location => (
                                     location.value === currentKol?.location && (
-                                        <span key={ location.value }>Địa chỉ:
+                                        <span key={ location.value }>
+                                            <span className='font-bold text-md'>Địa chỉ: </span>
                                             <span className="ml-2 font-normal text-[#333]">{ location.label }</span>
                                         </span>
                                     )
                                 ))
                             }
                         </div>
-                        <div className="text-md font-light text-neutral-500 mt-2">
-                            Mức lương tham khảo: <span className="font-normal text-[#333]">
+                        <div className="text-md font-light mt-2">
+                            <span className='font-bold text-md'>Mức lương tham khảo: </span>
+                            <span className="font-normal text-[#333]">
                                 { currentKol?.salary && new Intl.NumberFormat('vi-VN').format(parseInt(currentKol.salary)) } VNĐ
                             </span>
                         </div>
                     </div>
                 </div>
-
-                <div className="absolute top-5 left-[160px]">
-                    <HeartButton
-                        kolId={ id }
-                        currentKol={ null }
-                    />
-                </div>
             </div>
             <hr className="mt-4" />
 
-            <div className="flex flex-row items-center gap-16 font-light text-neutral-500 my-4">
+            <div className="flex flex-row items-center gap-16 font-light my-4">
                 <div>
-                    Giới tính: {
+                    <span className='font-bold text-md'>Giới tính: </span>
+                    {
                         genders.map(gender => (
                             gender.value === currentKol?.gender && gender.label
                         ))
                     }
                 </div>
                 <div>
-                    Tuổi: { currentKol?.age }
+                    <span className='font-bold text-md'>Tuổi: </span>
+                    { currentKol?.age }
                 </div>
                 <div>
-                    <span className="mr-2">Trạng thái:</span>
+                    <span className='font-bold text-md'>Trạng thái: </span>
                     { currentKol?.status ?
                         <span className="text-green-400">Đang tìm việc</span> :
                         <span className="text-rose-400">Đang tắt</span>
@@ -80,18 +73,25 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 
                 </div>
             </div>
+            {
+                (role as string !== "guest") &&
+                <>
+                    <hr />
+                    <div className="flex flex-row items-center gap-4 font-light my-4">
+                        <div>
+                            <span className='font-bold text-md'>SĐT: </span>
+                            { currentKol?.phone }
+                        </div>
+                        <div>
+                            <span className='font-bold text-md'>Email: </span>
+                            { currentKol?.email }
+                        </div>
+                    </div></>
+            }
+
             <hr />
-            <div className="flex flex-row items-center gap-4 font-light text-neutral-500 my-4">
-                <div>
-                    SĐT: { currentKol?.phone }
-                </div>
-                <div>
-                    Email: { currentKol?.email }
-                </div>
-            </div>
-            <hr />
-            <div className="my-4 font-light text-neutral-500">
-                <span className="mr-4">Ngành:</span>
+            <div className="my-4 font-light">
+                <span className='font-bold text-md mr-4'>Trạng thái: </span>
                 { industries.map((industry) => (
                     (currentKol?.industries as Industry[]).includes(industry.value as Industry) && (
                         <div key={ industry.value } className="inline-block py-1 px-2 rounded-xl text-sm border-2 border-gray">
@@ -103,7 +103,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             <hr />
 
             <div className="flex items-center mt-4">
-                <span className="font-light text-neutral-500 mr-[200px]">Cách kênh tham gia:</span>
+                <span className="font-bold text-md mr-[200px]">Cách kênh tham gia:</span>
                 <div className="flex gap-4 items-center">
                     {
                         (!currentKol.platforms || currentKol.platforms.length === 0) ?

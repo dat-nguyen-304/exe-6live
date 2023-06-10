@@ -15,13 +15,7 @@ export default async function handler(
     if (req.method === "POST") {
       await addCampaign(req.body);
     } else if (req.method === "GET") {
-      let condition = {};
-      if (req.query.companyId)
-        condition = {
-          where: {
-            companyId: req.query.companyId,
-          },
-        };
+      const condition = getParams(req);
       await getCampaigns(condition);
     } else {
       res.status(404).json({ err: 1, msg: "Not found!" });
@@ -37,7 +31,38 @@ export default async function handler(
     return res.status(200).json(campaign);
   }
   async function getCampaigns(condition: any) {
-    const campaigns = await prisma.campaign.findMany(condition);
+    const campaigns = await prisma.campaign.findMany({
+      where: {
+        ...condition,
+        status: true,
+      },
+    });
     return res.status(200).json(campaigns);
   }
+}
+
+function getParams(req: NextApiRequest) {
+  let condition = {};
+  let properties = ["industry", "companyId"];
+  for (const property of properties) {
+    if (req.query[property])
+      condition = {
+        ...condition,
+        [property]: req.query[property],
+      };
+  }
+
+  properties = ["gender", "location"];
+  for (const property of properties) {
+    if (req.query[property]) {
+      condition = {
+        ...condition,
+        [`${property}s`]: {
+          has: req.query[property],
+        },
+      };
+    }
+  }
+
+  return condition;
 }

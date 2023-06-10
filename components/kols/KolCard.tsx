@@ -1,11 +1,9 @@
 import { Industry, Kol } from "@/types/index";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import HeartButton from "../HeartButton";
 import { industries } from "@/utils/variables";
 import { locations } from "@/utils/variables";
 import { platforms as platfs } from '@/utils/variables';
-import { useMemo } from "react";
 
 interface KolCardProps {
     kol: Kol;
@@ -29,12 +27,6 @@ const KolCard: React.FC<KolCardProps> = ({ kol, key }) => {
                         quality={ 100 }
                         className="object-cover w-full h-[240px] rounded-xl group-hover:scale-110 transition"
                     />
-                    <div className="absolute top-3 right-3">
-                        <HeartButton
-                            kolId={ kol.id }
-                            currentKol={ kol }
-                        />
-                    </div>
                 </div>
                 <div className="font-semibold text-lg bg-green-50 flex justify-between items-baseline p-4">
                     <div className="text-green-700">

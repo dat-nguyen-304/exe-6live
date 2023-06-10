@@ -9,6 +9,10 @@ import Loading from '../Loading';
 import { format } from 'date-fns';
 import { Gender } from '@/types';
 import { Location } from '@/types';
+import axios from 'axios';
+import useKol from '@/hooks/useKol';
+import useSuccessModal from '@/hooks/useSuccessModal';
+import SuccessModal from '../modals/SuccessModal';
 
 interface CampaignDetailProps {
     campaign: Campaign,
@@ -16,6 +20,8 @@ interface CampaignDetailProps {
 }
 
 const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) => {
+    const myKol = useKol();
+    const successModal = useSuccessModal();
     const industry = useMemo(() => {
         return industries.filter(ind => ind.value === campaign?.industry)[0].label;
     }, [campaign?.industry]);
@@ -57,6 +63,18 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
         return result.slice(2);
     }
 
+    const sendEmail = async () => {
+        const res = await axios.post("/api/emails", {
+            kol: myKol.kol,
+            campaign, company
+        });
+        if (res.data.msg === "success") {
+            console.log("YES");
+            successModal.onContent("Đã gửi thông tin cho doanh nghiệp");
+            successModal.onOpen();
+        }
+    }
+
     return (
         <>
             <div className="flex p-8 rounded-xl justify-between border-2 bg-white shadow-lg">
@@ -77,7 +95,7 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                     </div>
                 </div>
                 <div className='flex flex-col mr-4'>
-                    <button className='border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
+                    <button onClick={ sendEmail } className='border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
                         <FaRegPaperPlane />
                         <span className='ml-2'>Ứng tuyển ngay</span>
                     </button>
@@ -85,6 +103,7 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                         <AiOutlineHeart size={ 20 } />
                         <span className='ml-2'>Lưu tin</span>
                     </button>
+                    <SuccessModal />
                 </div>
             </div>
             <div className="mt-4 bg-white shadow-lg  border-2 py-10 px-8 rounded-xl">
@@ -118,7 +137,7 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                     <p>{ campaign.benefit }</p>
                 </div>
                 <div className='mt-8 flex'>
-                    <button className='mr-4 border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
+                    <button onClick={ sendEmail } className='mr-4 border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
                         <FaRegPaperPlane />
                         <span className='ml-2'>Ứng tuyển ngay</span>
                     </button>

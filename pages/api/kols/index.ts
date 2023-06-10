@@ -16,8 +16,12 @@ export default async function handler(
     if (req.method === "PUT") {
       await updateKol(req.body);
     } else if (req.method === "GET") {
+      const condition = getParams(req);
+      // console.log(condition);
+
       const kols = await prisma.kol.findMany({
         where: {
+          ...condition,
           status: true,
         },
       });
@@ -43,4 +47,58 @@ export default async function handler(
     });
     return res.status(200).json(kol);
   }
+}
+
+function getParams(req: NextApiRequest) {
+  const properties = ["location", "gender"];
+  let condition = {};
+  for (const property of properties) {
+    if (req.query[property])
+      condition = {
+        ...condition,
+        [property]: req.query[property],
+      };
+  }
+
+  if (req.query.industry) {
+    condition = {
+      ...condition,
+      industries: {
+        has: req.query.industry,
+      },
+    };
+  }
+
+  const ageCondition = getCondition(
+    req.query.minAge as string,
+    req.query.maxAge as string,
+    "age"
+  );
+
+  const salaryCondition = getCondition(
+    req.query.minSalary as string,
+    req.query.maxSalary as string,
+    "salary"
+  );
+
+  return {
+    ...condition,
+    ...salaryCondition,
+    ...ageCondition,
+  };
+}
+
+function getCondition(min: string, max: string, field: string) {
+  let minValue: number, maxValue: number;
+  if (min) minValue = parseInt(min);
+  else minValue = -1;
+
+  if (max) maxValue = parseInt(max);
+  else maxValue = 1e18;
+  return {
+    [field]: {
+      gte: minValue,
+      lte: maxValue,
+    },
+  };
 }

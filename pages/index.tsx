@@ -74,7 +74,7 @@ const Home = () => {
                     className='absolute top-[280px]'
                 />
                 <Image src="/images/bg-right.png" width={ 120 } height={ 600 } alt='img'
-                    className='absolute top-[200px] z-10 right-[0px]'
+                    className='absolute top-[200px] right-[0px] z-[1]'
                 />
                 <section className='bg-[#f2fbf6] py-[40px]'>
                     <div>

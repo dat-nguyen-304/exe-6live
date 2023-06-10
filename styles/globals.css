@@ -35,7 +35,3 @@ body,
 .modal-delete > div {
   bottom: 20vh;
 }
-
-.gif {
-  animation-iteration-count: 1;
-}

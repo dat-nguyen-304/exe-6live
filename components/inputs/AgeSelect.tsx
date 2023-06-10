@@ -9,7 +9,7 @@ let ages: Age[] = [];
 for (let age = 18; age <= 60; age++) {
     ages.push({
         label: `${age} tuổi`,
-        value: `${age} tuổi`
+        value: `${age}`
     })
 }
 

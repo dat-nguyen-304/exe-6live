@@ -11,7 +11,7 @@ let prices: Price[] = [];
 for (let price = 1; price <= 50; price++) {
     prices.push({
         label: `${price}.000.000`,
-        value: `${price}`
+        value: `${price * 1000000}`
     });
     if (price === 3) price++;
     if (price >= 5 && price < 20) price += 4;
@@ -86,7 +86,7 @@ const PriceSelect: React.FC<PriceSelectProps> = ({
                     }),
                 } }
                 placeholder="Đến giá"
-                className='w-[140px] z-0'
+                className='w-[140px]'
                 options={ prices }
                 value={ valueEnd }
                 onChange={ (value) => onChangeEnd(value as PriceSelectValue) }

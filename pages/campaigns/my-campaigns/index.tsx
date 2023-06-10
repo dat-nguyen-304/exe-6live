@@ -11,7 +11,7 @@ import DeleteModal from '@/components/modals/DeleteModal';
 
 export default function Posts() {
 
-  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [campaigns, setCampaigns] = useState<Campaign[] | null>(null);
   const myCompany = useCompany();
   const [company, setCompany] = useState<Company | null>(myCompany.company);
   const [deleteCampaignId, setDeleteCampaignId] = useState<string>("");
@@ -31,20 +31,22 @@ export default function Posts() {
 
   const deleteCampaign = async (campaignId: string) => {
     const res = await axios.delete(`/api/campaigns/${campaignId}`);
-    console.log(res.data);
-    setCampaigns(prevCampaigns => prevCampaigns.filter(campaign => campaign.id !== campaignId))
+    if (campaigns) {
+      let newCampaigns = [...campaigns];
+      newCampaigns = newCampaigns.filter(campaign => campaign.id !== campaignId);
+    }
   }
 
 
   return (
     <Layout>
       <Container>
-        { company ?
+        { (company || campaigns === null) ?
           (<div className="pt-24 grid grid-cols-1 sm:grid-cols-2 gap-8">
             {
-              campaigns.length === 0 ?
+              campaigns?.length === 0 ?
                 <div className='flex justify-center items-center'>Bạn chưa đăng chiến dịch nào</div>
-                : campaigns.map((campaign) => (
+                : campaigns?.map((campaign) => (
                   <CampaignCard
                     key={ campaign.id }
                     campaign={ campaign }

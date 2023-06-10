@@ -1,21 +1,17 @@
 import Image from "next/image";
 import { Company } from "@/types";
 import { platforms as platfs, industries as inds } from '@/utils/variables';
-import HeartButton from "../HeartButton";
-import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
-import { AiFillInstagram } from "react-icons/ai";
-import { SiTiktok } from "react-icons/si";
 import { differenceInDays, differenceInMonths, differenceInYears } from "date-fns";
+import useUser from "@/hooks/useUser";
 
 interface ListingHeadProps {
     id: string;
     company: Company
 }
 
-const ListingHead: React.FC<ListingHeadProps> = ({
-    id,
-    company
-}) => {
+const ListingHead: React.FC<ListingHeadProps> = ({ id, company }) => {
+    const myUser = useUser();
+    const role = myUser.user?.role;
 
     const registeredDate = () => {
         const years = differenceInYears(new Date(), new Date(company.createdAt));
@@ -42,29 +38,38 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                         alt="Image"
                     />
                     <div className="ml-8 mt-8">
-                        <div className="text-md font-light text-neutral-500">
-                            Tên công ty: <span className="font-normal text-[#333]">{ company.name }</span>
+                        <div className="text-md font-light">
+                            <span className='font-bold text-md'>Tên công ty: </span>
+                            <span className="font-normal text-[#333]">{ company.name }</span>
                         </div>
-
-                        <div className="text-md font-light text-neutral-500 mt-2">
-                            Đã tham gia: <span className="font-normal text-[#333]">{ registeredDate() }</span>
+                        <div className="text-md font-light mt-2">
+                            <span className='font-bold text-md'>Đã tham gia: </span>
+                            <span className="font-normal text-[#333]">{ registeredDate() }</span>
                         </div>
                     </div>
                 </div>
             </div>
             <hr className="mt-4" />
+            {
+                (role as string !== "guest") &&
+                <>
+                    <hr />
+                    <div className="flex flex-row items-center gap-4 font-light my-4">
+                        <div>
+                            <span className='font-bold text-md'>SĐT: </span>
+                            { company.phone }
+                        </div>
+                        <div>
+                            <span className='font-bold text-md'>Email: </span>
+                            { company.email }
+                        </div>
+                    </div>
+                </>
+            }
+
             <hr />
-            <div className="flex flex-row items-center gap-4 font-light text-neutral-500 my-4">
-                <div>
-                    SĐT: { company.phone }
-                </div>
-                <div>
-                    Email: { company.email }
-                </div>
-            </div>
-            <hr />
-            <div className="font-light text-neutral-500 my-4">
-                <div>Các chi nhánh:</div>
+            <div className="font-light my-4">
+                <span className='block font-bold text-md'>Các chi nhánh: </span>
                 <ul>
                     {
                         company.addresses?.map((address, index) => (
@@ -77,12 +82,13 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                 </ul>
             </div>
             <hr />
-            <div className="text-md font-light text-neutral-500 my-4">
-                Giới thiệu: { company.description }
+            <div className="text-md font-light my-4">
+                <span className='font-bold text-md'>Giới thiệu: </span>
+                { company.description }
             </div>
             <hr />
             <div className="flex items-center mt-4">
-                <span className="font-light text-neutral-500">Cách kênh liên hệ khác:</span>
+                <span className="font-bold text-md">Cách kênh liên hệ khác:</span>
                 { platfs.map((platf: any) => (
                     platf.icon && company.platforms?.includes(platf.value) &&
                     <div key={ platf.value } className="cursor-pointer inline-flex mx-2 gap-4 py-1 px-2 rounded-xl text-sm border-2 border-gray">

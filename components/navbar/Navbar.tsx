@@ -4,7 +4,6 @@ import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
 import { Company, Kol, User } from '../../types/index';
-import Filter from './Filter';
 
 interface NavbarProps {
     currentUser: Kol | Company | null
@@ -23,7 +22,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                     </div>
                 </Container>
             </div>
-            <Filter />
         </div>
     )
 }
