@@ -3,7 +3,7 @@ import Layout from '@/components/Header'
 import Loading from '@/components/Loading'
 import CampaignDetail from '@/components/campaigns/CampaignDetail'
 import Error404 from '@/pages/404'
-import { Campaign, Company } from '@/types'
+import { Campaign, Company, UserRole } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -37,7 +37,7 @@ const CampaignDetailRoot: React.FC = () => {
     if (error) return <Error404 />
 
     return (
-        <Layout>
+        <Layout roles={ [UserRole.company, "guest"] }>
             <div className='bg-[#f0f0f0]'>
                 <Container>
                     <div className='mt-[-40px] mb-[-80px] py-[40px] px-[120px]'>

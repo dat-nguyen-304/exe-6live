@@ -28,7 +28,7 @@ const PackageList: React.FC<PackageListProps> = ({ premiumPackages, selectedPack
                     >
                         <div className="flex justify-between items-center">
                             <div className="font-bold text-xl">{ premiumPackage.numberOfMonth } tháng</div>
-                            <input onClick={ () => setSelectedPackage(index) } checked={ index === selectedPackage } type='radio' name="premiumPackageId" id={ `p-${index}` } className='block w-[20px] h-[20px]' />
+                            <input onChange={ () => setSelectedPackage(index) } checked={ index === selectedPackage } type='radio' name="premiumPackageId" id={ `p-${index}` } className='block w-[20px] h-[20px]' />
                         </div>
                         <div className="flex items-baseline mt-4">
                             <p className='text-[#087526] font-semibold text-lg'>{ premiumPackage.price.toLocaleString('vi-VN') } VNĐ</p>

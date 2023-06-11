@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import CompanyClient from "@/components/companies/CompanyClient";
 import Layout from '@/components/Header';
-import { Company } from "@/types";
+import { Company, UserRole } from "@/types";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import Container from "@/components/Container";
 
 const ListingPage = () => {
     const router = useRouter();
     const { companyId } = router.query;
-    console.log("companyId", companyId);
     const [company, setCompany] = useState<Company | null>(null);
     useEffect(() => {
         const getCompanyDetail = async () => {
@@ -20,15 +20,16 @@ const ListingPage = () => {
             getCompanyDetail();
     }, [companyId]);
     return (
-        <Layout>
-            {
-                company ?
-                    <CompanyClient
-                        company={ company }
-                    />
-                    : <Loading />
-            }
-
+        <Layout roles={ [UserRole.kol, "guest"] }>
+            <Container>
+                {
+                    company ?
+                        <CompanyClient
+                            company={ company }
+                        />
+                        : <Loading />
+                }
+            </Container>
         </Layout>
     );
 }

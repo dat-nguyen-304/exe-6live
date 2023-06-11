@@ -1,13 +1,15 @@
 import Container from '@/components/Container';
 import KolCard from '@/components/kols/KolCard';
 import Layout from '@/components/Header';
-import { Kol } from '@/types';
+import { Kol, UserRole } from '@/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Loading from '@/components/Loading';
 import KolFilter from '@/components/kols/KolFilter';
+import useCompany from '@/hooks/useCompany';
 
 const KolList: React.FC = () => {
+    const myCompany = useCompany();
     const [kols, setKols] = useState<Kol[] | null>(null);
     useEffect(() => {
         const getKols = async () => {
@@ -17,8 +19,13 @@ const KolList: React.FC = () => {
         getKols();
     }, [])
     return (
-        <Layout>
-            <KolFilter setKols={ setKols } />
+        <Layout roles={ [UserRole.company, "guest"] }>
+            {
+                myCompany.company ?
+                    <KolFilter setKols={ setKols } />
+                    :
+                    <div className='mt-[-60px]'></div>
+            }
             <Container>
                 {
                     kols !== null ?
@@ -29,6 +36,7 @@ const KolList: React.FC = () => {
                                     kols.map((kol: Kol) => (
                                         <KolCard
                                             key={ kol.id }
+                                            id={ kol.id }
                                             kol={ kol }
                                         />
                                     ))

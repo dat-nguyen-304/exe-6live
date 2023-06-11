@@ -25,7 +25,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, currentKol }) => {
                     />
                     <div className="ml-8">
                         <div className="text-md font-light">
-                            <span className='font-bold text-md'>Họ và tên: </span>
+                            <span className='font-bold text-md'>Tên: </span>
                             <span className="font-normal text-[#333]">{ currentKol?.name }</span>
                         </div>
                         <div className="text-md font-light mt-2">

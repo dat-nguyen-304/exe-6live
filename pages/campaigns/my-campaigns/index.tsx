@@ -3,7 +3,7 @@ import Layout from '@/components/Header';
 import CampaignCard from '@/components/campaigns/CampaignCard'
 import { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Campaign, Company } from '@/types';
+import { Campaign, Company, UserRole } from '@/types';
 import useCompany from '@/hooks/useCompany';
 import Error404 from '@/pages/404';
 import Loading from '@/components/Loading';
@@ -39,7 +39,7 @@ export default function Posts() {
 
 
   return (
-    <Layout>
+    <Layout roles={ [UserRole.company] }>
       <Container>
         { (company || campaigns === null) ?
           (<div className="pt-24 grid grid-cols-1 sm:grid-cols-2 gap-8">

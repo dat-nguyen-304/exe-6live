@@ -23,19 +23,17 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
     const [isLoading, setIsLoading] = useState(false);
 
     return (
-        <Container>
-            <div>
-                <div className="flex justify-around gap-8 mt-8">
-                    <CompanyHead
-                        id={ company.id }
-                        company={ company }
-                    />
-                    <CompanyInfo
-                        company={ company }
-                    />
-                </div>
+        <div>
+            <div className="flex justify-around gap-8 mt-8">
+                <CompanyHead
+                    id={ company.id }
+                    company={ company }
+                />
+                <CompanyInfo
+                    company={ company }
+                />
             </div>
-        </Container>
+        </div>
     )
 }
 

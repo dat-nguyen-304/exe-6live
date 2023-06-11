@@ -1,13 +1,15 @@
 import Container from '@/components/Container';
 import Layout from '@/components/Header';
 import CampaignCard from '@/components/campaigns/CampaignCard'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Campaign } from '@/types';
+import { Campaign, UserRole } from '@/types';
 import Loading from '@/components/Loading';
 import CampaignFilter from '@/components/campaigns/CampaignFilter';
+import useKol from '@/hooks/useKol';
 
 export default function Posts() {
+    const myKol = useKol();
     const [campaigns, setCampaigns] = useState<Campaign[] | null>(null);
     useEffect(() => {
         const getCampaigns = async () => {
@@ -18,8 +20,13 @@ export default function Posts() {
     }, []);
 
     return (
-        <Layout>
-            <CampaignFilter setCampaigns={ setCampaigns } />
+        <Layout roles={ [UserRole.kol, "guest"] }>
+            {
+                myKol.kol ?
+                    <CampaignFilter setCampaigns={ setCampaigns } />
+                    :
+                    <div className='mt-[-60px]'></div>
+            }
             <Container>
                 {
                     campaigns !== null ?
@@ -37,7 +44,6 @@ export default function Posts() {
                         :
                         <Loading />
                 }
-
             </Container>
         </Layout>
     )

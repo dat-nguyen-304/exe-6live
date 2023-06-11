@@ -5,6 +5,7 @@ import { BsChevronDown } from "react-icons/bs";
 import Image from 'next/image';
 import Layout from '@/components/Header';
 import Link from 'next/link';
+import { UserRole } from '@/types';
 
 const Home = () => {
     const companyCount = useRef<HTMLSpanElement>(null);
@@ -68,7 +69,7 @@ const Home = () => {
     }, [isKolCountInView])
 
     return (
-        <Layout>
+        <Layout roles={ [UserRole.company, UserRole.kol, "guest"] }>
             <div id="home" className='mt-[-40px] relative'>
                 <Image src="/images/bg-left.png" width={ 120 } height={ 600 } alt='img'
                     className='absolute top-[280px]'

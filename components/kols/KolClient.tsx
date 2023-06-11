@@ -1,31 +1,26 @@
-import Container from "@/components/Container";
 import KolHead from "@/components/kols/KolHead";
 import KolInfo from "@/components/kols/KolInfo";
 import { Kol } from "@/types";
 
 interface KolClientProps {
-    key: string;
+    id: string;
     currentKol: Kol;
 }
 
-const KolClient: React.FC<KolClientProps> = ({
-    key, currentKol
-}) => {
+const KolClient: React.FC<KolClientProps> = ({ id, currentKol }) => {
     return (
-        <Container>
-            <div>
-                <div className="flex justify-around gap-8 mt-8">
-                    <KolHead
-                        id={ key }
-                        currentKol={ currentKol }
-                    />
-                    <KolInfo
-                        id={ key }
-                        description={ currentKol?.description as string }
-                    />
-                </div>
+        <div>
+            <div className="flex justify-around gap-8 mt-8">
+                <KolHead
+                    id={ id }
+                    currentKol={ currentKol }
+                />
+                <KolInfo
+                    id={ id }
+                    description={ currentKol?.description as string }
+                />
             </div>
-        </Container>
+        </div>
     )
 }
 

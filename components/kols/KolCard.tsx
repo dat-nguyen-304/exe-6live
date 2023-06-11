@@ -7,14 +7,14 @@ import { platforms as platfs } from '@/utils/variables';
 
 interface KolCardProps {
     kol: Kol;
-    key: string
+    id: string
 }
 
-const KolCard: React.FC<KolCardProps> = ({ kol, key }) => {
+const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
     const router = useRouter();
 
     return (
-        <div key={ key } className="col-span-1 cursor-pointer group border-2 border-green-200 shadow-lg rounded-xl overflow-hidden"
+        <div key={ id } className="col-span-1 cursor-pointer group border-2 border-green-200 shadow-lg rounded-xl overflow-hidden"
             onClick={ () => router.push(`/kols/${kol.id}`) }
         >
             <div className="flex flex-col w-full">

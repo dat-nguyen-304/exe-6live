@@ -33,7 +33,7 @@ const Search = () => {
             path: "/campaigns/my-campaigns"
         }, {
             name: "Đăng ký gói",
-            path: "/packages"
+            path: "/payment"
         }
     ];
     else if (role === "kol") menu = [
@@ -46,7 +46,7 @@ const Search = () => {
             path: "/campaigns"
         }, {
             name: "Đăng ký gói",
-            path: "/packages"
+            path: "/payment"
         }
     ];
     else menu = [

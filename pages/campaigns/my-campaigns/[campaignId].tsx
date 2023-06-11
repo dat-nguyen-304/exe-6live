@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Container from '@/components/Container';
 import Layout from '@/components/Header';
 import axios from 'axios';
-import { Campaign } from '@/types';
+import { Campaign, UserRole } from '@/types';
 import Loading from '@/components/Loading';
 import UpdateCampaign from '@/components/campaigns/UpdateCampaign';
 
@@ -24,7 +24,7 @@ const UpdateCampaignRoot = () => {
     }, [campaignId]);
 
     return (
-        <Layout>
+        <Layout roles={ [UserRole.company] }>
             <Container>
                 {
                     campaign !== null ?

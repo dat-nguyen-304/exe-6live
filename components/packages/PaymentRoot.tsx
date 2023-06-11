@@ -10,7 +10,7 @@ import useUser from '@/hooks/useUser';
 import useSuccessModal from '@/hooks/useSuccessModal';
 import SuccessModal from '../modals/SuccessModal';
 
-const PaymentRoot = () => {
+const PaymentRoot: React.FC = () => {
     const myUser = useUser();
     const [bank, setBank] = useState<string>("tpbank");
     const [premiumPackages, setPremiumPackages] = useState<Package[]>([]);
