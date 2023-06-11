@@ -37,7 +37,7 @@ const CampaignDetailRoot: React.FC = () => {
     if (error) return <Error404 />
 
     return (
-        <Layout roles={ [UserRole.company, "guest"] }>
+        <Layout roles={ [UserRole.kol, UserRole.company, "guest"] }>
             <div className='bg-[#f0f0f0]'>
                 <Container>
                     <div className='mt-[-40px] mb-[-80px] py-[40px] px-[120px]'>

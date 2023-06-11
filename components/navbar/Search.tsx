@@ -55,11 +55,12 @@ const Search = () => {
             path: "/"
         },
         {
-            name: "Chiến dịch",
-            path: "/campaigns"
-        }, {
             name: "Kols",
             path: "/kols"
+        },
+        {
+            name: "Chiến dịch",
+            path: "/campaigns"
         }
     ];
 

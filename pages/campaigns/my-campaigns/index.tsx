@@ -34,6 +34,7 @@ export default function Posts() {
     if (campaigns) {
       let newCampaigns = [...campaigns];
       newCampaigns = newCampaigns.filter(campaign => campaign.id !== campaignId);
+      setCampaigns(newCampaigns);
     }
   }
 

@@ -34,7 +34,6 @@ export default async function handler(
     const campaigns = await prisma.campaign.findMany({
       where: {
         ...condition,
-        status: true,
       },
     });
     return res.status(200).json(campaigns);
@@ -43,12 +42,20 @@ export default async function handler(
 
 function getParams(req: NextApiRequest) {
   let condition = {};
-  let properties = ["industry", "companyId"];
+  if (req.query.companyId) {
+    condition = {
+      ...condition,
+      companyId: req.query.companyId,
+    };
+  }
+
+  let properties = ["industry"];
   for (const property of properties) {
     if (req.query[property])
       condition = {
         ...condition,
         [property]: req.query[property],
+        status: true,
       };
   }
 
@@ -60,6 +67,7 @@ function getParams(req: NextApiRequest) {
         [`${property}s`]: {
           has: req.query[property],
         },
+        status: true,
       };
     }
   }

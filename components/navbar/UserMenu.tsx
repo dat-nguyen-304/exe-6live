@@ -6,8 +6,10 @@ import MenuItem from "./MenuItem";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
 import { useRouter } from "next/navigation";
-import { Company, Kol, User } from "@/types";
+import { Company, Kol, User, UserRole } from "@/types";
 import useUser from "@/hooks/useUser";
+import useKol from "@/hooks/useKol";
+import useCompany from "@/hooks/useCompany";
 
 interface UserMenuProps {
     currentUser?: Kol | Company | null
@@ -22,9 +24,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         setIsOpen((value) => !value)
     }, []);
     const myUser = useUser();
+    const myKol = useKol();
+    const myCompany = useCompany();
 
     const handleLogout = () => {
         myUser.onChangeUser(null);
+        if (myUser.user?.role === UserRole.company) {
+            myCompany.onChangeCompany(null);
+        } else myKol.onChangeKol(null);
         localStorage.removeItem("6live_email");
         localStorage.removeItem("6live_role");
         router.push("/");

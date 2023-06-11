@@ -2,7 +2,7 @@ import { Campaign, Company } from '@/types';
 import Image from 'next/image'
 import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
-import { AiOutlineClockCircle, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { locations as locats, genders as gends, industries } from '@/utils/variables';
 import Loading from '../Loading';
@@ -95,15 +95,17 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                     </div>
                 </div>
                 <div className='flex flex-col mr-4'>
-                    <button onClick={ sendEmail } className='border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
-                        <FaRegPaperPlane />
-                        <span className='ml-2'>Ứng tuyển ngay</span>
-                    </button>
-                    <button className='border-[#00b14f] border-2 mt-2 justify-center text-[#00b14f] py-2 px-4 rounded-lg text-sm flex items-center'>
-                        <AiOutlineHeart size={ 20 } />
-                        <span className='ml-2'>Lưu tin</span>
-                    </button>
-                    <SuccessModal />
+                    {
+                        myKol.kol &&
+                        <>
+                            <button onClick={ sendEmail } className='border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
+                                <FaRegPaperPlane />
+                                <span className='ml-2'>Ứng tuyển ngay</span>
+                            </button>
+                            <SuccessModal />
+                        </>
+                    }
+
                 </div>
             </div>
             <div className="mt-4 bg-white shadow-lg  border-2 py-10 px-8 rounded-xl">
@@ -136,16 +138,16 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                     <p className='my-4 font-bold text-md'>- Quyền lợi:</p>
                     <p>{ campaign.benefit }</p>
                 </div>
-                <div className='mt-8 flex'>
-                    <button onClick={ sendEmail } className='mr-4 border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
-                        <FaRegPaperPlane />
-                        <span className='ml-2'>Ứng tuyển ngay</span>
-                    </button>
-                    <button className='border-[#00b14f] border-2 justify-center text-[#00b14f] py-2 px-4 rounded-lg text-sm flex items-center'>
-                        <AiOutlineHeart size={ 20 } />
-                        <span className='ml-2'>Lưu tin</span>
-                    </button>
-                </div>
+                {
+                    myKol.kol &&
+                    <div className='mt-8 flex'>
+
+                        <button onClick={ sendEmail } className='mr-4 border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
+                            <FaRegPaperPlane />
+                            <span className='ml-2'>Ứng tuyển ngay</span>
+                        </button>
+                    </div>
+                }
             </div>
         </>
     )

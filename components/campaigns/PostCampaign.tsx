@@ -51,6 +51,7 @@ const PostCampaign: React.FC = () => {
         handleSubmit,
         setValue,
         watch,
+        reset,
         formState: {
             errors,
         }
@@ -79,6 +80,10 @@ const PostCampaign: React.FC = () => {
         const campaign = await axios.post("/api/campaigns", data);
         toast.success("Thêm chiến dịch thành công");
         console.log(campaign);
+        reset();
+        setSelectedDate(null);
+        handleAllAge();
+        handleAllSalary();
     }
 
     const companyId = watch('companyId');
