@@ -13,6 +13,7 @@ import axios from 'axios';
 import useKol from '@/hooks/useKol';
 import useSuccessModal from '@/hooks/useSuccessModal';
 import SuccessModal from '../modals/SuccessModal';
+import parse from 'html-react-parser';
 
 interface CampaignDetailProps {
     campaign: Campaign,
@@ -132,11 +133,15 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                 </div>
                 <div>
                     <p className='my-4 font-bold text-md'>- Mô tả công việc:</p>
-                    <p>{ campaign.description }</p>
+                    <div>
+                        { parse(campaign.description) }
+                    </div>
                 </div>
                 <div className="">
                     <p className='my-4 font-bold text-md'>- Quyền lợi:</p>
-                    <p>{ campaign.benefit }</p>
+                    <div>
+                        { parse(campaign.benefit) }
+                    </div>
                 </div>
                 {
                     myKol.kol &&

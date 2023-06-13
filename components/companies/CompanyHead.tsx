@@ -3,6 +3,7 @@ import { Company } from "@/types";
 import { platforms as platfs, industries as inds } from '@/utils/variables';
 import { differenceInDays, differenceInMonths, differenceInYears } from "date-fns";
 import useUser from "@/hooks/useUser";
+import parse from 'html-react-parser';
 
 interface ListingHeadProps {
     id: string;
@@ -75,7 +76,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, company }) => {
                         company.addresses?.map((address, index) => (
                             address &&
                             <li key={ index } className="text-md ml-4">
-                                - { address }
+                                { address }
                             </li>
                         ))
                     }
@@ -84,7 +85,9 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, company }) => {
             <hr />
             <div className="text-md font-light my-4">
                 <span className='font-bold text-md'>Giới thiệu: </span>
-                { company.description }
+                <div className='prose'>
+                    { parse(company.description as string) }
+                </div>
             </div>
             <hr />
             <div className="flex items-center mt-4">

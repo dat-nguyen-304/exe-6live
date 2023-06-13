@@ -17,7 +17,7 @@ const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
         <div key={ id } className="col-span-1 cursor-pointer group border-2 border-green-200 shadow-xl rounded-xl overflow-hidden"
             onClick={ () => router.push(`/kols/${kol.id}`) }
         >
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full !h-full">
                 <div className="w-full relative overflow-hidden rounded-xl">
                     <Image
                         height={ 200 }
@@ -28,7 +28,7 @@ const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
                         className="object-cover w-full h-[220px] rounded-xl group-hover:scale-110 transition"
                     />
                 </div>
-                <div className="bg-gradient-to-br from-green-50 to-green-200">
+                <div className="bg-gradient-to-br from-green-50 to-green-200 flex-[1]">
                     <div className="font-semibold text-lg flex justify-between items-baseline p-4">
                         <div className="text-green-700">
                             { kol.name }
@@ -41,10 +41,10 @@ const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
                             )) }
                         </div>
                     </div>
-                    <div className="flex gap-2 font-light text-neutral-500 px-4">
+                    <div className="mx-[-2px] flex gap-2 font-light text-neutral-500 px-4">
                         { industries.map((industry) => (
                             (kol.industries as Industry[])?.includes(industry.value as Industry) && (
-                                <div key={ industry.value } className="inline-block border-green-400 py-1 px-2 rounded-xl text-[#333] text-sm border-2 border-gray">
+                                <div key={ industry.value } className="inline-block border-green-400 py-1 px-2 rounded-xl text-[#333] text-[0.82rem] border-2 border-gray">
                                     { industry.label }
                                 </div>
                             )

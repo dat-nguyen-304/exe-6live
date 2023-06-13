@@ -6,6 +6,10 @@ import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import useKol from '@/hooks/useKol';
 import { toast } from 'react-hot-toast';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const KolProfile = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -215,11 +219,11 @@ const KolProfile = () => {
                         </label>
                     </div>
                 </div>
-
             </div>
             <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lời giới thiệu</label>
-            <textarea { ...register("description") } id="message" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-            <div className="flex items-start my-6">
+            {/* <textarea { ...register("description") } id="message" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea> */ }
+            <ReactQuill className='h-[300px]' theme="snow" value={ description } onChange={ (value) => setCustomValue("description", value) } />
+            <div className="flex items-start my-16">
                 <div className="flex items-center h-5">
                     <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
                 </div>

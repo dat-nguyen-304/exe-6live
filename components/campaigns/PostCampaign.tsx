@@ -11,6 +11,10 @@ import { Calendar } from "react-date-range";
 import { addDays, format } from 'date-fns';
 import vi from 'date-fns/locale/vi';
 import { PatternFormat, NumberFormatBase } from 'react-number-format';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const PostCampaign: React.FC = () => {
     const myUser = useUser();
@@ -77,6 +81,10 @@ const PostCampaign: React.FC = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         // console.log(data);
+        if (!expiredDate) {
+            toast.error("Bạn cần cung cấp ngày hết hạn");
+            return;
+        }
         const campaign = await axios.post("/api/campaigns", data);
         toast.success("Thêm chiến dịch thành công");
         console.log(campaign);
@@ -445,12 +453,14 @@ const PostCampaign: React.FC = () => {
 
             </div >
             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả chi tiết</label>
-            <textarea { ...register("description") } id="description" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả chi tiết..."></textarea>
+            {/* <textarea { ...register("description") } id="description" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả chi tiết..."></textarea> */ }
+            <ReactQuill className='h-[300px]' theme="snow" value={ description } onChange={ (value) => setCustomValue("description", value) } />
 
-            <label htmlFor="benefit" className="mt-4 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quyền lợi</label>
-            <textarea { ...register("benefit") } id="benefit" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quyền lợi..."></textarea>
+            <label htmlFor="benefit" className="mt-20 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quyền lợi</label>
+            {/* <textarea { ...register("benefit") } id="benefit" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quyền lợi..."></textarea> */ }
+            <ReactQuill className='h-[300px]' theme="snow" value={ benefit } onChange={ (value) => setCustomValue("benefit", value) } />
 
-            <div className="flex items-start my-6">
+            <div className="flex items-start my-16">
                 <div className="flex items-center h-5">
                     <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
                 </div>

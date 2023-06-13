@@ -24,6 +24,8 @@ export default async function handler(
         newExpiredDate = addDays(new Date(), months * 30);
       }
       await updateVipAccount(newExpiredDate, data.accountId);
+    } else if (req.method === "GET") {
+      await getAllPayments();
     } else {
       res.status(404).json({ err: 1, msg: "Not found!" });
     }
@@ -41,6 +43,11 @@ export default async function handler(
       data,
     });
     res.status(200).json(newPackage);
+  }
+
+  async function getAllPayments() {
+    const payments = await prisma.payment.findMany();
+    res.status(200).json(payments);
   }
 }
 
