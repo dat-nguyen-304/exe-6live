@@ -13,9 +13,15 @@ export default async function handler(
 ) {
   try {
     if (req.method === "GET") {
-      const user = await getUserByEmail(req.query.email as string);
-      if (user) return res.status(200).json(user);
-      else return res.status(200).json({ err: 1, msg: "Email does not exist" });
+      if (req.query.email) {
+        const user = await getUserByEmail(req.query.email as string);
+        if (user) return res.status(200).json(user);
+        else
+          return res.status(200).json({ err: 1, msg: "Email does not exist" });
+      } else {
+        const users = await getAllUsers();
+        return res.status(200).json(users);
+      }
     } else if (req.method === "POST") {
       const { email, name, image, role } = req.body;
       const isExist = await getUserByEmail(email);
@@ -91,4 +97,9 @@ async function getUserByEmail(email: string) {
     };
   }
   return user;
+}
+
+async function getAllUsers() {
+  const users = await prisma.account.findMany();
+  return users;
 }

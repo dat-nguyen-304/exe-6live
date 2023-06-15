@@ -46,7 +46,12 @@ export default async function handler(
   }
 
   async function getAllPayments() {
-    const payments = await prisma.payment.findMany();
+    const payments = await prisma.payment.findMany({
+      include: {
+        package: true,
+        account: true,
+      },
+    });
     res.status(200).json(payments);
   }
 }
