@@ -47,10 +47,33 @@ const LoginModal = () => {
         const provider = new GoogleAuthProvider();
         const user = await signInWithPopup(auth, provider);
 
-        const res = await axios.get(`/api/accounts?email=${user.user.email}`);
+        const res = await axios.post(`/api/accounts`, { email: user.user.email });
         const loginedUser = res.data;
         if (res.data.err === 1) {
             toast.error("Tài khoản chưa đăng ký");
+        } else {
+            console.log("LOGINED USER ", loginedUser);
+            toast.success("Đăng nhập thành công");
+            myUser.onChangeUser(loginedUser as User);
+            if (loginedUser.role === 'kol') {
+                myKol.onChangeKol(loginedUser.kol);
+                localStorage.setItem("6live_role", "kol");
+            }
+            else {
+                myComapny.onChangeCompany(loginedUser.company);
+                localStorage.setItem("6live_role", "company");
+            }
+            localStorage.setItem("6live_email", loginedUser.email);
+            loginModal.onClose();
+            router.push("/");
+        }
+    }
+
+    const signInWithEmailPassword: SubmitHandler<FieldValues> = async (data) => {
+        const res = await axios.post(`/api/accounts`, data);
+        const loginedUser = res.data;
+        if (res.data.err === 1) {
+            toast.error("Sai email hoặc mật khẩu");
         } else {
             console.log("LOGINED USER ", loginedUser);
             toast.success("Đăng nhập thành công");
@@ -80,6 +103,23 @@ const LoginModal = () => {
                 title="Chào mừng trở lại"
                 subtitle="Đăng nhập!"
             />
+            <Input
+                id="email"
+                label="Email"
+                disabled={ isLoading }
+                register={ register }
+                errors={ errors }
+                required
+            />
+            <Input
+                id="password"
+                label="Mật khẩu"
+                type="password"
+                disabled={ isLoading }
+                register={ register }
+                errors={ errors }
+                required
+            />
         </div>
     )
 
@@ -107,9 +147,9 @@ const LoginModal = () => {
             disabled={ isLoading }
             isOpen={ loginModal.isOpen }
             title="Đăng nhập"
-            actionLabel="Continue"
+            actionLabel="Đăng nhập"
             onClose={ loginModal.onClose }
-            onSubmit={ () => { } }
+            onSubmit={ handleSubmit(signInWithEmailPassword) }
             body={ bodyContent }
             footer={ footerContent }
         />

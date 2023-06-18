@@ -23,6 +23,7 @@ const RegisterModal = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: {
             errors,
         }
@@ -30,7 +31,8 @@ const RegisterModal = () => {
         defaultValues: {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            confirm: ''
         }
     });
 
@@ -41,7 +43,7 @@ const RegisterModal = () => {
         }
     }
 
-    const signInWithGoogle = () => {
+    const registerWithGoogle = () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -54,7 +56,6 @@ const RegisterModal = () => {
                 }
 
                 axios.post("/api/accounts", newUser).then(res => {
-                    console.log("RES: ", res);
                     if (res.data.err === 1) {
                         toast.error("Tài khoản đã tồn tại");
                     } else {
@@ -65,21 +66,27 @@ const RegisterModal = () => {
             });
     }
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const registerWithEmailPassword: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
 
-        axios.post('/api/register', data)
-            .then(() => {
-                toast.success('Registered!');
-                registerModal.onClose();
-                loginModal.onOpen();
-            })
-            .catch((error) => {
-                toast.error("Something went wrong");
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
+        const { confirm, ...payload } = data;
+        if (confirm !== payload.password) {
+            toast.error("Mật khẩu xác nhận không khớp.");
+            setIsLoading(false);
+            return;
+        }
+        console.log("payload; ", { ...payload, role });
+        const res = await axios.post('/api/accounts', { ...payload, role })
+        if (res.data.err === 1) {
+            toast.error("Email đã tồn tại");
+            setIsLoading(false);
+        } else {
+            toast.success('Đăng ký thành công!');
+            registerModal.onClose();
+            loginModal.onOpen();
+            setIsLoading(false);
+            reset();
+        }
     }
 
     const bodyContent = (
@@ -88,16 +95,50 @@ const RegisterModal = () => {
                 title="Chào mừng đến với 6Live"
                 subtitle="Tạo tài khoản!"
             />
+            <Input
+                id="email"
+                label="Email"
+                disabled={ isLoading }
+                register={ register }
+                errors={ errors }
+                required
+            />
+            <Input
+                id="name"
+                label="Tên"
+                disabled={ isLoading }
+                register={ register }
+                errors={ errors }
+                required
+            />
+            <Input
+                id="password"
+                label="Mật khẩu"
+                type="password"
+                disabled={ isLoading }
+                register={ register }
+                errors={ errors }
+                required
+            />
+            <Input
+                id="confirm"
+                label="Xác nhận mật khẩu"
+                type="password"
+                disabled={ isLoading }
+                register={ register }
+                errors={ errors }
+                required
+            />
             <div className="flex items-baseline justify-between mt-8">
                 <h3>Bạn là: </h3>
                 <div className="flex items-baseline gap-4">
-                    <label htmlFor="kol">KOL/KOC</label>
+                    <label className="cursor-pointer" htmlFor="kol">KOL/KOC</label>
                     <input name="role" id="kol" value="kol" type="radio" checked={ role === 'kol' }
                         onChange={ (e) => saveRole(e) }
                     />
                 </div>
                 <div className="flex items-baseline gap-4">
-                    <label htmlFor="company">Doanh nghiệp</label>
+                    <label className="cursor-pointer" htmlFor="company">Doanh nghiệp</label>
                     <input name="role" value="company" id="company" type="radio" checked={ role === 'company' }
                         onChange={ (e) => saveRole(e) }
                     />
@@ -119,7 +160,7 @@ const RegisterModal = () => {
                 outline
                 label="Đăng ký với Google"
                 icon={ FcGoogle }
-                onClick={ () => signInWithGoogle() }
+                onClick={ () => registerWithGoogle() }
             />
             <div
                 className="text-neutral-500 text-center mt-4 font-light">
@@ -137,10 +178,10 @@ const RegisterModal = () => {
         <Modal
             disabled={ isLoading }
             isOpen={ registerModal.isOpen }
-            title="Register"
-            actionLabel="Continue"
+            title="Đăng ký"
+            actionLabel="Đăng ký"
             onClose={ registerModal.onClose }
-            onSubmit={ () => { } }
+            onSubmit={ handleSubmit(registerWithEmailPassword) }
             body={ bodyContent }
             footer={ footerContent }
         />

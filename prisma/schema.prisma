@@ -10,6 +10,7 @@ datasource db {
 model Account {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   email          String    @unique
+  password       String?
   role           UserRole
   isVip          Boolean?  @default(false)
   expiredVipDate DateTime?
@@ -22,7 +23,7 @@ model Kol {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   email       String     @unique
   name        String
-  image       String
+  image       String?
   age         Int?
   phone       String?
   salary      Int?
@@ -40,7 +41,7 @@ model Company {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   email       String     @unique
   name        String
-  image       String
+  image       String?
   platforms   Platform[]
   locations   Location[]
   phone       String?

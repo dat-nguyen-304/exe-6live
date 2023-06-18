@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children, roles }) => {
         if (typeof window !== 'undefined' && currentUser === null) {
             const email = localStorage.getItem("6live_email");
             if (email) {
-                const getUser = axios.get(`/api/accounts?email=${email}`);
+                const getUser = axios.post(`/api/accounts`, { email });
                 getUser.then(res => {
                     const user = res.data;
                     myUser.onChangeUser(user as User);
