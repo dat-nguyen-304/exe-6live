@@ -63,6 +63,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                 />
                                 <hr />
                                 <MenuItem
+                                    label="Đổi mật khẩu"
+                                    onClick={ () => { router.push("/change-password") } }
+                                />
+                                <hr />
+                                <MenuItem
                                     label="Đăng xuất"
                                     onClick={ handleLogout }
                                 />

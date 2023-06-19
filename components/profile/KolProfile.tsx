@@ -43,8 +43,17 @@ const KolProfile = () => {
         }
     });
 
+    const isEmpty = (value: string) => {
+        const quillText = value.replace(/(<([^>]+)>)/gi, ''); // Remove HTML tags
+        return quillText.trim() === '';
+    };
+
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        if (isEmpty(data.description)) {
+            toast.error("Bạn cần điền thông tin mô tả");
+            return;
+        }
         const kol = await axios.put("/api/kols", data);
         myKol.onChangeKol(kol.data);
         toast.success("Cập nhật thành công");

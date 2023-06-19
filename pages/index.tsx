@@ -6,8 +6,10 @@ import Image from 'next/image';
 import Layout from '@/components/Header';
 import Link from 'next/link';
 import { UserRole } from '@/types';
+import useUser from '@/hooks/useUser';
 
 const Home = () => {
+    const myUser = useUser();
     const companyCount = useRef<HTMLSpanElement>(null);
     const kolCount = useRef<HTMLSpanElement>(null);
     const isClientCountInView = useInView(companyCount);
@@ -133,8 +135,10 @@ const Home = () => {
                     </motion.section>
                     <motion.section { ...animations.section } className='flex-[1]'>
                         <p className='text-[1rem]'>Khi đến với book KOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>
-                        <Link href="/kols">
-                            <button className='text-[1rem] text-[#00b14f] bg-[#e5f7ed] px-4 py-2 border-2 rounded-lg mt-4'>Khám phá ngay</button>
+                        <Link href={ myUser.user?.role === "kol" ? "/campaigns" : "/kols" }>
+                            <button className='text-[1rem] text-[#00b14f] bg-[#e5f7ed] px-4 py-2 border-2 rounded-lg mt-4'>
+                                Khám phá ngay
+                            </button>
                         </Link>
                     </motion.section>
 

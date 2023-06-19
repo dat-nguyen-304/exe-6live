@@ -88,11 +88,34 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
         }
     });
 
+    const isEmpty = (value: string) => {
+        const quillText = value.replace(/(<([^>]+)>)/gi, ''); // Remove HTML tags
+        return quillText.trim() === '';
+    };
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        if (data.image === "") toast.error("Bạn chưa cập nhật ảnh đại diện");
-        else {
-            const res = await axios.put(`/api/campaigns/${campaign.id}`, data);
+        if (data.image === "") {
+            toast.error("Bạn chưa cập nhật ảnh đại diện");
+            return;
+        }
+        if (isEmpty(data.description)) {
+            toast.error("Bạn cần điền thông tin mô tả");
+            return;
+        }
+        if (isEmpty(data.benefit)) {
+            toast.error("Bạn cần điền thông tin quyền lợi");
+            return;
+        }
+        if (!expiredDate) {
+            toast.error("Bạn cần cung cấp ngày hết hạn");
+            return;
+        }
+
+        try {
+            await axios.put(`/api/campaigns/${campaign.id}`, data);
             toast.success("Cập nhật chiến dịch thành công");
+        } catch (error) {
+            toast.error("Vui lòng thử lại sau")
         }
     }
 

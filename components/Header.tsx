@@ -91,7 +91,7 @@ const Layout: React.FC<LayoutProps> = ({ children, roles }) => {
             <LoginModal />
             <RegisterModal />
             <Navbar currentUser={ currentUser } />
-            <div className="pb-20 pt-28 min-h-[75vh]">
+            <div className="pb-20 pt-28 min-h-[80vh]">
                 { children }
             </div>
             <Footer />

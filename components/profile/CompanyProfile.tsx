@@ -40,8 +40,16 @@ const CompanyProfile = () => {
         }
     });
 
+    const isEmpty = (value: string) => {
+        const quillText = value.replace(/(<([^>]+)>)/gi, ''); // Remove HTML tags
+        return quillText.trim() === '';
+    };
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
+        if (isEmpty(data.description)) {
+            toast.error("Bạn cần điền thông tin mô tả");
+            return;
+        }
         const company = await axios.put("/api/companies", data);
         myCompany.onChangeCompany(company.data);
         toast.success("Cập nhật thành công");
