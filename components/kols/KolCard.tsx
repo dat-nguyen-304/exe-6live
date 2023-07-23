@@ -28,7 +28,7 @@ const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
                         className="object-cover w-full h-[220px] rounded-xl group-hover:scale-110 transition"
                     />
                 </div>
-                <div className="bg-gradient-to-br from-green-50 to-green-200 flex-[1]">
+                <div className="flex-[1]">
                     <div className="font-semibold text-lg flex justify-between items-baseline p-4">
                         <div className="text-green-700">
                             { kol.name }

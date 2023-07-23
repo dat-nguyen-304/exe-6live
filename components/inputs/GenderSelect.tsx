@@ -23,19 +23,19 @@ const GenderSelect: React.FC<GenderSelectProps> = ({
                 defaultValue={ genders[0] }
                 options={ genders }
                 value={ value }
-                className='w-[160px]'
+                className='w-[136px] md:w-[160px]'
                 onChange={ (value) => onChange(value as GenderSelectValue) }
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center">
-                        <div className='text-sm'>
+                        <div className='text-xs md:text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-sm',
-                    option: () => 'text-sm'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,

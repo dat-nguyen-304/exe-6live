@@ -34,31 +34,26 @@ const AgeSelect: React.FC<AgeSelectProps> = ({
 
     return (
         <div className='flex gap-2 justify-center items-center px-4 border-l-2 border-green-800'>
-            <div>Từ</div>
+            <div className='text-xs md:text-sm'>Từ</div>
             <Select
                 placeholder="Từ tuổi"
                 classNamePrefix="custom-select"
-                styles={ {
-                    placeholder: (provided) => ({
-                        ...provided,
-                        fontSize: '0.875rem',
-                    }),
-                } }
                 options={ ages }
-                className='w-[120px]'
+                className='w-[108px] md:w-[120px]'
                 value={ valueStart }
                 onChange={ (value) => onChangeStart(value as AgeSelectValue) }
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center gap-3">
-                        <div className='text-sm'>
+                        <div className='text-xs md:text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-sm',
-                    option: () => 'text-sm'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm',
+                    placeholder: () => 'text-xs md:text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,
@@ -70,32 +65,28 @@ const AgeSelect: React.FC<AgeSelectProps> = ({
                     }
                 }) }
             />
-            <div className='ml-4'>Đến</div>
+            <div className='ml-4 text-xs md:text-sm'>Đến</div>
             <Select
                 placeholder="Đến tuổi"
                 classNamePrefix="custom-select"
-                styles={ {
-                    placeholder: (provided) => ({
-                        ...provided,
-                        fontSize: '0.875rem',
-                    }),
-                } }
-                className='w-[120px]'
+
+                className='w-[108px] md:w-[120px]'
                 defaultValue={ ages[0] }
                 options={ ages }
                 value={ valueEnd }
                 onChange={ (value) => onChangeEnd(value as AgeSelectValue) }
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center gap-3">
-                        <div className='text-sm'>
+                        <div className='text-xs md:text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-sm',
-                    option: () => 'text-sm'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm',
+                    placeholder: () => 'text-xs md:text-sm',
                 } }
                 theme={ (theme) => ({
                     ...theme,

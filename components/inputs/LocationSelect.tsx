@@ -18,19 +18,19 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
             <Select
                 options={ locations }
                 value={ value }
-                className='w-[160px]'
+                className='w-[136px] md:w-[160px]'
                 onChange={ (value) => onChange(value as LocationSelectValue) }
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center">
-                        <div className='text-sm'>
+                        <div className='text-xs md:text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-sm',
-                    option: () => 'text-sm'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,

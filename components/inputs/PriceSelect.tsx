@@ -40,31 +40,26 @@ const PriceSelect: React.FC<PriceSelectProps> = ({
 
     return (
         <div className='flex gap-2 justify-center items-center px-4 border-l-2 border-green-800'>
-            <div>Từ</div>
+            <div className='text-xs md:text-sm'>Từ</div>
             <Select
                 placeholder="Từ Giá"
                 classNamePrefix="custom-select"
-                styles={ {
-                    placeholder: (provided) => ({
-                        ...provided,
-                        fontSize: '0.875rem',
-                    }),
-                } }
-                className='w-[140px]'
+                className='w-[108px] md:w-[140px]'
                 options={ prices }
                 value={ valueStart }
                 onChange={ (value) => onChangeStart(value as PriceSelectValue) }
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center gap-3">
-                        <div className='text-sm'>
+                        <div className='text-xs md:text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-sm',
-                    option: () => 'text-sm'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm',
+                    placeholder: () => 'text-xs md:text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,
@@ -76,17 +71,11 @@ const PriceSelect: React.FC<PriceSelectProps> = ({
                     }
                 }) }
             />
-            <div className='ml-4'>Đến</div>
+            <div className='ml-4 text-xs md:text-sm'>Đến</div>
             <Select
                 classNamePrefix="custom-select"
-                styles={ {
-                    placeholder: (provided) => ({
-                        ...provided,
-                        fontSize: '0.875rem',
-                    }),
-                } }
                 placeholder="Đến giá"
-                className='w-[140px]'
+                className='w-[108px] md:w-[140px]'
                 options={ prices }
                 value={ valueEnd }
                 onChange={ (value) => onChangeEnd(value as PriceSelectValue) }
@@ -99,8 +88,9 @@ const PriceSelect: React.FC<PriceSelectProps> = ({
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-sm',
-                    option: () => 'text-sm'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm',
+                    placeholder: () => 'text-xs md:text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,

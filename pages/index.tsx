@@ -74,10 +74,10 @@ const Home = () => {
         <Layout roles={ [UserRole.company, UserRole.kol, "guest"] }>
             <div id="home" className='mt-[-40px] relative'>
                 <Image src="/images/bg-left.png" width={ 120 } height={ 600 } alt='img'
-                    className='absolute top-[280px]'
+                    className='hidden lg:block lg:absolute lg:top-[280px]'
                 />
                 <Image src="/images/bg-right.png" width={ 120 } height={ 600 } alt='img'
-                    className='absolute top-[200px] right-[0px] z-[1]'
+                    className='hidden lg:block lg:absolute lg:top-[200px] lg:right-[0px] lg:z-[1]'
                 />
                 <section className='bg-[#f2fbf6] py-[40px]'>
                     <div>
@@ -123,15 +123,15 @@ const Home = () => {
                         </aside>
                     </div>
                 </section>
-                <section className='bg-[#f2fbf6] py-[40px]'>
+                <section className='hidden bg-[#f2fbf6] py-[40px]'>
                     <Image src="/images/home-1.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
                 </section>
                 <BsChevronDown color='#00b14f' />
             </div>
-            <div className='px-[160px] mt-[100px]'>
-                <div className='flex items-center'>
-                    <motion.section { ...animations.section } className='flex-[1]'>
-                        <Image src="/images/home-2.png" width={ 500 } height={ 500 } alt='' className=' object-contain rounded-full' />
+            <div className='px-16 md:px-[100px] lg:px-[120px] xl:px-[160px] my-8 lg:mt-[100px]'>
+                <div className='lg:flex lg:items-center'>
+                    <motion.section { ...animations.section } className='hidden lg:block lg:flex-[1] lg:mr-[100px]'>
+                        <Image src="/images/home-2.png" width={ 500 } height={ 500 } alt='' className='object-contain rounded-full' />
                     </motion.section>
                     <motion.section { ...animations.section } className='flex-[1]'>
                         <p className='text-[1rem]'>Khi đến với book KOL bạn sẽ được hỗ trợ các ý tưởng quảng cáo, content, hình ảnh, video, livestream trên các kênh Website, Fanpage, Instagram, Youtube…thông qua việc hợp tác sử dụng hình ảnh với Influencers, KOLs, Reviewers, Sellers Marrketing.</p>

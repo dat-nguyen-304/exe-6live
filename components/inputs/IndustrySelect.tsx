@@ -25,22 +25,22 @@ const IndustrySelect: React.FC<IndustrySelectProps> = ({
                 options={ industries }
                 value={ value }
                 onChange={ (value) => onChange(value as IndustrySelectValue) }
-                className='w-[140px]'
+                className='w-[128px] md:w-[140px]'
                 formatOptionLabel={ (option: any) => (
                     <div className="flex flex-row items-center gap-3">
                         {
                             option.icon &&
                             <div>< option.icon size={ 16 } /></div>
                         }
-                        <div className='text-sm'>
+                        <div className='text-xs md:text-sm'>
                             { option.label }
                         </div>
                     </div>
                 ) }
                 classNames={ {
                     control: () => 'border-2',
-                    input: () => 'text-lg',
-                    option: () => 'text-lg'
+                    input: () => 'text-xs md:text-sm',
+                    option: () => 'text-xs md:text-sm'
                 } }
                 theme={ (theme) => ({
                     ...theme,

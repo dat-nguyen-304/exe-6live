@@ -15,15 +15,15 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, currentKol }) => {
     return (
         <div className="flex-[1] px-8">
             <div className="relative">
-                <div className="flex">
+                <div className="lg:flex">
                     <Image
                         src={ currentKol?.image as string }
                         width={ 200 }
                         height={ 200 }
-                        className="object-cover rounded-lg"
+                        className="object-cover rounded-lg mx-auto lg:mx-0"
                         alt="Image"
                     />
-                    <div className="ml-8">
+                    <div className="mt-4 lg:mt-0 lg:ml-8">
                         <div className="text-md font-light">
                             <span className='font-bold text-md'>Tên: </span>
                             <span className="font-normal text-[#333]">{ currentKol?.name }</span>
@@ -103,7 +103,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, currentKol }) => {
             <hr />
 
             <div className="flex items-center mt-4">
-                <span className="font-bold text-md mr-[200px]">Cách kênh tham gia:</span>
+                <span className="font-bold text-md mr-4 md:mr-[200px]">Cách kênh tham gia:</span>
                 <div className="flex gap-4 items-center">
                     {
                         (!currentKol.platforms || currentKol.platforms.length === 0) ?

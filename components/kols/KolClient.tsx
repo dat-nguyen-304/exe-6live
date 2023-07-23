@@ -10,7 +10,7 @@ interface KolClientProps {
 const KolClient: React.FC<KolClientProps> = ({ id, currentKol }) => {
     return (
         <div>
-            <div className="flex justify-around gap-8 mt-8">
+            <div className="lg:flex justify-around gap-8 mt-8">
                 <KolHead
                     id={ id }
                     currentKol={ currentKol }

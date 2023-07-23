@@ -1,12 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { User, UserRole } from "@/types";
 import prisma from "@/prismadb";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
-
-type Data = {
-    name: string;
-};
 
 export default async function handler(
     req: NextApiRequest,
@@ -49,7 +43,6 @@ async function getUserByEmailPassword(email: string, password: string) {
     if (password) {
         if (user.password) {
             let check = bcrypt.compareSync(password, user.password as string);
-            console.log("VAN VAO DAY", check);
             if (!check) return null;
         } else return null;
     } else if (user.password) return null;

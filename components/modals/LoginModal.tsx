@@ -46,13 +46,13 @@ const LoginModal = () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         const user = await signInWithPopup(auth, provider);
-
+        console.log("DA xong: ", user.user.email);
         const res = await axios.post(`/api/accounts`, { email: user.user.email });
+
         const loginedUser = res.data;
         if (res.data.err === 1) {
             toast.error("Tài khoản chưa đăng ký");
         } else {
-            console.log("LOGINED USER ", loginedUser);
             toast.success("Đăng nhập thành công");
             myUser.onChangeUser(loginedUser as User);
             if (loginedUser.role === 'kol') {

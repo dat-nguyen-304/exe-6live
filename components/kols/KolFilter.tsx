@@ -89,7 +89,7 @@ const KolFilter: React.FC<FilterProps> = ({ setKols }) => {
 
 
     return (
-        <div className="py-4 mt-[-28px] bg-white shadow-lg flex flex-row items-center justify-center z-[0]">
+        <div className="py-5 flex-wrap gap-4 mt-[-28px] bg-white shadow-lg flex flex-row items-center justify-center z-[0] px-2">
             <IndustrySelect
                 onChange={ (value) => setCustomValue('industry', value) }
                 value={ industry }
@@ -115,7 +115,7 @@ const KolFilter: React.FC<FilterProps> = ({ setKols }) => {
                 valueEnd={ maxSalary }
             />
             <button
-                className='border-2 px-4 py-2 rounded-lg border-green-400 bg-green-200'
+                className='block w-[90px] border-2 px-4 py-2 rounded-lg border-green-400 bg-green-200'
                 onClick={ handleSubmit(onSubmit) }
             >
                 Tìm kiếm
