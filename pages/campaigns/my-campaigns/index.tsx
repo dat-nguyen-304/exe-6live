@@ -43,7 +43,7 @@ export default function Posts() {
     <Layout roles={ [UserRole.company] }>
       <Container>
         { (company || campaigns === null) ?
-          (<div className="pt-24 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          (<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {
               campaigns?.length === 0 ?
                 <div className='flex justify-center items-center'>Bạn chưa đăng chiến dịch nào</div>

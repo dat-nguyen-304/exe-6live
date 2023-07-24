@@ -203,7 +203,7 @@ const PostCampaign: React.FC = () => {
 
     return (
         <form onSubmit={ handleSubmit(onSubmit) }>
-            <div className="grid gap-6 mb-6 md:grid-cols-4">
+            <div className="grid gap-y-4 md:gap-6 mb-6 grid-cols-1 md:grid-cols-4">
                 <div>
                     <label
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -214,10 +214,11 @@ const PostCampaign: React.FC = () => {
                         value={ image }
                     />
                 </div>
-                <div className='col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
+                <div className='grid gap-x-1 gap-y-6 md:gap-6 mb-6 grid-cols-1 col-span-1 md:col-span-3 md:grid-cols-3'>
                     {/* Title */ }
-                    <div>
-                        <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <div className='col-span-1'>
+                        <label htmlFor="title"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tiêu đề
                         </label>
                         <input type="text" id="title" { ...register("title") }
@@ -227,8 +228,7 @@ const PostCampaign: React.FC = () => {
                         />
                     </div>
                     {/* Industry */ }
-                    <div >
-
+                    <div className='col-span-1'>
                         <label htmlFor="industry"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
@@ -251,7 +251,7 @@ const PostCampaign: React.FC = () => {
                         </select>
                     </div>
                     {/* Gender  */ }
-                    <div>
+                    <div className='col-span-1'>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Giới tính ({ genders.length }/3)
                         </label>
@@ -273,9 +273,9 @@ const PostCampaign: React.FC = () => {
                             )) }
                         </div>
                     </div>
-                    <div className='col-span-3 grid grid-cols-5'>
+                    <div className='col-span-1 gap-y-6 md:col-span-3 grid grid-cols-1 md:grid-cols-5'>
                         {/* Location */ }
-                        <div className='col-span-2'>
+                        <div className='col-span-1 md:col-span-2'>
                             <label
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Địa điểm ({ locations.length }/3)
@@ -299,7 +299,7 @@ const PostCampaign: React.FC = () => {
                             </div>
                         </div>
                         {/* Platform  */ }
-                        <div className='col-span-3'>
+                        <div className='col-span-1 md:col-span-3'>
                             <label
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Nền tảng ({ platforms.length }/5)
@@ -466,7 +466,6 @@ const PostCampaign: React.FC = () => {
                         </label>
                     </div>
                 </div>
-
             </div >
             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả chi tiết</label>
             {/* <textarea { ...register("description") } id="description" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả chi tiết..."></textarea> */ }

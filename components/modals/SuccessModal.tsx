@@ -13,6 +13,7 @@ const SuccessModal = () => {
             show={ isOpen }
             size="xl"
             className='modal-delete'
+            position='center'
         >
             <div >
                 <Modal.Header />

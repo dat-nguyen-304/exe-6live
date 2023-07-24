@@ -8,12 +8,12 @@ interface BanksProps {
 
 const Banks: React.FC<BanksProps> = ({ bank, setBank }) => {
     const banks = ["tpbank", "techcombank", "vibbank", "viettinbank", "bidv", "vietcombank", "vpbank", "scbbank"];
-    const selectedCss = "border-[#00b14f] border-2 flex items-center justify-center basis-1/5  px-4 py-2 rounded-lg cursor-pointer";
-    const nonSelectedCss = "border-[#eee] border-2 flex items-center justify-center basis-1/5  px-4 py-2 rounded-lg cursor-pointer";
+    const selectedCss = "border-[#00b14f] border-2 flex items-center justify-center basis-1/3 sm:basis-1/4  lg:basis-1/5  px-4 py-2 rounded-lg cursor-pointer";
+    const nonSelectedCss = "border-[#eee] border-2 flex items-center justify-center basis-1/3 sm:basis-1/4 lg:basis-1/5  px-4 py-2 rounded-lg cursor-pointer";
     return (
         <>
-            <p className='text-xl font-semibold mb-4 mt-16'>Chọn ngân hàng</p>
-            <div className="flex w-[800px] mx-auto gap-4 justify-between flex-wrap">
+            <p className='text-base md:text-xl font-semibold mb-4 mt-16'>Chọn ngân hàng</p>
+            <div className="flex lg:w-[800px] mx-auto gap-4 justify-evenly md:justify-between flex-wrap">
 
                 {
                     banks.map(b => (

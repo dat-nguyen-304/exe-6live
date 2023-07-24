@@ -144,17 +144,17 @@ const Home = () => {
 
                 </div>
             </div>
-            <div className='px-[160px] py-[100px] bg-[#f2fbf6] mb-[-80px]'>
-                <div className='flex items-center justify-between'>
+            <div className='px-16 md:px-[100px] lg:px-[120px] xl:px-[160px] py-[100px] bg-[#f2fbf6] mb-[-80px]'>
+                <div className='md:flex items-center justify-between'>
                     <motion.section { ...animations.section } className='flex-[1]'>
                         <p className='text-[1rem]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <p className='text-3xl mt-8'>
+                        <p className='text-2xl md:text-3xl mt-4 md:mt-8'>
                             Alexander Bách HD
                         </p>
-                        <p className='mt-8 text-[1rem]'>Businessman</p>
+                        <p className='mt-4 md:mt-8 text-[.9rem] md:text-[1rem]'>Businessman</p>
                     </motion.section>
                     <motion.section { ...animations.section } className='flex-[1]'>
-                        <Image src="/images/bach.png" width={ 300 } height={ 300 } alt='' className='object-contain rounded-full mx-auto' />
+                        <Image src="/images/bach.png" width={ 300 } height={ 300 } alt='' className='w-[200px] h-[200px] md:w-[300px] md:h-[300px] object-contain rounded-full mx-auto' />
                     </motion.section>
 
                 </div>

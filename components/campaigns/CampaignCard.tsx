@@ -67,27 +67,33 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, modify, setOpenMo
 
     return (
         <div className='flex bg-green-50 hover:border-[#00b14f] shadow-sm shadow-green-200 border-2 border-[#f2fbf6] rounded-lg'>
-            <div className='p-4 rounded-lg'>
+            <div className='p-0 sm:p-4 rounded-lg'>
                 <Image src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
                     alt="img"
                     width={ 100 }
                     height={ 100 }
-                    className='p-2 border-[#ccc] border-2 w-[100px] h-[100px] object-contain rounded-lg'
+                    className='p-2 border-[#ccc] border-2 w-[50px] h-[50px] md:w-[100px] md:h-[100px] object-contain rounded-lg'
                 />
             </div>
             <div className=' flex-[1] py-2 px-4'>
-                <div className='flex items-center justify-between'>
-                    <h3 onClick={ () => router.push(`/campaigns/${campaign.id}`) } className='font-bold text-lg text-[#333] hover:text-[#00b14f] hover:cursor-pointer'>
+                <div className='sm:flex items-center justify-between'>
+                    <h3
+                        onClick={ () => router.push(`/campaigns/${campaign.id}`) }
+                        className='font-bold text-sm md:text-lg lg:text-sm xl:text-lg text-[#333] hover:text-[#00b14f] hover:cursor-pointer'
+                    >
                         { campaign.title }
                     </h3>
                     {
                         modify &&
-                        <div>
-                            <button className='text-yellow-500 border-yellow-500 bg-[#e5f7ed] px-4 mx-2 py-2 border-2 rounded-lg'>
-                                <Link href={ `/campaigns/my-campaigns/${campaign.id}` }>Chỉnh sửa </Link>
+                        <div className='sm:w-[200px] w-fit m-2 sm:m-0 flex ml-auto sm:ml-0'>
+                            <button
+                                className=' text-yellow-500 w-[64px] h-[30px] sm:h-auto text-xs sm:text-sm sm:w-[100px] border-yellow-500 bg-[#e5f7ed] px-1 sm:px-4 mx-2 py-1 sm:py-2 border-2 rounded-lg'>
+                                <Link href={ `/campaigns/my-campaigns/${campaign.id}` }>
+                                    Chỉnh sửa
+                                </Link>
                             </button>
                             <button onClick={ handleDelete }
-                                className='text-rose-500 border-rose-500 bg-[#e5f7ed] px-4 mx-2 py-2 border-2 rounded-lg'
+                                className=' text-rose-500 w-[48px] sm:w-[60px] h-[30px] sm:h-auto text-xs sm:text-sm border-rose-500 bg-[#e5f7ed] px-1 sm:px-4 mx-2 py-1 sm:py-2 border-2 rounded-lg'
                             >
                                 Xóa
                             </button>
@@ -98,14 +104,14 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, modify, setOpenMo
 
                 <div className='flex gap-2 my-2'>
                     <BsBuildings size={ 20 } />
-                    <span className='text-[#6f7882] font-semibold text-sm'>{ company?.name }</span>
+                    <span className='text-[#6f7882] font-semibold text-xs sm:text-sm'>{ company?.name }</span>
                 </div>
                 <div className='flex gap-2 my-2'>
                     <GoLocation size={ 20 } />
                     { locats.map((locat, index) => (
                         (
                             locat.value !== 'all' && campaign.locations.includes(locat.value as Location) && (
-                                <span key={ locat.value } className='text-[#6f7882] font-semibold text-sm'>
+                                <span key={ locat.value } className='text-[#6f7882] font-semibold text-xs sm:text-sm'>
                                     { locat.label }
                                 </span>
                             )
@@ -115,14 +121,14 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, modify, setOpenMo
                 </div>
                 <div className='flex gap-2 my-2'>
                     <AiOutlineClockCircle size={ 20 } />
-                    <span className='text-[#6f7882] font-semibold text-sm'>{ leftDate() } </span>
+                    <span className='text-[#6f7882] font-semibold text-xs sm:text-sm'>{ leftDate() } </span>
                 </div>
-                <div className='flex justify-between text-sm items-center pr-12'>
-                    <div className='text-sm border-2 px-2 py-1 rounded-xl text-[#666]'>
+                <div className='flex justify-between text-sm items-center 2xl:pr-12'>
+                    <div className='text-xs sm:text-sm border-2 px-2 py-1 rounded-xl text-[#666]'>
                         { industry }
                     </div>
-                    <div className='text-[#00b14f] font-bold bg-[#e5f7ed] px-2 py-1 rounded-lg'>{ salary }</div>
-                    <div className='text-sm font-semibold text-[#74777a]'>{ updatedAt() }</div>
+                    <div className='text-[#00b14f] font-bold bg-[#e5f7ed] px-2 py-1 rounded-lg text-xs sm:text-sm'>{ salary }</div>
+                    <div className='hidden 2xl:block text-sm font-semibold text-[#74777a]'>{ updatedAt() }</div>
                 </div>
             </div>
         </div>

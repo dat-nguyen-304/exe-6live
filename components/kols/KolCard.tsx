@@ -25,7 +25,7 @@ const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
                         alt="Listing"
                         src={ kol.image }
                         quality={ 100 }
-                        className="object-cover w-full h-[220px] rounded-xl group-hover:scale-110 transition"
+                        className="object-cover w-full h-[160px] sm:h-[200px] rounded-xl group-hover:scale-110 transition"
                     />
                 </div>
                 <div className="flex-[1]">
@@ -41,7 +41,7 @@ const KolCard: React.FC<KolCardProps> = ({ kol, id }) => {
                             )) }
                         </div>
                     </div>
-                    <div className="mx-[-2px] flex gap-2 font-light text-neutral-500 px-4">
+                    <div className="mx-[-2px] flex gap-2 flex-wrap font-light text-neutral-500 px-4">
                         { industries.map((industry) => (
                             (kol.industries as Industry[])?.includes(industry.value as Industry) && (
                                 <div key={ industry.value } className="inline-block border-green-400 py-1 px-2 rounded-xl text-[#333] text-[0.82rem] border-2 border-gray">

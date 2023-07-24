@@ -8,8 +8,8 @@ interface PackageListProps {
 }
 
 const PackageList: React.FC<PackageListProps> = ({ premiumPackages, selectedPackage, setSelectedPackage }) => {
-    const nonSelectedCss = "cursor-pointer p-8 shadow-xl w-[400px] rounded-2xl";
-    const selectedCss = `${nonSelectedCss} border-[#00b14f] border-2`;
+    const nonSelectedCss = "block cursor-pointer my-4 my:py-0 border-[#333] md:border-[#fff] p-2 sm:p-8 md:shadow-xl w-[100%] md:w-[400px] rounded-2xl ";
+    const selectedCss = `${nonSelectedCss} !border-[#00b14f] border-2`;
 
     const saleOff: (index: number) => string = (index: number) => {
         const originalPrice = premiumPackages[0].price;
@@ -19,7 +19,7 @@ const PackageList: React.FC<PackageListProps> = ({ premiumPackages, selectedPack
     }
 
     return (
-        <div className='flex justify-between mt-4 gap-8'>
+        <div className='sm:flex justify-between mt-4 gap-2 sm:gap-8 mx-auto'>
             {
                 premiumPackages.map((premiumPackage, index) => (
                     <label key={ index } htmlFor={ `p-${index}` }
@@ -27,12 +27,12 @@ const PackageList: React.FC<PackageListProps> = ({ premiumPackages, selectedPack
 
                     >
                         <div className="flex justify-between items-center">
-                            <div className="font-bold text-xl">{ premiumPackage.numberOfMonth } tháng</div>
-                            <input onChange={ () => setSelectedPackage(index) } checked={ index === selectedPackage } type='radio' name="premiumPackageId" id={ `p-${index}` } className='block w-[20px] h-[20px]' />
+                            <div className="font-bold text-base md:text-xl">{ premiumPackage.numberOfMonth } tháng</div>
+                            <input onChange={ () => setSelectedPackage(index) } checked={ index === selectedPackage } type='radio' name="premiumPackageId" id={ `p-${index}` } className='block h-[12px] w-[12px] sm:w-[20px] sm:h-[20px]' />
                         </div>
                         <div className="flex items-baseline mt-4">
-                            <p className='text-[#087526] font-semibold text-lg'>{ premiumPackage.price.toLocaleString('vi-VN') } VNĐ</p>
-                            { index !== 0 && <p className='ml-4 text-[#333] text-xs'>Tiết kiệm: { saleOff(index) }</p> }
+                            <p className='text-[#087526] font-semibold text-sm md:text-lg'>{ premiumPackage.price.toLocaleString('vi-VN') } VNĐ</p>
+                            { index !== 0 && <p className='ml-4 text-[#333] block 2xl:block sm:hidden text-xs'>Tiết kiệm: { saleOff(index) }</p> }
                         </div>
                     </label>
                 ))

@@ -117,11 +117,11 @@ const CompanyProfile = () => {
                         value={ image }
                     />
                 </div>
-                <div className='col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
+                <div className='md:col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
                     <div className=''>
                         <label htmlFor="name"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Họ và tên
+                            Tên công ty
                         </label>
                         <input type="text" id="name" { ...register("name") }
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nguyễn Văn A" required />
@@ -138,7 +138,7 @@ const CompanyProfile = () => {
                         <input type="text" id="phone" { ...register("phone") }
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="097654321" required />
                     </div>
-                    <div className='col-span-3'>
+                    <div className='md:col-span-3'>
                         <label
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Nền tảng ({ platforms.length }/5)
@@ -161,7 +161,7 @@ const CompanyProfile = () => {
                             )) }
                         </div>
                     </div>
-                    <div className='col-span-3'>
+                    <div className='md:col-span-3'>
                         <label
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Địa chỉ ({ locations.length }/3)

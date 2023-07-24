@@ -38,16 +38,16 @@ const PaymentRoot: React.FC = () => {
         <>
             {
                 (premiumPackages.length !== 0) ?
-                    (<div className='px-[200px] mt-[-40px]'>
-                        <h3 className='text-4xl font-bold text-center pt-[40px]'> Chọn gói Premium của bạn</h3>
-                        <h5 className='text-lg mt-4 text-center'>Tìm kiếm, kết nối KOL/KOC dễ dàng hơn với 6Live Premium</h5>
+                    (<div className='2xl:px-[200px] lg:px-[120px] mt-[-40px]'>
+                        <h3 className='text-xl md:text-4xl font-bold text-center pt-[40px]'> Chọn gói Premium của bạn</h3>
+                        <h5 className='text-base md:text-lg mt-4 text-center'>Tìm kiếm, kết nối KOL/KOC dễ dàng hơn với 6Live Premium</h5>
                         {
                             myUser.user?.isVip && (new Date(myUser.user?.expiredVipDate as string) >= new Date()) &&
                             <div className='text-green-500 font-semibold text-center mt-8'>
                                 Bạn đang là thành viên Premium. Ngày hết hạn là: { format(new Date(myUser.user?.expiredVipDate as string), 'dd/MM/yyy') }
                             </div>
                         }
-                        <p className='text-xl font-semibold mt-8'>Chọn gói</p>
+                        <p className='text-base md:text-xl font-semibold mt-8'>Chọn gói</p>
                         <PackageList
                             premiumPackages={ premiumPackages }
                             selectedPackage={ selectedPackage }
