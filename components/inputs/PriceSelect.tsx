@@ -1,6 +1,5 @@
 import Select from 'react-select'
 
-
 interface Price {
     label: string,
     value: string
@@ -39,7 +38,7 @@ const PriceSelect: React.FC<PriceSelectProps> = ({
 }) => {
 
     return (
-        <div className='flex gap-2 justify-center items-center px-4 border-l-2 border-green-800'>
+        <div className='flex gap-2 justify-center items-center px-4 md:border-l-2 md:border-green-800'>
             <div className='text-xs md:text-sm'>Từ</div>
             <Select
                 placeholder="Từ Giá"

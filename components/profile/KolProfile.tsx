@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { industries as inds, platforms as platfs, genders, locations } from '@/utils/variables';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import ImageUpload from '../inputs/ImageUpload';
-import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import useKol from '@/hooks/useKol';
 import { toast } from 'react-hot-toast';
@@ -12,20 +11,14 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const KolProfile = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const myUser = useUser();
     const myKol = useKol();
-    const [kol, setKol] = useState(myKol.kol);
-    const [imgLink, setImgLink] = useState(kol?.image);
+    const kol = myKol.kol;
 
     const {
         register,
         handleSubmit,
         setValue,
-        watch,
-        formState: {
-            errors,
-        }
+        watch
     } = useForm<FieldValues>({
         defaultValues: {
             name: kol?.name,
@@ -112,7 +105,7 @@ const KolProfile = () => {
     return (
         <form onSubmit={ handleSubmit(onSubmit) }>
             <div className="grid gap-6 mb-6 md:grid-cols-4">
-                <div>
+                <div className='max-w-[90%] mx-auto'>
                     <label
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Tải ảnh đại diện
@@ -122,7 +115,7 @@ const KolProfile = () => {
                         value={ image }
                     />
                 </div>
-                <div className='col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
+                <div className='md:col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
                     <div className=''>
                         <label htmlFor="name"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

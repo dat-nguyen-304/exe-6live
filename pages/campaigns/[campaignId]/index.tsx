@@ -40,7 +40,7 @@ const CampaignDetailRoot: React.FC = () => {
         <Layout roles={ [UserRole.kol, UserRole.company, "guest"] }>
             <div className='bg-[#f0f0f0]'>
                 <Container>
-                    <div className='mt-[-40px] mb-[-80px] py-[40px] px-[120px]'>
+                    <div className='mt-[-40px] mb-[-80px] py-4 sm:py-8 lg:py-[40px] px-0 sm:px-12 lg:px-[120px]'>
                         {
                             (company !== null && campaign !== null) ?
                                 <CampaignDetail company={ company } campaign={ campaign } />

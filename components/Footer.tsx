@@ -7,7 +7,7 @@ import Container from './Container';
 
 const Footer = () => {
     return (
-        <div className='border-t-4 border-green-800 py-8 text-[#71869d] bg-green-50'>
+        <div className='border-t-4 border-green-800 py-4 md:py-8 text-[#71869d] bg-green-50'>
             <Container>
                 <div className="flex justify-around pt-2">
                     <div >
@@ -38,26 +38,32 @@ const Footer = () => {
                     </div>
                     <div >
                         <div className="">
-                            <h5 className="uppercase text-xs md:text-sm lg:text-base font-bold text-[#333] mb-2">Theo dõi chúng tôi trên</h5>
+                            <h5 className="uppercase text-xs md:text-sm lg:text-base font-bold text-[#333] mb-2">
+                                Theo dõi chúng tôi trên
+                            </h5>
                             <ul className="footer-content__list">
                                 <li className="text-sm">
                                     <a href="#" className='flex items-center'>
-                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>Facebook</span><FaFacebookSquare size={ 16 } />
+                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>Facebook</span>
+                                        <FaFacebookSquare size={ 16 } className='sm:w-[16px] sm:h-[16px] w-[11px] h-[11px]' />
                                     </a>
                                 </li>
                                 <li className="text-sm">
                                     <a href="#" className='flex items-center'>
-                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>Instagram</span><AiFillInstagram size={ 18 } />
+                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>Instagram</span>
+                                        <AiFillInstagram size={ 18 } className='sm:w-[18px] sm:h-[18px] w-[12px] h-[12px]' />
                                     </a>
                                 </li>
                                 <li className="text-sm">
                                     <a href="#" className='flex items-center'>
-                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>Youtube</span><FaYoutube size={ 16 } />
+                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>Youtube</span>
+                                        <FaYoutube size={ 16 } className='sm:w-[16px] sm:h-[16px] w-[11px] h-[11px]' />
                                     </a>
                                 </li>
                                 <li className="text-sm">
                                     <a href="#" className='flex items-center'>
-                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>TikTok</span><SiTiktok size={ 14 } />
+                                        <span className='text-xs md:text-sm mr-1 md:mr-4'>TikTok</span>
+                                        <SiTiktok size={ 14 } className='sm:w-[14px] sm:h-[14px] w-[10px] h-[10px]' />
                                     </a>
                                 </li>
                             </ul>

@@ -1,11 +1,9 @@
-'use client';
-
+import { KeyboardEvent } from "react";
 import {
     FieldErrors,
     FieldValues,
     UseFormRegister
 } from "react-hook-form";
-import { BiDollar } from "react-icons/bi";
 
 interface InputProps {
     id: string;
@@ -14,7 +12,8 @@ interface InputProps {
     disabled?: boolean;
     required?: boolean;
     register: UseFormRegister<FieldValues>,
-    errors: FieldErrors
+    errors: FieldErrors,
+    onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,11 +24,13 @@ const Input: React.FC<InputProps> = ({
     register,
     required,
     errors,
+    onKeyDown
 }) => {
     return (
         <div className="w-full relative">
 
             <input
+                onKeyDown={ onKeyDown }
                 id={ id }
                 disabled={ disabled }
                 { ...register(id, { required }) }

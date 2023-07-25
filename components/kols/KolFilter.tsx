@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { Kol } from '@/types';
 
 interface FilterProps {
-    setKols: Dispatch<SetStateAction<Kol[] | null>>
+    setKols: Dispatch<SetStateAction<Kol[]>>
 }
 
 const KolFilter: React.FC<FilterProps> = ({ setKols }) => {
@@ -66,7 +66,7 @@ const KolFilter: React.FC<FilterProps> = ({ setKols }) => {
                 else params = `${params}&${property}=${value}`;
             }
         }
-        setKols(null);
+        setKols([]);
         const res = await axios.get(`/api/kols${params}`);
         setKols(res.data);
     }

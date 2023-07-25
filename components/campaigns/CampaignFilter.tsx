@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { Campaign } from '@/types';
 
 interface FilterProps {
-    setCampaigns: Dispatch<SetStateAction<Campaign[] | null>>
+    setCampaigns: Dispatch<SetStateAction<Campaign[]>>
 }
 
 const CampaignFilter: React.FC<FilterProps> = ({ setCampaigns }) => {
@@ -55,7 +55,7 @@ const CampaignFilter: React.FC<FilterProps> = ({ setCampaigns }) => {
                 else params = `${params}&${property}=${value}`;
             }
         }
-        setCampaigns(null);
+        setCampaigns([]);
         const res = await axios.get(`/api/campaigns${params}`);
         setCampaigns(res.data);
     }
@@ -74,7 +74,7 @@ const CampaignFilter: React.FC<FilterProps> = ({ setCampaigns }) => {
 
 
     return (
-        <div className="py-4 mt-[-28px] bg-white shadow-lg flex flex-row items-center justify-center z-[0]">
+        <div className="py-4 mt-[-28px] bg-white shadow-lg flex flex-row flex-wrap gap-2 items-center justify-center z-[0]">
             <IndustrySelect
                 onChange={ (value) => setCustomValue('industry', value) }
                 value={ industry }

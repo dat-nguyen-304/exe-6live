@@ -14,7 +14,7 @@ interface LocationSelectProps {
 const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
 
     return (
-        <div className='px-4 border-l-2 border-green-800'>
+        <div className='px-4 md:border-l-2 md:border-green-800'>
             <Select
                 options={ locations }
                 value={ value }

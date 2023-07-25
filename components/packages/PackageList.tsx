@@ -1,5 +1,4 @@
 import { Package } from '@/types';
-import axios from 'axios';
 
 interface PackageListProps {
     premiumPackages: Package[],
@@ -8,7 +7,7 @@ interface PackageListProps {
 }
 
 const PackageList: React.FC<PackageListProps> = ({ premiumPackages, selectedPackage, setSelectedPackage }) => {
-    const nonSelectedCss = "block cursor-pointer my-4 my:py-0 border-[#333] md:border-[#fff] p-2 sm:p-8 md:shadow-xl w-[100%] md:w-[400px] rounded-2xl ";
+    const nonSelectedCss = "block cursor-pointer my-4 my:py-0 border-[#333] md:border-[#fff] p-4 sm:p-8 md:shadow-xl w-[100%] md:w-[400px] rounded-2xl ";
     const selectedCss = `${nonSelectedCss} !border-[#00b14f] border-2`;
 
     const saleOff: (index: number) => string = (index: number) => {

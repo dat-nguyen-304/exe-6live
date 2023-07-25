@@ -5,11 +5,10 @@ import { GoLocation } from "react-icons/go";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Campaign, Company, Location } from '@/types';
 import axios from 'axios';
-import { platforms as platfs, locations as locats, genders as gends, industries } from '@/utils/variables';
+import { locations as locats, industries } from '@/utils/variables';
 import { differenceInDays, differenceInHours, differenceInMinutes } from 'date-fns';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import DeleteModal from '../modals/DeleteModal';
 
 
 interface CampaignCardProps {
@@ -68,7 +67,8 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, modify, setOpenMo
     return (
         <div className='flex bg-green-50 hover:border-[#00b14f] shadow-sm shadow-green-200 border-2 border-[#f2fbf6] rounded-lg'>
             <div className='p-0 sm:p-4 rounded-lg'>
-                <Image src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
+                <Image
+                    src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
                     alt="img"
                     width={ 100 }
                     height={ 100 }
@@ -99,7 +99,6 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, modify, setOpenMo
                             </button>
                         </div>
                     }
-
                 </div>
 
                 <div className='flex gap-2 my-2'>
@@ -108,13 +107,11 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign, modify, setOpenMo
                 </div>
                 <div className='flex gap-2 my-2'>
                     <GoLocation size={ 20 } />
-                    { locats.map((locat, index) => (
-                        (
-                            locat.value !== 'all' && campaign.locations.includes(locat.value as Location) && (
-                                <span key={ locat.value } className='text-[#6f7882] font-semibold text-xs sm:text-sm'>
-                                    { locat.label }
-                                </span>
-                            )
+                    { locats.map(locat => (
+                        locat.value !== 'all' && campaign.locations.includes(locat.value as Location) && (
+                            <span key={ locat.value } className='text-[#6f7882] font-semibold text-xs sm:text-sm'>
+                                { locat.label }
+                            </span>
                         )
                     )) }
 

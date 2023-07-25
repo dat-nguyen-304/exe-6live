@@ -3,7 +3,7 @@ import Container from '../Container';
 import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
-import { Company, Kol, User } from '../../types/index';
+import { Company, Kol } from '../../types/index';
 
 interface NavbarProps {
     currentUser: Kol | Company | null

@@ -1,7 +1,6 @@
 import Select from 'react-select'
 import { genders } from "@/utils/variables";
 
-
 export type GenderSelectValue = {
     label: string;
     value: string
@@ -18,7 +17,7 @@ const GenderSelect: React.FC<GenderSelectProps> = ({
 }) => {
 
     return (
-        <div className='px-4 border-l-2 border-green-800'>
+        <div className='px-4 md:border-l-2 md:border-green-800'>
             <Select
                 defaultValue={ genders[0] }
                 options={ genders }

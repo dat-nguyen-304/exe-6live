@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
@@ -15,7 +15,7 @@ import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
 import useUser from "@/hooks/useUser";
-import { User, Kol } from "@/types";
+import { User } from "@/types";
 import useKol from "@/hooks/useKol";
 import useCompany from "@/hooks/useCompany";
 import axios from "axios";
@@ -46,7 +46,6 @@ const LoginModal = () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         const user = await signInWithPopup(auth, provider);
-        console.log("DA xong: ", user.user.email);
         const res = await axios.post(`/api/accounts`, { email: user.user.email });
 
         const loginedUser = res.data;
@@ -75,7 +74,6 @@ const LoginModal = () => {
         if (res.data.err === 1) {
             toast.error("Sai email hoặc mật khẩu");
         } else {
-            console.log("LOGINED USER ", loginedUser);
             toast.success("Đăng nhập thành công");
             myUser.onChangeUser(loginedUser as User);
             if (loginedUser.role === 'kol') {
@@ -92,10 +90,16 @@ const LoginModal = () => {
         }
     }
 
-    const onToggle = useCallback(() => {
+    const handlePressEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSubmit(signInWithEmailPassword)();
+        }
+    };
+
+    const onToggle = () => {
         loginModal.onClose();
         registerModal.onOpen();
-    }, [loginModal, registerModal]);
+    };
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
@@ -119,6 +123,7 @@ const LoginModal = () => {
                 register={ register }
                 errors={ errors }
                 required
+                onKeyDown={ handlePressEnter }
             />
         </div>
     )

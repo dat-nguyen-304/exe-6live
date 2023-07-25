@@ -3,21 +3,19 @@ import KolCard from '@/components/kols/KolCard';
 import Layout from '@/components/Header';
 import { Kol, UserRole } from '@/types';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Loading from '@/components/Loading';
 import KolFilter from '@/components/kols/KolFilter';
 import useCompany from '@/hooks/useCompany';
 
-const KolList: React.FC = () => {
+interface KolListProps {
+    kolList: Kol[]
+}
+
+const KolList: React.FC<KolListProps> = ({ kolList }) => {
     const myCompany = useCompany();
-    const [kols, setKols] = useState<Kol[] | null>(null);
-    useEffect(() => {
-        const getKols = async () => {
-            const res = await axios.get("/api/kols");
-            setKols(res.data);
-        }
-        getKols();
-    }, [])
+    const [kols, setKols] = useState<Kol[]>([...kolList]);
+
     return (
         <Layout roles={ [UserRole.company, "guest"] }>
             {
@@ -50,5 +48,14 @@ const KolList: React.FC = () => {
     )
 }
 
+export const getStaticProps = async () => {
+    const res = await axios.get(`${process.env.API}/api/kols`);
+    return {
+        props: {
+            kolList: res.data
+        },
+        revalidate: 60
+    }
+}
 
 export default KolList;

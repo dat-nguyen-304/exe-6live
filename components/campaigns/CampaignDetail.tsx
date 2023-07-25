@@ -1,11 +1,10 @@
 import { Campaign, Company } from '@/types';
 import Image from 'next/image'
 import Link from 'next/link';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { locations as locats, genders as gends, industries } from '@/utils/variables';
-import Loading from '../Loading';
 import { format } from 'date-fns';
 import { Gender } from '@/types';
 import { Location } from '@/types';
@@ -78,30 +77,40 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
 
     return (
         <>
-            <div className="flex p-8 rounded-xl justify-between border-2 bg-white shadow-lg">
-                <div className='flex flex-[1] gap-8 items-center'>
-                    <Image src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
+            <div className="md:flex p-4 sm:p-8 rounded-xl justify-between border-2 bg-white shadow-lg">
+                <div className='sm:flex sm:flex-[1] gap-8 items-center'>
+                    <Image
+                        src={ campaign.image ? campaign.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
                         alt="img"
                         width={ 100 }
                         height={ 100 }
-                        className='p-2 border-[#ccc] border-2 w-[100px] h-[100px] object-contain rounded-lg'
+                        className='mx-auto sm:mx-0 p-2 border-[#ccc] border-2 w-[100px] h-[100px] object-contain rounded-lg'
                     />
-                    <div>
-                        <h3 className='text-[#00b14f] text-xl font-bold'>{ campaign?.title }</h3>
-                        <Link href={ `/companies/${company.id}` } className='cursor-pointer text-[#333] my-2 font-semibold text-sm'>{ company?.name }</Link>
-                        <div className='flex gap-2 mt-4'>
-                            <AiOutlineClockCircle size={ 20 } />
-                            <span className='text-[#6f7882] font-semibold text-sm'>Hạn nộp hồ sơ: { format(new Date(campaign.expiredDate), 'dd/MM/yyy') }</span>
+                    <div className='mt-4 sm:mt-0'>
+                        <h3 className='text-[#00b14f] text-lg sm:text-xl font-bold text-center'>
+                            { campaign?.title }
+                        </h3>
+                        <Link
+                            href={ `/companies/${company.id}` }
+                            className='sm:inline block cursor-pointer text-[#333] my-2 font-semibold text-center text-sm'
+                        >
+                            { company?.name }
+                        </Link>
+                        <div className='flex gap-2 mt-2 sm:mt-4 justify-center items-center'>
+                            <AiOutlineClockCircle size={ 20 } className='w-[15px] h-[15px] sm:w-[20px] sm:h-[20px]' />
+                            <span className='text-[#6f7882] font-semibold text-sm'>
+                                Hạn nộp hồ sơ: { format(new Date(campaign.expiredDate), 'dd/MM/yyy') }
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col mr-4'>
+                <div className='flex flex-col sm:mr-4 mx-auto items-center md:items-baseline'>
                     {
                         myKol.kol &&
                         <>
-                            <button onClick={ sendEmail } className='border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
+                            <button onClick={ sendEmail } className='w-[150px] mt-4 md:mt-0 md:w-auto border-[#00b14f] border-2 bg-[#00b14f] text-white py-2 px-4 rounded-lg text-sm flex items-center'>
                                 <FaRegPaperPlane />
-                                <span className='ml-2'>Ứng tuyển ngay</span>
+                                <span className='ml-4 sm:ml-2 text-xs sm:text-sm'>Ứng tuyển ngay</span>
                             </button>
                             <SuccessModal />
                         </>
@@ -109,9 +118,9 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
 
                 </div>
             </div>
-            <div className="mt-4 bg-white shadow-lg  border-2 py-10 px-8 rounded-xl">
+            <div className="mt-4 bg-white shadow-lg  border-2 py-10 px-4 md:px-8 rounded-xl">
                 <p className='font-bold text-md'>- Thông tin chung: </p>
-                <div className='grid grid-cols-4 text-sm gap-4 p-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 text-sm gap-4 p-4'>
                     <div>
                         <span className='font-semibold'>Ngành sản phẩm: </span> { industry }
                     </div>
@@ -124,10 +133,10 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaign, company }) =>
                     <div>
                         <span className='font-semibold'>Mức lương: </span> { salary }
                     </div>
-                    <div className='col-span-2'>
+                    <div className='md:col-span-2'>
                         <span className='font-semibold'>Văn phòng tại: </span> { locations() }
                     </div>
-                    <div className='col-span-2'>
+                    <div className='md:col-span-2'>
                         <span className='font-semibold'>Nền tảng yêu cầu: </span> { platforms() }
                     </div>
                 </div>

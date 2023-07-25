@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Company } from "@/types";
-import { platforms as platfs, industries as inds } from '@/utils/variables';
+import { platforms as platfs } from '@/utils/variables';
 import { differenceInDays, differenceInMonths, differenceInYears } from "date-fns";
 import useUser from "@/hooks/useUser";
 import parse from 'html-react-parser';
@@ -30,20 +30,20 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, company }) => {
     return (
         <div className="flex-[1] px-8">
             <div className="relative">
-                <div className="flex">
+                <div className="lg:flex">
                     <Image
                         src={ company.image ? company.image : "https://res.cloudinary.com/dngl8ihk7/image/upload/v1686058298/jfrql1oot1iyatc63ctz.jpg" }
                         width={ 240 }
                         height={ 240 }
-                        className="object-cover p-2 border-2 rounded-full"
+                        className="object-cover p-2 border-2 rounded-full mx-auto lg:mx-0"
                         alt="Image"
                     />
-                    <div className="ml-8 mt-8">
-                        <div className="text-md font-light">
+                    <div className="mt-4 lg:mt-8 lg:ml-8 mx-auto w-fit">
+                        <div className="text-md font-light w-fit">
                             <span className='font-bold text-md'>Tên công ty: </span>
                             <span className="font-normal text-[#333]">{ company.name }</span>
                         </div>
-                        <div className="text-md font-light mt-2">
+                        <div className="text-md font-light mt-2 w-fit">
                             <span className='font-bold text-md'>Đã tham gia: </span>
                             <span className="font-normal text-[#333]">{ registeredDate() }</span>
                         </div>
@@ -55,7 +55,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, company }) => {
                 (role as string !== "guest") &&
                 <>
                     <hr />
-                    <div className="flex flex-row items-center gap-4 font-light my-4">
+                    <div className="sm:flex flex-row items-center gap-4 font-light my-4">
                         <div>
                             <span className='font-bold text-md'>SĐT: </span>
                             { company.phone }
@@ -90,11 +90,11 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, company }) => {
                 </div>
             </div>
             <hr />
-            <div className="flex items-center mt-4">
-                <span className="font-bold text-md">Cách kênh liên hệ khác:</span>
+            <div className="sm:flex items-center mt-4">
+                <p className="font-bold text-md">Cách kênh liên hệ khác:</p>
                 { platfs.map((platf: any) => (
                     platf.icon && company.platforms?.includes(platf.value) &&
-                    <div key={ platf.value } className="cursor-pointer inline-flex mx-2 gap-4 py-1 px-2 rounded-xl text-sm border-2 border-gray">
+                    <div key={ platf.value } className="cursor-pointer inline-flex my-1 mx-2 gap-4 py-1 px-2 rounded-xl text-sm border-2 border-gray">
                         <div className="flex items-center gap-4"><platf.icon size={ 16 } /> { platf.label }</div>
                     </div>
 

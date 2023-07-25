@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { platforms as platfs, locations as locats } from '@/utils/variables';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import ImageUpload from '../inputs/ImageUpload';
-import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import useCompany from '@/hooks/useCompany';
@@ -12,20 +11,14 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const CompanyProfile = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const myUser = useUser();
     const myCompany = useCompany();
-    const [company, setCompany] = useState(myCompany.company);
-    const [imgLink, setImgLink] = useState(company?.image);
+    const company = myCompany.company;
 
     const {
         register,
         handleSubmit,
         setValue,
-        watch,
-        formState: {
-            errors,
-        }
+        watch
     } = useForm<FieldValues>({
         defaultValues: {
             email: company?.email,

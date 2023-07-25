@@ -4,11 +4,11 @@ import { Campaign, Company } from "@/types";
 import axios from "axios";
 import Loading from "../Loading";
 
-interface CompanyCampaignProps {
+interface CompanyCampaignsProps {
     company: Company
 }
 
-const CompanyCampaignProps: React.FC<CompanyCampaignProps> = ({ company }) => {
+const CompanyCampaigns: React.FC<CompanyCampaignsProps> = ({ company }) => {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     useEffect(() => {
         const getCampaigns = async () => {
@@ -19,8 +19,8 @@ const CompanyCampaignProps: React.FC<CompanyCampaignProps> = ({ company }) => {
     }, [company.id]);
 
     return (
-        <div className="flex-[1] px-8 border-l-2 border-[#00b14f]">
-            <p className="text-[#00b14f] text-bold text-xl font-bold">Các chiến dịch gần đây</p>
+        <div className="flex-[1] sm:px-8 lg:border-l-2 lg:border-[#00b14f] mt-8 lg:mt-0">
+            <p className="text-[#00b14f] text-bold text-base md:text-xl font-bold">Các chiến dịch gần đây</p>
             <div className="my-4 rounded-lg">
                 { campaigns ?
                     campaigns.map((campaign) => (
@@ -38,4 +38,4 @@ const CompanyCampaignProps: React.FC<CompanyCampaignProps> = ({ company }) => {
     );
 }
 
-export default CompanyCampaignProps;
+export default CompanyCampaigns;
