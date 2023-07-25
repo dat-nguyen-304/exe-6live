@@ -212,7 +212,7 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
 
     return (
         <form onSubmit={ handleSubmit(onSubmit) }>
-            <div className="grid gap-6 mb-6 md:grid-cols-4">
+            <div className="grid gap-y-4 md:gap-6 mb-6 grid-cols-1 md:grid-cols-4">
                 <div>
                     <label
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -223,9 +223,9 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
                         value={ image }
                     />
                 </div>
-                <div className='col-span-3 grid gap-6 mb-6 md:grid-cols-3'>
+                <div className='grid gap-x-1 gap-y-6 md:gap-6 mb-6 grid-cols-1 col-span-1 md:col-span-3 md:grid-cols-3'>
                     {/* Title */ }
-                    <div>
+                    <div className='col-span-1'>
                         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tiêu đề
                         </label>
@@ -236,7 +236,7 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
                         />
                     </div>
                     {/* Industry */ }
-                    <div >
+                    <div className='col-span-1'>
 
                         <label htmlFor="industry"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -260,7 +260,7 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
                         </select>
                     </div>
                     {/* Gender  */ }
-                    <div>
+                    <div className='col-span-1'>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Giới tính ({ genders.length }/3)
                         </label>
@@ -282,9 +282,9 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
                             )) }
                         </div>
                     </div>
-                    <div className='col-span-3 grid grid-cols-5'>
+                    <div className='col-span-1 gap-y-6 md:col-span-3 grid grid-cols-1 md:grid-cols-5'>
                         {/* Location */ }
-                        <div className='col-span-2'>
+                        <div className='col-span-1 md:col-span-2'>
                             <label
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Địa điểm ({ locations.length }/3)
@@ -308,7 +308,7 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
                             </div>
                         </div>
                         {/* Platform  */ }
-                        <div className='col-span-3'>
+                        <div className='col-span-1 md:col-span-3'>
                             <label
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Nền tảng ({ platforms.length }/5)
@@ -461,7 +461,10 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
                             { selectedDate && <span>{ format(selectedDate as Date, 'dd/MM/yyyy') }</span> }
                         </div>
                         { showCalendar &&
-                            <div ref={ calendarRef } className="border bg-gray-50 p-0 border-green-300 absolute left-0 top-16 rounded-md !w-[480px] z-10">
+                            <div
+                                ref={ calendarRef }
+                                className="!w-[350px] md:!w-[480px] border bg-gray-50 p-0 border-green-300 absolute left-0 top-16 rounded-md z-10"
+                            >
                                 <Calendar
                                     locale={ vi }
                                     date={ selectedDate as Date }
@@ -484,11 +487,9 @@ const UpdateCampaign: React.FC<UpdateCampaignProps> = ({ campaign }) => {
 
             </div >
             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả chi tiết</label>
-            {/* <textarea { ...register("description") } id="description" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả chi tiết..."></textarea> */ }
             <ReactQuill className='h-[300px]' theme="snow" value={ description } onChange={ (value) => setCustomValue("description", value) } />
 
             <label htmlFor="benefit" className="mt-20 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quyền lợi</label>
-            {/* <textarea { ...register("benefit") } id="benefit" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quyền lợi..."></textarea> */ }
             <ReactQuill className='h-[300px]' theme="snow" value={ benefit } onChange={ (value) => setCustomValue("benefit", value) } />
 
             <div className="flex items-start my-16">

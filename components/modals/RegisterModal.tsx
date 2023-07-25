@@ -66,16 +66,26 @@ const RegisterModal = () => {
             });
     }
 
+    function isEmailValid(email: string): boolean {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(email);
+    }
+
     const registerWithEmailPassword: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
 
         const { confirm, ...payload } = data;
+        if (!isEmailValid(payload.email)) {
+            toast.error("Email không đúng.");
+            setIsLoading(false);
+            return;
+        }
         if (confirm !== payload.password) {
             toast.error("Mật khẩu xác nhận không khớp.");
             setIsLoading(false);
             return;
         }
-        console.log("payload; ", { ...payload, role });
+
         const res = await axios.post('/api/accounts', { ...payload, role })
         if (res.data.err === 1) {
             toast.error("Email đã tồn tại");
@@ -97,6 +107,7 @@ const RegisterModal = () => {
             />
             <Input
                 id="email"
+                type="email"
                 label="Email"
                 disabled={ isLoading }
                 register={ register }

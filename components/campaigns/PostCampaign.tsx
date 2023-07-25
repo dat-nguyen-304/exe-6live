@@ -18,9 +18,6 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const PostCampaign: React.FC = () => {
     const myUser = useUser();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [campaign, setCampaign] = useState();
-    const [imgLink, setImgLink] = useState();
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const calendarRef = useRef<HTMLDivElement>(null);
@@ -446,13 +443,17 @@ const PostCampaign: React.FC = () => {
                             { selectedDate && <span>{ format(selectedDate as Date, 'dd/MM/yyyy') }</span> }
                         </div>
                         { showCalendar &&
-                            <div ref={ calendarRef } className="border bg-gray-50 p-0 border-green-300 absolute left-0 top-16 rounded-md !w-[480px] z-10">
+                            <div
+                                ref={ calendarRef }
+                                className="!w-[350px] md:!w-[480px] border bg-gray-50 p-0 border-green-300 absolute left-0 top-16 rounded-md z-10"
+                            >
                                 <Calendar
                                     locale={ vi }
                                     date={ selectedDate as Date }
                                     onChange={ handleSelect }
                                     minDate={ addDays(new Date(), 1) }
                                     color="#22713d"
+                                    className='!text-xs'
                                 />
                             </div>
                         }
@@ -468,11 +469,9 @@ const PostCampaign: React.FC = () => {
                 </div>
             </div >
             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả chi tiết</label>
-            {/* <textarea { ...register("description") } id="description" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả chi tiết..."></textarea> */ }
             <ReactQuill className='h-[300px]' theme="snow" value={ description } onChange={ (value) => setCustomValue("description", value) } />
 
             <label htmlFor="benefit" className="mt-20 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quyền lợi</label>
-            {/* <textarea { ...register("benefit") } id="benefit" rows={ 4 } className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quyền lợi..."></textarea> */ }
             <ReactQuill className='h-[300px]' theme="snow" value={ benefit } onChange={ (value) => setCustomValue("benefit", value) } />
 
             <div className="flex items-start my-16">

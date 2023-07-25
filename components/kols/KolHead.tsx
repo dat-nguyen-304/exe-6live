@@ -51,8 +51,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, currentKol }) => {
             </div>
             <hr className="mt-4" />
 
-            <div className="flex flex-row items-center gap-16 font-light my-4">
-                <div>
+            <div className="sm:flex flex-row items-center gap-16 font-light my-4">
+                <div className="py-1 sm:py-0">
                     <span className='font-bold text-md'>Giới tính: </span>
                     {
                         genders.map(gender => (
@@ -60,11 +60,11 @@ const ListingHead: React.FC<ListingHeadProps> = ({ id, currentKol }) => {
                         ))
                     }
                 </div>
-                <div>
+                <div className="py-1 sm:py-0">
                     <span className='font-bold text-md'>Tuổi: </span>
                     { currentKol?.age }
                 </div>
-                <div>
+                <div className="py-1 sm:py-0">
                     <span className='font-bold text-md'>Trạng thái: </span>
                     { currentKol?.status ?
                         <span className="text-green-400">Đang tìm việc</span> :
