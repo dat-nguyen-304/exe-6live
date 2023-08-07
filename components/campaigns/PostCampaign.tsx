@@ -2,17 +2,17 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { platforms as platfs, locations as locats, genders as gends, industries } from '@/utils/variables';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import ImageUpload from '../inputs/ImageUpload';
 import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { Calendar } from "react-date-range";
+import { Calendar } from 'react-date-range';
 import { addDays, format } from 'date-fns';
 import vi from 'date-fns/locale/vi';
 import { PatternFormat, NumberFormatBase } from 'react-number-format';
 import 'react-quill/dist/quill.snow.css';
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -26,7 +26,7 @@ const PostCampaign: React.FC = () => {
 
     useEffect(() => {
         if (!companyId) {
-            setCustomValue("companyId", myUser.user?.id);
+            setCustomValue('companyId', myUser.user?.id);
         }
     }, [myUser.user]);
 
@@ -37,7 +37,7 @@ const PostCampaign: React.FC = () => {
     };
 
     const toggleCalendar = () => {
-        setShowCalendar((prevShowCalendar) => !prevShowCalendar);
+        setShowCalendar(prevShowCalendar => !prevShowCalendar);
     };
 
     useEffect(() => {
@@ -53,9 +53,7 @@ const PostCampaign: React.FC = () => {
         setValue,
         watch,
         reset,
-        formState: {
-            errors,
-        }
+        formState: { errors }
     } = useForm<FieldValues>({
         defaultValues: {
             companyId: '',
@@ -77,35 +75,36 @@ const PostCampaign: React.FC = () => {
     });
 
     const isEmpty = (value: string) => {
+        if (!value) return true;
         const quillText = value.replace(/(<([^>]+)>)/gi, ''); // Remove HTML tags
         return quillText.trim() === '';
     };
 
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        if (data.image === "") {
-            toast.error("Bạn chưa cập nhật ảnh đại diện");
+    const onSubmit: SubmitHandler<FieldValues> = async data => {
+        if (data.image === '') {
+            toast.error('Bạn chưa cập nhật ảnh đại diện');
             return;
         }
         if (isEmpty(data.description)) {
-            toast.error("Bạn cần điền thông tin mô tả");
+            toast.error('Bạn cần điền thông tin mô tả');
             return;
         }
         if (isEmpty(data.benefit)) {
-            toast.error("Bạn cần điền thông tin quyền lợi");
+            toast.error('Bạn cần điền thông tin quyền lợi');
             return;
         }
         if (!expiredDate) {
-            toast.error("Bạn cần cung cấp ngày hết hạn");
+            toast.error('Bạn cần cung cấp ngày hết hạn');
             return;
         }
-        const campaign = await axios.post("/api/campaigns", data);
-        toast.success("Thêm chiến dịch thành công");
+        const campaign = await axios.post('/api/campaigns', data);
+        toast.success('Thêm chiến dịch thành công');
         console.log(campaign);
         reset();
         setSelectedDate(null);
         handleAllAge();
         handleAllSalary();
-    }
+    };
 
     const companyId = watch('companyId');
     const title = watch('title');
@@ -128,105 +127,101 @@ const PostCampaign: React.FC = () => {
             shouldDirty: true,
             shouldTouch: true,
             shouldValidate: true
-        })
-    }
+        });
+    };
 
     const addGender = (gend: string) => {
         let gendersClone = [...genders];
         const isExist = gendersClone.includes(gend);
         if (isExist) {
             gendersClone = gendersClone.filter((location: string) => {
-                return location !== gend
-            })
-        }
-        else gendersClone.push(gend);
-        setCustomValue("genders", gendersClone);
-    }
+                return location !== gend;
+            });
+        } else gendersClone.push(gend);
+        setCustomValue('genders', gendersClone);
+    };
 
     const addLocation = (loc: string) => {
         let locationsClone = [...locations];
         const isExist = locationsClone.includes(loc);
         if (isExist) {
             locationsClone = locationsClone.filter((location: string) => {
-                return location !== loc
-            })
-        }
-        else locationsClone.push(loc);
-        setCustomValue("locations", locationsClone);
-    }
+                return location !== loc;
+            });
+        } else locationsClone.push(loc);
+        setCustomValue('locations', locationsClone);
+    };
 
     const addPlatform = (platf: string) => {
         let platformsClone = [...platforms];
         const isExist = platformsClone.includes(platf);
         if (isExist)
             platformsClone = platformsClone.filter((platform: string) => {
-                return platform !== platf
-            })
+                return platform !== platf;
+            });
         else platformsClone.push(platf);
-        setCustomValue("platforms", platformsClone);
-    }
+        setCustomValue('platforms', platformsClone);
+    };
 
     const togglePostStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked)
-            setCustomValue("status", true);
-        else setCustomValue("status", false);
-    }
+        if (e.target.checked) setCustomValue('status', true);
+        else setCustomValue('status', false);
+    };
 
     const handleSelect = (date: Date) => {
         setSelectedDate(date);
-        setCustomValue("expiredDate", date);
-    }
+        setCustomValue('expiredDate', date);
+    };
 
     const handleAllAge = () => {
         setDisabledAge(true);
-        setCustomValue("minAge", 0);
-        setCustomValue("maxAge", 0);
-    }
+        setCustomValue('minAge', 0);
+        setCustomValue('maxAge', 0);
+    };
 
     const handleAllSalary = () => {
         setDisabledSalary(true);
-        setCustomValue("minSalary", 0);
-        setCustomValue("maxSalary", 0);
-    }
+        setCustomValue('minSalary', 0);
+        setCustomValue('maxSalary', 0);
+    };
 
     const formatVnd = (numStr: string) => {
         if (numStr === '') return '';
         return new Intl.NumberFormat('vi-VI', {
             style: 'currency',
             currency: 'VND',
-            maximumFractionDigits: 0,
+            maximumFractionDigits: 0
         }).format(numStr as any);
     };
 
     return (
-        <form onSubmit={ handleSubmit(onSubmit) }>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-y-4 md:gap-6 mb-6 grid-cols-1 md:grid-cols-4">
                 <div>
-                    <label
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Tải ảnh cho chiến dịch
                     </label>
-                    <ImageUpload
-                        onChange={ (value) => setCustomValue('image', value) }
-                        value={ image }
-                    />
+                    <ImageUpload onChange={value => setCustomValue('image', value)} value={image} />
                 </div>
-                <div className='grid gap-x-1 gap-y-6 md:gap-6 mb-6 grid-cols-1 col-span-1 md:col-span-3 md:grid-cols-3'>
-                    {/* Title */ }
-                    <div className='col-span-1'>
-                        <label htmlFor="title"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <div className="grid gap-x-1 gap-y-6 md:gap-6 mb-6 grid-cols-1 col-span-1 md:col-span-3 md:grid-cols-3">
+                    {/* Title */}
+                    <div className="col-span-1">
+                        <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tiêu đề
                         </label>
-                        <input type="text" id="title" { ...register("title") }
+                        <input
+                            type="text"
+                            id="title"
+                            {...register('title')}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Nguyễn Văn A"
                             required
                         />
                     </div>
-                    {/* Industry */ }
-                    <div className='col-span-1'>
-                        <label htmlFor="industry"
+                    {/* Industry */}
+                    <div className="col-span-1">
+                        <label
+                            htmlFor="industry"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                             Ngành
@@ -234,94 +229,96 @@ const PostCampaign: React.FC = () => {
                         <select
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             id="industry"
-                            onChange={ (e) => setCustomValue('industry', e.target.value) }
+                            onChange={e => setCustomValue('industry', e.target.value)}
                         >
-                            { industries.map(ind => {
+                            {industries.map(ind => {
                                 return (
                                     ind.value !== 'all' && (
-                                        <option key={ ind.value } value={ ind.value }>
-                                            { ind.label }
+                                        <option key={ind.value} value={ind.value}>
+                                            {ind.label}
                                         </option>
                                     )
-                                )
-                            }) }
+                                );
+                            })}
                         </select>
                     </div>
-                    {/* Gender  */ }
-                    <div className='col-span-1'>
+                    {/* Gender  */}
+                    <div className="col-span-1">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Giới tính ({ genders.length }/3)
+                            Giới tính ({genders.length}/3)
                         </label>
-                        <div className='flex flex-wrap gap-4'>
-                            { gends.map((gend, index) => (
-                                (
+                        <div className="flex flex-wrap gap-4">
+                            {gends.map(
+                                (gend, index) =>
                                     gend.value !== 'all' && (
-                                        <div key={ gend.value } onClick={ () => addGender(gend.value) }
-                                            className={ `border-2 px-2 py-1 rounded-lg cursor-pointer
+                                        <div
+                                            key={gend.value}
+                                            onClick={() => addGender(gend.value)}
+                                            className={`border-2 px-2 py-1 rounded-lg cursor-pointer
                                                             ${genders.includes(gend.value) ? 'border-green-400' : ''}
                                                         `}
                                         >
-                                            <div className='flex items-center gap-2'>
-                                                <span>{ gend.label }</span>
+                                            <div className="flex items-center gap-2">
+                                                <span>{gend.label}</span>
                                             </div>
                                         </div>
                                     )
-                                )
-                            )) }
+                            )}
                         </div>
                     </div>
-                    <div className='col-span-1 gap-y-6 md:col-span-3 grid grid-cols-1 md:grid-cols-5'>
-                        {/* Location */ }
-                        <div className='col-span-1 md:col-span-2'>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Địa điểm ({ locations.length }/3)
+                    <div className="col-span-1 gap-y-6 md:col-span-3 grid grid-cols-1 md:grid-cols-5">
+                        {/* Location */}
+                        <div className="col-span-1 md:col-span-2">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Địa điểm ({locations.length}/3)
                             </label>
-                            <div className='flex flex-wrap gap-4'>
-                                { locats.map((locat, index) => (
-                                    (
+                            <div className="flex flex-wrap gap-4">
+                                {locats.map(
+                                    (locat, index) =>
                                         locat.value !== 'all' && (
-                                            <div key={ locat.value } onClick={ () => addLocation(locat.value) }
-                                                className={ `border-2 px-2 py-1 rounded-lg cursor-pointer
+                                            <div
+                                                key={locat.value}
+                                                onClick={() => addLocation(locat.value)}
+                                                className={`border-2 px-2 py-1 rounded-lg cursor-pointer
                                                             ${locations.includes(locat.value) ? 'border-green-400' : ''}
                                                             `}
                                             >
-                                                <div className='flex items-center gap-2'>
-                                                    <span>{ locat.label }</span>
+                                                <div className="flex items-center gap-2">
+                                                    <span>{locat.label}</span>
                                                 </div>
                                             </div>
                                         )
-                                    )
-                                )) }
+                                )}
                             </div>
                         </div>
-                        {/* Platform  */ }
-                        <div className='col-span-1 md:col-span-3'>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Nền tảng ({ platforms.length }/5)
+                        {/* Platform  */}
+                        <div className="col-span-1 md:col-span-3">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Nền tảng ({platforms.length}/5)
                             </label>
-                            <div className='flex flex-wrap gap-4'>
-                                { platfs.map((platf) => (
-                                    platf.icon &&
-                                    (
-                                        <div key={ platf.value } onClick={ () => addPlatform(platf.value) }
-                                            className={ `border-2 px-2 py-1 rounded-lg cursor-pointer
+                            <div className="flex flex-wrap gap-4">
+                                {platfs.map(
+                                    platf =>
+                                        platf.icon && (
+                                            <div
+                                                key={platf.value}
+                                                onClick={() => addPlatform(platf.value)}
+                                                className={`border-2 px-2 py-1 rounded-lg cursor-pointer
                                                 ${platforms.includes(platf.value) ? 'border-green-400' : ''}
                                                 `}
-                                        >
-                                            <div className='flex items-center gap-2'>
-                                                <platf.icon size={ 16 } />
-                                                <span>{ platf.label }</span>
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <platf.icon size={16} />
+                                                    <span>{platf.label}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                )) }
+                                        )
+                                )}
                             </div>
                         </div>
                     </div>
 
-                    {/* Age  */ }
+                    {/* Age  */}
                     <div>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Độ tuổi
@@ -329,16 +326,21 @@ const PostCampaign: React.FC = () => {
                         <div className="flex gap-8">
                             <div className="flex flex-[1] justify-around items-center">
                                 <div className="">
-                                    <input checked={ disabledAge } type='radio' id="allAge" onChange={ handleAllAge } />
-                                    <label className='ml-2 text-sm font-semibold' htmlFor='allAge'>Tất cả độ tuổi</label>
+                                    <input checked={disabledAge} type="radio" id="allAge" onChange={handleAllAge} />
+                                    <label className="ml-2 text-sm font-semibold" htmlFor="allAge">
+                                        Tất cả độ tuổi
+                                    </label>
                                 </div>
                                 <div className="">
-                                    <input checked={ !disabledAge }
-                                        type='radio'
+                                    <input
+                                        checked={!disabledAge}
+                                        type="radio"
                                         id="chooseAge"
-                                        onChange={ () => setDisabledAge(false) }
+                                        onChange={() => setDisabledAge(false)}
                                     />
-                                    <label className='ml-2 text-sm font-semibold' htmlFor='chooseAge'>Tùy chọn</label>
+                                    <label className="ml-2 text-sm font-semibold" htmlFor="chooseAge">
+                                        Tùy chọn
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -347,39 +349,45 @@ const PostCampaign: React.FC = () => {
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Từ
                         </label>
-                        { !disabledAge ?
+                        {!disabledAge ? (
                             <PatternFormat
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 format="##"
                                 required
-                                onValueChange={ (values) => {
+                                onValueChange={values => {
                                     const { value } = values;
-                                    setCustomValue("minAge", parseInt(value));
-                                } }
+                                    setCustomValue('minAge', parseInt(value));
+                                }}
                             />
-                            :
-                            <input disabled className='bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' />
-                        }
+                        ) : (
+                            <input
+                                disabled
+                                className="bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                        )}
                     </div>
                     <div>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Đến
                         </label>
-                        { !disabledAge ?
+                        {!disabledAge ? (
                             <PatternFormat
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 format="##"
                                 required
-                                onValueChange={ (values) => {
+                                onValueChange={values => {
                                     const { value } = values;
-                                    setCustomValue("maxAge", parseInt(value));
-                                } }
+                                    setCustomValue('maxAge', parseInt(value));
+                                }}
                             />
-                            :
-                            <input disabled className='bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' />
-                        }
+                        ) : (
+                            <input
+                                disabled
+                                className="bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                        )}
                     </div>
-                    {/* Salary  */ }
+                    {/* Salary  */}
                     <div>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Khoảng lương
@@ -387,12 +395,28 @@ const PostCampaign: React.FC = () => {
                         <div className="flex gap-8">
                             <div className="flex flex-[1] justify-around items-center">
                                 <div className="">
-                                    <input checked={ disabledSalary } type='radio' name="age" id="allSalary" onChange={ handleAllSalary } />
-                                    <label className='ml-2 text-sm font-semibold' htmlFor='allSalary'>Thỏa thuận</label>
+                                    <input
+                                        checked={disabledSalary}
+                                        type="radio"
+                                        name="age"
+                                        id="allSalary"
+                                        onChange={handleAllSalary}
+                                    />
+                                    <label className="ml-2 text-sm font-semibold" htmlFor="allSalary">
+                                        Thỏa thuận
+                                    </label>
                                 </div>
                                 <div className="">
-                                    <input checked={ !disabledSalary } type='radio' name="age" id="chooseSalary" onChange={ () => setDisabledSalary(false) } />
-                                    <label className='ml-2 text-sm font-semibold' htmlFor='chooseSalary'>Tùy chọn</label>
+                                    <input
+                                        checked={!disabledSalary}
+                                        type="radio"
+                                        name="age"
+                                        id="chooseSalary"
+                                        onChange={() => setDisabledSalary(false)}
+                                    />
+                                    <label className="ml-2 text-sm font-semibold" htmlFor="chooseSalary">
+                                        Tùy chọn
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -401,88 +425,135 @@ const PostCampaign: React.FC = () => {
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Từ
                         </label>
-                        { !disabledSalary ?
+                        {!disabledSalary ? (
                             <NumberFormatBase
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                format={ formatVnd }
+                                format={formatVnd}
                                 required
-                                onValueChange={ (values) => {
+                                onValueChange={values => {
                                     const { value } = values;
-                                    setCustomValue("minSalary", parseInt(value));
-                                } }
+                                    setCustomValue('minSalary', parseInt(value));
+                                }}
                             />
-                            :
-                            <input disabled className='bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' />
-                        }
+                        ) : (
+                            <input
+                                disabled
+                                className="bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                        )}
                     </div>
                     <div>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Đến
                         </label>
-                        { !disabledSalary ?
+                        {!disabledSalary ? (
                             <NumberFormatBase
-                                className='bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                                format={ formatVnd }
+                                className="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                format={formatVnd}
                                 required
-                                onValueChange={ (values) => {
+                                onValueChange={values => {
                                     const { value } = values;
-                                    setCustomValue("maxSalary", parseInt(value));
-                                } }
+                                    setCustomValue('maxSalary', parseInt(value));
+                                }}
                             />
-                            :
-                            <input disabled className='bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' />
-                        }
+                        ) : (
+                            <input
+                                disabled
+                                className="bg-gray-300 cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                        )}
                     </div>
-                    {/* Expired date  */ }
-                    <div className='relative'>
+                    {/* Expired date  */}
+                    <div className="relative">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Ngày hết hạn
                         </label>
-                        <div className='inline-flex gap-4 items-center' onClick={ toggleCalendar }>
-                            <div className='px-2 py-1 bg-green-800 rounded-lg text-sm font-light cursor-pointer text-white'>Chọn ngày</div>
-                            { selectedDate && <span>{ format(selectedDate as Date, 'dd/MM/yyyy') }</span> }
+                        <div className="inline-flex gap-4 items-center" onClick={toggleCalendar}>
+                            <div className="px-2 py-1 bg-green-800 rounded-lg text-sm font-light cursor-pointer text-white">
+                                Chọn ngày
+                            </div>
+                            {selectedDate && <span>{format(selectedDate as Date, 'dd/MM/yyyy')}</span>}
                         </div>
-                        { showCalendar &&
+                        {showCalendar && (
                             <div
-                                ref={ calendarRef }
+                                ref={calendarRef}
                                 className="!w-[350px] md:!w-[480px] border bg-gray-50 p-0 border-green-300 absolute left-0 top-16 rounded-md z-10"
                             >
                                 <Calendar
-                                    locale={ vi }
-                                    date={ selectedDate as Date }
-                                    onChange={ handleSelect }
-                                    minDate={ addDays(new Date(), 1) }
+                                    locale={vi}
+                                    date={selectedDate as Date}
+                                    onChange={handleSelect}
+                                    minDate={addDays(new Date(), 1)}
                                     color="#22713d"
-                                    className='!text-xs'
+                                    className="!text-xs"
                                 />
                             </div>
-                        }
+                        )}
                     </div>
-                    {/* Status  */ }
+                    {/* Status  */}
                     <div>
                         <label className="relative inline-flex items-center mb-4 cursor-pointer">
-                            <input type="checkbox" value="" checked={ status } className="sr-only peer" onChange={ (e: ChangeEvent<HTMLInputElement>) => togglePostStatus(e) } />
+                            <input
+                                type="checkbox"
+                                value=""
+                                checked={status}
+                                className="sr-only peer"
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => togglePostStatus(e)}
+                            />
                             <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-rose-500 peer-checked:bg-blue-600"></div>
-                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Trạng thái tìm việc</span>
+                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Trạng thái tìm việc
+                            </span>
                         </label>
                     </div>
                 </div>
-            </div >
-            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả chi tiết</label>
-            <ReactQuill className='h-[300px]' theme="snow" value={ description } onChange={ (value) => setCustomValue("description", value) } />
+            </div>
+            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Mô tả chi tiết
+            </label>
+            <ReactQuill
+                className="h-[300px]"
+                theme="snow"
+                value={description}
+                onChange={value => setCustomValue('description', value)}
+            />
 
-            <label htmlFor="benefit" className="mt-20 block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quyền lợi</label>
-            <ReactQuill className='h-[300px]' theme="snow" value={ benefit } onChange={ (value) => setCustomValue("benefit", value) } />
+            <label htmlFor="benefit" className="mt-20 block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Quyền lợi
+            </label>
+            <ReactQuill
+                className="h-[300px]"
+                theme="snow"
+                value={benefit}
+                onChange={value => setCustomValue('benefit', value)}
+            />
 
             <div className="flex items-start my-16">
                 <div className="flex items-center h-5">
-                    <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
+                    <input
+                        id="remember"
+                        type="checkbox"
+                        value=""
+                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        required
+                    />
                 </div>
-                <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tôi đồng ý <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">với chính sách và điều khoản của 6Live</a>.</label>
+                <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Tôi đồng ý{' '}
+                    <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">
+                        với chính sách và điều khoản của 6Live
+                    </a>
+                    .
+                </label>
             </div>
-            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Xác nhận</button>
-        </form >
-    )
-}
+            <button
+                type="submit"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+                Xác nhận
+            </button>
+        </form>
+    );
+};
 
-export default PostCampaign
+export default PostCampaign;

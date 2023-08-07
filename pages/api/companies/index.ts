@@ -26,7 +26,6 @@ export default async function handler(
 
   async function updateCompany(newCompany: Company) {
     const { email, id, campaigns, ...data } = newCompany;
-    console.log("da vao day: ", data);
     const company = await prisma.company.update({
       where: {
         email: email,
